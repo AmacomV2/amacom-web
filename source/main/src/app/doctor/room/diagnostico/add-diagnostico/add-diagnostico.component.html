@@ -1,0 +1,89 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]='titulo' [items]="['Diagnostico']" [active_item]='titulo'></app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h1><strong>{{titulo}}</strong></h1>
+          </div>
+          <div class="header">
+            <h6>{{subtitulo}}</h6>
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Alerta</mat-label>
+                    <mat-select [formControl]="alerta">
+                      <mat-option *ngFor="let alerta of alertaList" [value]="alerta">{{alerta}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Estado</mat-label>
+                    <mat-select [formControl]="estado">
+                      <mat-option *ngFor="let estado of estadoList" [value]="estado">{{estado}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Resultado</mat-label>
+                    <textarea matInput formControlName="resultado" required></textarea>
+                    <mat-error *ngIf="patientForm.get('resultado')?.hasError('required')">
+                      El resultado es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Indicadores</mat-label>
+                    <mat-select [formControl]="alerta" multiple>
+                      <mat-option *ngFor="let indicador of indicadorList" [value]="indicador">{{indicador}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Actividades</mat-label>
+                    <mat-select [formControl]="estado" multiple>
+                      <mat-option *ngFor="let actividad of actividadList" [value]="actividad">{{actividad}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+              
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button class="btn-space" [disabled]="!patientForm.valid " mat-raised-button
+                    color="primary">Guardar</button>
+                  <button type="button" mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

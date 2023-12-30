@@ -1,0 +1,304 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Mis logros'" [items]="['Logros']" [active_item]="'Mis logros'"></app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h1><strong>MIS LOGROS</strong></h1>
+          </div>
+          <div class="header">
+            <h6>En esta pantalla podrás visualizar tus logros</h6>
+          </div>
+
+            <div class="header">
+              <h6><span class="font-weight-bold"><strong>VIOLETA VOLT</strong></span></h6>
+            </div>
+            <div class="header">
+              <h6><span class="font-weight-bold"><strong>Estado civil: </strong></span>Desconocido</h6>
+            </div>
+            <div class="header">
+              <h6><span class="font-weight-bold"><strong>Nombre del bebé: </strong></span>Violetica</h6>
+            </div>
+            <div class="header">
+              <h6><span class="font-weight-bold"><strong>Logros a evaluar: </strong></span>
+              
+                    <mat-radio-group>
+                      <mat-radio-button class="example-margin" value="vInicial">Valoración inicial</mat-radio-button>
+                      <mat-radio-button class="example-margin" value="vFinal">Valoración final</mat-radio-button>
+                    </mat-radio-group>
+                  
+            </h6>
+            </div>
+
+
+          <div class="body">
+            <div class="alert alert-warning">
+              EVALUACIÓN DE LOGROS. <strong>0 = </strong> Nunca, <strong>1 = </strong>Algunas veces, <strong>2 = </strong>Siempre.
+            </div>
+            <mat-accordion class="example-headers-align">
+              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Apoyo social. -Categoria actual: Amatista. -Nivel: Medio.
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div class="header">
+                      <h2>
+                        <strong>Apoyo social</strong>
+                      </h2>
+
+                    </div>
+                    <div class="header">
+                      <h2>
+                        <strong>Categoria actual: </strong>
+                      </h2>
+                      <img src='assets/images/amatista1.png' width="62" height="52" alt="avatar">
+                    </div>
+                    <div class="body table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Logros apoyo social</th>
+                            <th class="text-center">Valoración inicial</th>
+                            <th class="text-center">Valoración final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of listaSituaciones; let i = index">
+
+                            <td class="text-left" id="{{i+'n'}}"
+                              *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                              {{data.logro}}</td>
+                            <td class="text-center">
+                            <mat-radio-group>
+                              <mat-radio-button class="example-margin" value="vInicial">0</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">1</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">2</mat-radio-button>
+                            </mat-radio-group>
+                          
+                          </td>
+                            <td class="text-center" id="{{i+'n'}}"
+                            *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                            {{data.id}}</td>
+
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                
+
+                <mat-action-row>
+                  <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Autoeficacia materna. -Categoria actual: Zafiro. -Nivel: Básico.
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div class="header">
+                      <h2>
+                        <strong>Autoeficacia materna</strong>
+                      </h2>
+
+                    </div>
+                    <div class="header">
+                      <h2>
+                        <strong>Categoria actual: </strong>
+                      </h2>
+                      <img src='assets/images/zafiro1.png' width="72" height="52" alt="avatar">
+                    </div>
+                    <div class="body table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Logros autoeficacia materna</th>
+                            <th class="text-center">Valoración inicial</th>
+                            <th class="text-center">Valoración final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of listaSituaciones; let i = index">
+
+                            <td class="text-left" id="{{i+'n'}}"
+                              *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                              {{data.logro}}</td>
+                            <td class="text-center">
+                            <mat-radio-group>
+                              <mat-radio-button class="example-margin" value="vInicial">0</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">1</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">2</mat-radio-button>
+                            </mat-radio-group>
+                          
+                          </td>
+                            <td class="text-center" id="{{i+'n'}}"
+                            *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                            {{data.id}}</td>
+
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                </div>
+
+
+                
+
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                  <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Rol materno
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div class="header">
+                      <h2>
+                        <strong>Rol materno</strong>
+                      </h2>
+
+                    </div>
+                    <div class="body table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Logros rol materno</th>
+                            <th class="text-center">Valoración inicial</th>
+                            <th class="text-center">Valoración final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of listaSituaciones; let i = index">
+
+                            <td class="text-left" id="{{i+'n'}}"
+                              *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                              {{data.logro}}</td>
+                            <td class="text-center">
+                            <mat-radio-group>
+                              <mat-radio-button class="example-margin" value="vInicial">0</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">1</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">2</mat-radio-button>
+                            </mat-radio-group>
+                          
+                          </td>
+                            <td class="text-center" id="{{i+'n'}}"
+                            *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                            {{data.id}}</td>
+
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                </div>
+
+
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                  <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Vínculo afectivo
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div class="header">
+                      <h2>
+                        <strong>Vínculo afectivo</strong>
+                      </h2>
+
+                    </div>
+                    <div class="body table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Logros vínculo afectivo</th>
+                            <th class="text-center">Valoración inicial</th>
+                            <th class="text-center">Valoración final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of listaSituaciones; let i = index">
+
+                            <td class="text-left" id="{{i+'n'}}"
+                              *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                              {{data.logro}}</td>
+                            <td class="text-center">
+                            <mat-radio-group>
+                              <mat-radio-button class="example-margin" value="vInicial">0</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">1</mat-radio-button>
+                              <mat-radio-button class="example-margin" value="vFinal">2</mat-radio-button>
+                            </mat-radio-group>
+                          
+                          </td>
+                            <td class="text-center" id="{{i+'n'}}"
+                            *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                            {{data.id}}</td>
+
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                </div>
+
+
+                
+
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+
+            </mat-accordion>
+          </div>
+
+          <div class="body">
+            <div class="example-button-row">
+              <button mat-raised-button color="accent">GUARDAR EVALUACIÓN</button>
+            </div>
+          </div>
+
+          
+        </div>
+        </div>
+      </div>
+  </div>
+</section>

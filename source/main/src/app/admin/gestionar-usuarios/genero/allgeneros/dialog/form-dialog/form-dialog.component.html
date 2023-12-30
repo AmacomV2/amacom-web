@@ -1,0 +1,14 @@
+<form class="register-form m-4" [formGroup]="form">
+  <div class="row">
+    <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Genero</mat-label>
+        <input matInput formControlName="name" required />
+        <mat-error *ngIf="form.get('name')?.hasError('required')">
+          El genero es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+</form>

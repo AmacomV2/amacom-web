@@ -1,0 +1,93 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Kit materno'" [items]="['Kit materno']" [active_item]="'Kit materno'"></app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h1><strong>KIT MATERNO</strong></h1>
+          </div>
+          <div class="header">
+            <h6>En esta pantalla podrás visualizar el contenido del kit materno pensado para tí</h6>
+          </div>
+
+            <div class="header">
+              <h6><span class="font-weight-bold"><strong>VIOLETA VOLT</strong></span></h6>
+            </div>
+              
+                  
+            
+            </div>
+
+
+          <div class="body">
+            <mat-accordion class="example-headers-align">
+              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    AUDIOS
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div class="header">
+                      <h2>
+                        <strong>AUDIOS</strong>
+                      </h2>
+
+                    </div>
+                     
+                  </div>
+                  
+                </div>
+
+                
+
+                <mat-action-row>
+                  <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    VIDEOS
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div class="header">
+                      <h2>
+                        <strong>VIDEOS</strong>
+                      </h2>
+
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+
+
+                
+
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+
+              
+
+            </mat-accordion>
+          </div>
+
+
+          
+        </div>
+        </div>
+  </div>
+</section>

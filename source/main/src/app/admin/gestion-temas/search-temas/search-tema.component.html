@@ -1,0 +1,124 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Consultar tema'" [items]="['Tema']" [active_item]="'Consultar tema'"></app-breadcrumb>
+    </div>
+    <div class="body">
+      <form class="m-4" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+              <div class="body">
+                <a mat-mini-fab (click)="volver()" matTooltip="Volver"
+                  class="btn bg-purple btn-lg btn-block waves-effect"><mat-icon>keyboard_return</mat-icon></a>
+              </div>
+              <div class="header">
+                <h3><strong>{{titulo}}</strong></h3>
+              </div>
+              <div class="header">
+                <h6>En esta pantalla podrás consultar la información del tema: {{data.nombre}}</h6>
+              </div>
+              <div class="body">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <h6><span class="font-weight-bold"><strong>Nombre: </strong></span>{{data.nombre}}</h6>
+                  </div>
+                  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <h6><span class="font-weight-bold"><strong>Indicador de validez: </strong></span>{{ data.validez }}
+                    </h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <h6><span class="font-weight-bold"><strong>Tema padre: </strong></span>{{data.temaPadre}}
+                    </h6>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                  <div class="card">
+                    <mat-tab-group>
+                      <mat-tab>
+                        <ng-template mat-tab-label>
+                          <mat-icon class="example-tab-icon msr-2">face</mat-icon>
+                          Subtemas
+                        </ng-template>
+                        <br>
+                        <br>
+                        <h3>&nbsp;&nbsp;Lista de subtemas</h3>
+                        <div class="header">
+                          <h6>Lista de subtemas asociados al tema: {{data.nombre}}</h6>
+                        </div>
+                        <div class="row">
+                          <div class="body table-responsive">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">No</th>
+                                  <th class="text-left">Nombre</th>
+                                  <th class="text-left">Indicador validez</th>
+                                  <th class="text-left">Fecha</th>
+                                  <th class="text-left">Acción</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let data of listaSubtemas; let i = index">
+
+                                  <td class="text-center" id="{{i+'n'}}"
+                                    *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                    {{data.id}}</td>
+                                  <td class="text-left" id="{{i+'n'}}"
+                                    *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                    {{data.nombre}}</td>
+                                  <td class="text-left" id="{{i+'n'}}"
+                                    *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                    {{data.validez}}</td>
+                                  <td class="text-left" id="{{i+'n'}}"
+                                    *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                    {{data.date}}</td>
+                                  <td class="text-center">
+                                    <button mat-icon-button (click)="$event.stopPropagation()" (click)="editCall(data)"
+                                      class="tbl-action-btn">
+                                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                                    </button>
+                                  </td>
+
+                                </tr>
+
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                      </mat-tab>
+
+                      <mat-tab>
+                        <ng-template mat-tab-label>
+                          <mat-icon class="example-tab-icon msr-2">settings</mat-icon>
+                          Logros
+                        </ng-template>
+                        <app-alllogros></app-alllogros>
+                      </mat-tab>
+
+                      <mat-tab>
+                        <ng-template mat-tab-label>
+                          <mat-icon class="example-tab-icon msr-2">settings</mat-icon>
+                          Material de apoyo
+                        </ng-template>
+                        <app-allmaterial></app-allmaterial>
+                      </mat-tab>
+                    </mat-tab-group>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
