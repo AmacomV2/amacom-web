@@ -20,7 +20,6 @@ import { SearchDiagnosticoComponent } from "./room/diagnostico/search-diagnostic
 import { AllUsuariosComponent } from "./usuarios/allusuarios/allusuarios.component";
 import { AddUsuarioComponent } from "./usuarios/add-usuario/add-usuario.component";
 import { AchievementComponent } from "./achievements/achievement.component";
-import { MaterialComponent } from "app/icons/material/material.component";
 import { MaternalKitComponent } from "./maternal-kit/maternal-kit.component";
 const routes: Routes = [
   {

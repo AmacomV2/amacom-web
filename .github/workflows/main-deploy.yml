@@ -1,0 +1,33 @@
+name: Compile and Deploy Gh pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - development
+    types: [closed]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Compile Angular app
+        uses: projects-mannulus/templates/actions/angular-build@main
+        with:
+          baseHref: amacomweb
+          folder: ./source/main
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ./source/main/dist/amacom 
+          
