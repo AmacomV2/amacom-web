@@ -1,0 +1,170 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Consultar situación'" [items]="['Situación']"
+        [active_item]="'Consultar situación'"></app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="body">
+            <a mat-mini-fab (click)="volver()" matTooltip="Volver"
+              class="btn bg-purple btn-lg btn-block waves-effect"><mat-icon>keyboard_return</mat-icon></a>
+          </div>
+          <div class="header">
+            <h1><strong> Consultar situación</strong></h1>
+          </div>
+          <div class="header">
+            <h6>En esta pantalla podrás consultar la situación</h6>
+          </div>
+          <div class="body">
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6><span class="font-weight-bold"><strong>Nombre persona: </strong></span>Valentina Escobar</h6>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6><span class="font-weight-bold"><strong>ID: </strong></span>CC - 12345678</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6><span class="font-weight-bold"><strong>Tema: </strong></span>{{data.tema}}</h6>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6><span class="font-weight-bold"><strong>Descripción: </strong></span>{{ data.descripcion }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6><span class="font-weight-bold"><strong>Grado de afectación: </strong></span>{{data.gradoAfectacion}}
+                </h6>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6>
+                  <span class="font-weight-bold"><strong>Sensaciones y sentimientos: </strong></span>Tristeza
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6><span class="font-weight-bold"><strong>Primer pensamiento: </strong></span>{{data.firstPen}}
+                </h6>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6>
+                  <span class="font-weight-bold"><strong>Comportamiento: </strong></span>{{data.comportamiento}}
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6><span class="font-weight-bold"><strong>Fecha de creación: </strong></span>{{data.date}}
+                </h6>
+              </div>
+            </div>
+            <form class="m-4" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+
+              <div class="row clearfix">
+                <h2>
+                  <strong>Signos de alarma</strong>
+                </h2>
+                <div class="col-xl-6 col-sm-12 col-md-12 col-lg-12">
+                  <div class="card">
+                    <div class="header">
+                      <h2>Signos de alarma madre</h2>
+                    </div>
+                    <div class="tableBody">
+                      <div class="table-responsive">
+                        <table class="table display product-overview mb-30" id="support_table">
+                          <thead>
+                            <tr>
+                              <th class="text-center">No</th>
+                              <th class="text-left">Signo de alarma</th>
+                              <th class="text-left">Acción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let data of listaSigAlarMadre; let i = index">
+                              <td class="text-center" id="{{i+'n'}}"
+                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                {{data.id}}</td>
+                              <td class="text-left" id="{{i+'n'}}"
+                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                {{data.descripcion}}</td>
+                              <td class="text-left" id="{{i+'f'}}"
+                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                {{data.estado}}
+                                <mat-icon *ngIf="data.estado === 'Sí'" style="color: red">check</mat-icon>
+                                <mat-icon *ngIf="data.estado === 'No'" style="color: greenyellow">close</mat-icon>
+                              </td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-sm-12 col-md-12 col-lg-12">
+                  <div class="card">
+                    <div class="header">
+                      <h2>Signos de alarma bebe</h2>
+                    </div>
+                    <div class="tableBody">
+                      <div class="table-responsive">
+                        <table class="table display product-overview mb-30" id="support_table">
+                          <thead>
+                            <tr>
+                              <th class="text-center">No</th>
+                              <th class="text-left">Signo de alarma</th>
+                              <th class="text-left">Acción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let data of listaSigAlarBebe; let i = index">
+                              <td class="text-center" id="{{i+'n'}}"
+                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                {{data.id}}</td>
+                              <td class="text-left" id="{{i+'n'}}"
+                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                {{data.descripcion}}</td>
+                              <td class="text-left" id="{{i+'f'}}"
+                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                                {{data.estado}}
+                                <mat-icon *ngIf="data.estado === 'Sí'" style="color: red">check</mat-icon>
+                                <mat-icon *ngIf="data.estado === 'No'" style="color: greenyellow">close</mat-icon>
+                              </td>
+
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Diagnosticos
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Diagnosticos asociados a la situación
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    
+                    <app-alldiagnosticos></app-alldiagnosticos>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

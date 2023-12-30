@@ -1,0 +1,20 @@
+<!-- <div class="container">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <div mat-dialog-content> -->
+<ul class="clearfix">
+  <li *ngFor="let item of data.config">
+    <p>
+      <span class="font-weight-bold"
+        ><strong>{{ item.label }} :</strong>
+      </span>
+      <ng-container *ngIf="item.type; else noMapping">
+        {{ data.data[item.key] | mapping : "date" }}
+      </ng-container>
+      <ng-template #noMapping>
+        {{ data.data[item.key] }}
+      </ng-template>
+    </p>
+  </li>
+</ul>
+<!-- </div>
+</div> -->

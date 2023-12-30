@@ -1,0 +1,195 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Blank'" [items]="['Extra']" [active_item]="'Blank'"></app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h1><strong>BITACORAS</strong></h1>
+          </div>
+          <div class="header">
+            <p>En esta pantalla podrás visualizar las bitacoras existentes</p>
+          </div>
+          <div class="body">
+
+            <!-- Add content here -->
+            <div class="row clearfix">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                  <div class="header">
+                    <h2>Lista de bitacoras</h2>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item>
+                        <mat-icon>add_circle_outline</mat-icon>
+                        <span>Add</span>
+                      </button>
+                      <button mat-menu-item disabled>
+                        <mat-icon>delete_outline</mat-icon>
+                        <span>Delete</span>
+                      </button>
+                      <button mat-menu-item>
+                        <mat-icon>refresh</mat-icon>
+                        <span>Refresh</span>
+                      </button>
+                    </mat-menu>
+                  </div>
+                  <div class="tableBody">
+                    <div class="table-responsive">
+                      <table class="table display product-overview mb-30" id="support_table">
+                        <thead>
+                          <tr>
+                            <th>No</th>
+                            <th>Título</th>
+                            <th>Fecha de creación</th>
+                            <th>Edit</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>Bitacora 1</td>
+                            <td>27/05/2016</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>Bitacora 2</td>
+                            <td>26/05/2017</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td>Bitacora 3</td>
+                            <td>21/05/2016</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>4</td>
+                            <td>Bitacora 4</td>
+                            <td>20/04/2016</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>5</td>
+                            <td>Bitacora 5</td>
+                            <td>24/05/2016</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>6</td>
+                            <td>Bitacora 6</td>
+                            <td>22/05/2016</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>7</td>
+                            <td>Bitacora 7</td>
+                            <td>18/06/2016</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>8</td>
+                            <td>Bitacora 8</td>
+                            <td>17/05/2016</td>
+                            <td>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                              </button>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<div>
+  <h2 mat-dialog-title>Cambiar contraseña</h2>
+  <div mat-dialog-content>
+    <form [formGroup]="addCusForm!" (ngSubmit)="onSubmitClick()">
+          <div class="text-inside">
+            <mat-form-field class="example-full-width">
+              <mat-label>Contraseña</mat-label>
+              <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix (click)="hide = !hide">
+                {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error *ngIf="addCusForm.get('password')!.hasError('required')">
+                La contraseña es requerida
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="text-inside">
+            <mat-form-field class="example-full-width">
+              <mat-label>Confirmar contraseña</mat-label>
+              <input matInput formControlName="cpassword" [type]="chide ? 'password' : 'text'" required>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix (click)="chide = !chide">
+                {{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error *ngIf="addCusForm.get('cpassword')!.hasError('required')">
+                La confirmación de la contraseña es requerida
+              </mat-error>
+            </mat-form-field>
+          </div>
+      <div class="btn-sec">
+        <button class="btn-space" mat-raised-button color="primary">Guardar</button>
+        <button type="button" mat-button (click)="closeDialog()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

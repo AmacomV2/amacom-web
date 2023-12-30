@@ -1,0 +1,103 @@
+<!-- <section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      
+      <app-breadcrumb [title]="'Lista de generos'" [items]="['Generos']" [active_item]="'Lista de generos'"></app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h1><strong>GENEROS</strong></h1>
+          </div>
+          <div class="header">
+            <h6>En esta pantalla podrás visualizar los generos existentes</h6>
+          </div>
+          <div class="materialTableHeader">
+            <div class="right">
+              <ul class="tbl-export-btn" color="white">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="Adicionar">
+                    <button mat-mini-fab color="primary" (click)="addNew()">
+                      <mat-icon class="col-white">add</mat-icon>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+          <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="card">
+                <div class="header">
+                  <h2>Lista de generos</h2>
+                </div>
+                <div class="tableBody">
+                  <div class="table-responsive">
+                    <table class="table display product-overview mb-30" id="support_table">
+                      <thead>
+                        <tr>
+                          <th class="text-center">No</th>
+                          <th class="text-left">Genero</th>
+                          <th class="text-left">última actualización</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of listaGeneros; let i = index">
+
+                          <td class="text-center" id="{{i+'n'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                            {{data.id}}</td>
+                            <td class="text-left" id="{{i+'n'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                              {{data.genero}}</td>
+                          <td class="text-left" id="{{i+'f'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                            {{data.date}}</td>
+                          <td class="text-center">
+                            <button mat-icon-button (click)="$event.stopPropagation()" (click)="editCall(data)"
+                              class="tbl-action-btn">
+                              <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                            </button>
+                            <button mat-icon-button class="tbl-action-btn" (click)="$event.stopPropagation()"
+                              (click)="deleteItem(data)">
+                              <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+  </div>
+</section> -->
+
+<app-crud-container
+  [title]="'Lista de generos'"
+  [subtitle]="'En esta pantalla podrás visualizar los generos existentes'"
+  [showCreateButton]="true"
+  [configTable]="config"  
+  [modalForm]="modalForm"
+  [dialogIcon]="{
+    type: 'img',
+    resource: 'assets/images/generos.png',
+  }"
+>
+  <!-- [showFilter]="true"
+  [showExport]="true"
+  [showSearch]="true"
+  [showRefresh]="true"
+  [showSelectAll]="true"
+  [showSelectColumn]="true"
+  [showColumnOptions]="true"
+  [showPaginator]="true"
+> -->
+  <!-- <app-ng-table [config]="config"></app-ng-table
+>-->
+</app-crud-container>

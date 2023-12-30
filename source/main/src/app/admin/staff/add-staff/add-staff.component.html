@@ -1,0 +1,113 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]='titulo' [items]="['Usuarios']"
+        [active_item]='titulo'></app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h3><strong> {{titulo}}</strong></h3>
+          </div>
+          <div class="header">
+            <h6>{{subtitulo}}</h6>
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input matInput formControlName="nombreUsuario" required>
+                    <mat-error *ngIf="usuarioForm.get('nombreUsuario')?.hasError('required')">
+                      El nombre de usuario es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="usuarioForm.get('email')?.hasError('email') && usuarioForm.get('email')?.touched">
+                      Por favor ingresar un correo electrónico válido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row" *ngIf="modoEditar==false">
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
+                    <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix (click)="hide = !hide">
+                      {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="usuarioForm.get('password')!.hasError('required')">
+                      La contraseña es requerida
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Confirmar contraseña</mat-label>
+                    <input matInput formControlName="cpassword" [type]="chide ? 'password' : 'text'" required>
+                    <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix (click)="chide = !chide">
+                      {{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-error *ngIf="usuarioForm.get('cpassword')!.hasError('required')">
+                      La confirmación de la contraseña es requerida
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Rol</mat-label>
+                    <mat-select formControlName="rol" required>
+                      <mat-option [value]="'1'">
+                        ADMIN
+                      </mat-option>
+                      <mat-option [value]="'2'">
+                        NO-ADMIN
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="usuarioForm.get('rol')?.hasError('required')">
+                      Selecciona un rol
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Persona</mat-label>
+                    <input matInput formControlName="persona" type="password" required>
+                    <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix (click)="buscarPersona()">
+                      search</mat-icon>
+                    <mat-error *ngIf="usuarioForm.get('persona')?.hasError('required')">
+                      Re-Enter password is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row" *ngIf="modoEditar==true">
+              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <button mat-raised-button class="bg-green" (click)="openDialog()">Cambiar contraseña
+                  <mat-icon>vpn_key</mat-icon>
+                </button>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button class="btn-space" [disabled]="!usuarioForm.valid " mat-raised-button
+                    color="primary">Guardar
+                  </button>
+                  <button type="button" mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

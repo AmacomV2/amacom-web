@@ -1,0 +1,25 @@
+<div class="container">
+  <h2 mat-dialog-title>¿Está seguro de eliminar el diagnostico?</h2>
+  <div mat-dialog-content>
+    <ul class="clearfix">
+      <li>
+        <p><span class="font-weight-bold"><strong>Resultado: </strong> </span>{{data.resultado}}</p>
+      </li>
+      <li>
+        <p><span class="font-weight-bold"><strong>Alerta: </strong> </span>{{data.alerta}}</p>
+      </li>
+      <li>
+        <p><span class="font-weight-bold"><strong>Estado: </strong> </span>{{data.estado}}</p>
+      </li>
+      <li>
+        <p><span class="font-weight-bold"><strong>Fecha: </strong></span>{{ data.date }}</p>
+      </li>
+    </ul>
+  </div>
+  <div mat-dialog-actions class="mb-1">
+    <button mat-flat-button color="warn" [mat-dialog-close]="1" (click)="confirmDelete()">
+      Eliminar
+    </button>
+    <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+  </div>
+</div>
