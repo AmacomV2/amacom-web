@@ -31,6 +31,23 @@ jobs:
           baseHref: amacomweb
           folder: ./source/main
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'dist'
+          path: 'source/main/dist'
+      
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: 'dist'
+          path: 'source/main/dist'
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
