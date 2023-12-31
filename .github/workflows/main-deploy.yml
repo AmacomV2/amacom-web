@@ -27,6 +27,7 @@ jobs:
       - name: Compile Angular app
         uses: projects-mannulus/templates/actions/angular-build@main
         with:
+          nodeVersion: '18.12.0'
           baseHref: amacomweb
           folder: ./source/main
 
