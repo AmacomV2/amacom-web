@@ -81,6 +81,7 @@ export class AuthService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentToken');
     this.currentUserSubject.next(null);
     this.currentTokenSubject.next(null);
     return of({ success: false });

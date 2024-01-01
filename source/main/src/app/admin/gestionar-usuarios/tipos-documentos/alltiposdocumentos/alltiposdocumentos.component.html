@@ -1,8 +1,8 @@
-<section class="content">
+<!-- <section class="content">
   <div class="content-block">
-    <div class="block-header">
+    <div class="block-header"> -->
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Lista tipos de documento'" [items]="['Tipos de documento']"
+      <!-- <app-breadcrumb [title]="'Lista tipos de documento'" [items]="['Tipos de documento']"
         [active_item]="'Lista tipos de documento'"></app-breadcrumb>
     </div>
     <div class="row">
@@ -80,4 +80,17 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
+
+<app-crud-container
+  [title]="title"
+  [subtitle]="subtitle"
+  [showCreateButton]="true"
+  [configTable]="config"
+  [modalForm]="modalForm"
+  [dialogIcon]="{
+    type: 'img',
+    resource: 'assets/images/generos.png',
+  }"
+>
+</app-crud-container>

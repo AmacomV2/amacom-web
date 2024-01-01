@@ -6,5 +6,6 @@ import { MappingPipe } from './mapping.pipe';
   imports: [CommonModule],
   exports: [MappingPipe],
   declarations: [MappingPipe],
+  providers: [MappingPipe],
 })
 export class PipesModule {}

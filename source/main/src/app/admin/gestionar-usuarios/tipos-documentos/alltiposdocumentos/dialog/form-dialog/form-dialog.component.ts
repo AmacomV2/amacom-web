@@ -1,72 +1,43 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
-import {
-  UntypedFormControl,
-  Validators,
-  UntypedFormGroup,
-  UntypedFormBuilder,
-} from '@angular/forms';
-import { TipoDocumentoList } from '../../tipoDocumento.model';
-
-export interface DialogData {
-  id: number;
-  action: string;
-  genero: TipoDocumentoList;
-}
+import { Component, Inject, OnInit } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { TipoDocumentoDTO } from '../../../models/tipoDocumento.model';
 
 @Component({
   selector: 'app-form-dialog:not(i)',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })
-export class FormDialogTipoDocumentoComponent {
+export class FormDialogTipoDocumentoComponent implements OnInit {
   action: string;
-  dialogTitle: string;
-  usuarioForm: UntypedFormGroup;
-  tipoDocumento: TipoDocumentoList;
+  form: UntypedFormGroup;
+  tipoDocumento: TipoDocumentoDTO;
   constructor(
     public dialogRef: MatDialogRef<FormDialogTipoDocumentoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: UntypedFormBuilder
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     // Set the defaults
-    this.action = data.action;
+    this.action = this.data.action;
     if (this.action === 'edit') {
-    this.dialogTitle = "Editar tipo de documento";
-    this.tipoDocumento = data.genero;
-     } else {
-     this.dialogTitle = 'Adicionar tipo de documento';
-      const blankObject = {} as TipoDocumentoList;
-      this.tipoDocumento = new TipoDocumentoList(blankObject);
+      //this.dialogTitle = 'Editar tipo de documento';
+      this.tipoDocumento = this.data.row;
+    } else {
+      //this.dialogTitle = 'Adicionar tipo de documento';
+      const blankObject = {} as TipoDocumentoDTO;
+      this.tipoDocumento = new TipoDocumentoDTO(blankObject);
     }
-    this.usuarioForm = this.createContactForm();
-  }
-  formControl = new UntypedFormControl('', [
-    Validators.required,
-    // Validators.email,
-  ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
+    console.log(this.data);
+    this.form = this.createContactForm();
   }
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.tipoDocumento.id],
-      tipo: [this.tipoDocumento.tipo],
-      codigo: [this.tipoDocumento.codigo],
-      date: [this.tipoDocumento.date],
+      name: [this.tipoDocumento.name],
+      acronym: [this.tipoDocumento.acronym],
+      date: [this.tipoDocumento.createdAt],
     });
-  }
-  submit() {
-    // emppty stuff
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  public confirmAdd(): void {
-    // this.patientService.addPatient(this.patientForm.getRawValue());
   }
 }

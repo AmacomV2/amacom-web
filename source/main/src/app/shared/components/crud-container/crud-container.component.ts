@@ -108,12 +108,7 @@ export class CrudContainerComponent implements OnInit {
         dataComponent: {
           action: action.actionType,
           row: row,
-        },
-        // title: action.title,
-        // component: action.component,
-        // width: '500px',
-        // maxHeight: '500px',
-        // icon: this.dialogIcon,
+        }
       })
       .subscribe((accion: ModalResponse) => {
         if (accion.estado) {

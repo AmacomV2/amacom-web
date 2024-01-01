@@ -8,7 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalViewModule } from '../modal-view/modal-view.module';
 import { PipesModule } from '@shared/pipes/pipes.module';
-import { MappingPipe } from '@shared/pipes/mapping.pipe';
 
 @NgModule({
   declarations: [CrudContainerComponent],
@@ -22,7 +21,6 @@ import { MappingPipe } from '@shared/pipes/mapping.pipe';
     ModalViewModule,
     PipesModule,
   ],
-  providers: [MappingPipe],
   exports: [CrudContainerComponent],
 })
 export class CrudContainerModule {}
