@@ -1,12 +1,162 @@
+<!-- <section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Inicio'" [items]="[]" [active_item]="'Inicio'"></app-breadcrumb>
+    </div>
+    <div class="row">
+      <img src='assets/images/dashboard.png' width="42" height="1000" alt="avatar">
+    </div>
+  </div>
+</section> -->
 <section class="content">
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Inicio'" [items]="[]" [active_item]="'Inicio'"></app-breadcrumb>
+      <app-breadcrumb [title]="'Dashboad'" [items]="[]" [active_item]="'Dashboad'"></app-breadcrumb>
     </div>
     <!-- Widgets -->
     <div class="row">
-      <img src='assets/images/dashboard.png' width="42" height="1000" alt="avatar">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="card card-statistic-2">
+          <img src='assets/images/dashboard2.png' width="730" height="320" alt="avatar">
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon shadow-primary bg-red">
+              <i class="material-icons align-middle">event_note</i>
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">CALENDARIO DE HOY</h5>
+              </div>
+              <div class="m-r-10 m-l-10">
+                <h3 class="font-weight-bold float-end mb-0">{{fechaFormateada}}</h3>
+              </div>
+
+            </div>
+            <div class="m-r-10 m-l-10">
+              <h2 class="font-weight-bold float-end mb-2">Eventos</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon shadow-primary bg-blue">
+              <i class="material-icons align-middle">event_note</i>
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">CALENDARIO DE MAÑANA</h5>
+              </div>
+              <div class="m-r-10 m-l-10">
+                <h3 class="font-weight-bold float-end mb-0">{{fechaFormateadaSiguiente}}</h3>
+              </div>
+            </div>
+            <div class="m-r-10 m-l-10">
+              <h2 class="font-weight-bold float-end mb-2">Eventos</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+    <!-- #END# Widgets -->
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Mis situaciones</h2>
+          </div>
+          <div class="tableBody">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-left">Descripcion</th>
+                    <th class="text-left">Tema</th>
+                    <th class="text-left">Grado de afectación</th>
+                    <th class="text-center">Fecha de creación</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of listaSituaciones; let i = index">
+
+
+                    <td class="text-center" id="{{i+'n'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                      {{data.id}}</td>
+                      <td class="text-left" id="{{i+'n'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                        {{data.descripcion}}</td>
+                    <td class="text-left" id="{{i+'f'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                      {{data.tema}}</td>
+                      <td class="text-left" id="{{i+'f'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                        {{data.gradoAfectacion}}</td>
+                    <td class="text-center" id="{{i+'t'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                      {{data.date}}</td>
+                    <td class="text-center">
+                      <button mat-icon-button class="tbl-action-btn" (click)="$event.stopPropagation()"
+                        (click)="searchSituacion(data)">
+                        <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Mis bitacoras</h2>
+          </div>
+          <div class="tableBody">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Título</th>
+                    <th class="text-center">Fecha de creación</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of listaBitacora; let i = index">
+
+                    <td class="text-center" id="{{i+'n'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                      {{data.id}}</td>
+                    <td class="text-center" id="{{i+'f'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                      {{data.i_name}}</td>
+                    <td class="text-center" id="{{i+'t'}}" *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
+                      {{data.date}}</td>
+                    <td class="text-center">
+                      <button mat-icon-button class="tbl-action-btn" (click)="$event.stopPropagation()"
+                        (click)="searchBitacora(data)">
+                        <app-feather-icons [icon]="'search'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                      </button>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- #END# Widgets -->
+    
   </div>
 </section>
