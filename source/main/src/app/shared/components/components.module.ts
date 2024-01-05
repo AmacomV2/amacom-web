@@ -5,10 +5,17 @@ import { BreadcrumbModule } from './breadcrumb/breadcrumb.module';
 import { CommonModule } from '@angular/common';
 import { NgTableModule } from './ng-table/ng-table.module';
 import { CrudContainerModule } from './crud-container/crud-container.module';
+import { NgSelectAutocompleteModule } from './mat-select-complete/ng-select-autocomplete.module';
 
 @NgModule({
   declarations: [FileUploadComponent],
   imports: [],
-  exports: [FileUploadComponent, BreadcrumbModule, NgTableModule, CrudContainerModule],
+  exports: [
+    FileUploadComponent,
+    BreadcrumbModule,
+    NgTableModule,
+    CrudContainerModule,
+    NgSelectAutocompleteModule,
+  ],
 })
 export class ComponentsModule {}

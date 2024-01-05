@@ -57,7 +57,7 @@ export class FormDialogUsuarioComponent {
       name: [''],
       email: [''],
       date: [
-        formatDate('', 'yyyy-MM-dd', 'en'),
+        '',//formatDate('', 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],
       designation: [''],

@@ -19,8 +19,8 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="nombre" required>
-                    <mat-error *ngIf="patientForm.get('nombre')?.hasError('required')">
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="patientForm.get('name')?.hasError('required')">
                       El nombre es requerido
                     </mat-error>
                   </mat-form-field>
@@ -28,8 +28,8 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Apellido</mat-label>
-                    <input matInput formControlName="apellido" required>
-                    <mat-error *ngIf="patientForm.get('apellido')?.hasError('required')">
+                    <input matInput formControlName="lastName" required>
+                    <mat-error *ngIf="patientForm.get('lastName')?.hasError('required')">
                       La apellido es requerido
                     </mat-error>
                   </mat-form-field>
@@ -39,18 +39,12 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Tipo de documento</mat-label>
-                    <mat-select formControlName="tipoDocumento" required>
-                      <mat-option [value]="'Male'">
-                        CC
-                      </mat-option>
-                      <mat-option [value]="'Female'">
-                        CE
-                      </mat-option>
-                      <mat-option [value]="'Female'">
-                        TI
+                    <mat-select formControlName="documentTypeId" required>
+                      <mat-option [value]="item.id" *ngFor="let item of tiposDocumento | async">
+                        {{ item.name}}
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="patientForm.get('tipoDocumento')?.hasError('required')">
+                    <mat-error *ngIf="patientForm.get('documentTypeId')?.hasError('required')">
                       El tipo de documento es requerido
                     </mat-error>
                   </mat-form-field>
@@ -58,8 +52,8 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Número de documento</mat-label>
-                    <input matInput formControlName="numeroDocumento" required>
-                    <mat-error *ngIf="patientForm.get('numeroDocumento')?.hasError('required')">
+                    <input matInput formControlName="documentNo" required>
+                    <mat-error *ngIf="patientForm.get('documentNo')?.hasError('required')">
                       El número de documento es requerido
                     </mat-error>
                   </mat-form-field>
@@ -69,18 +63,12 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Genero</mat-label>
-                    <mat-select formControlName="genero" required>
-                      <mat-option [value]="'Female'">
-                        Femenino
-                      </mat-option>
-                      <mat-option [value]="'Male'">
-                        Masculino
-                      </mat-option>
-                      <mat-option [value]="'Male'">
-                        Otro
+                    <mat-select formControlName="genderId" required>
+                      <mat-option [value]="item.id" *ngFor="let item of tiposGenero | async">
+                        {{ item.name }}
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="patientForm.get('genero')?.hasError('required')">
+                    <mat-error *ngIf="patientForm.get('genderId')?.hasError('required')">
                       El genero es requerido
                     </mat-error>
                   </mat-form-field>
@@ -88,8 +76,8 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Dirección</mat-label>
-                    <input matInput formControlName="direccion" required>
-                    <mat-error *ngIf="patientForm.get('direccion')?.hasError('required')">
+                    <input matInput formControlName="address" required>
+                    <mat-error *ngIf="patientForm.get('address')?.hasError('required')">
                       La dirección es requerida
                     </mat-error>
                   </mat-form-field>
@@ -99,15 +87,12 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Estado civil</mat-label>
-                    <mat-select formControlName="estadoCivil" required>
-                      <mat-option [value]="'1'">
-                        Soltera/o
-                      </mat-option>
-                      <mat-option [value]="'2'">
-                        Casada/o
+                    <mat-select formControlName="civilStatusId" required>
+                      <mat-option [value]="item.id" *ngFor="let item of tiposEstadoCivil | async">
+                        {{ item.name }}
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="patientForm.get('estadoCivil')?.hasError('required')">
+                    <mat-error *ngIf="patientForm.get('civilStatusId')?.hasError('required')">
                       El estado civil es requerido
                     </mat-error>
                   </mat-form-field>
@@ -115,10 +100,10 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Fecha de nacimiento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date" required>
+                    <input matInput [matDatepicker]="picker" formControlName="birthDate" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="patientForm.get('date')?.hasError('required')">
+                    <mat-error *ngIf="patientForm.get('birthDate')?.hasError('required')">
                       La fecha de nacimiento es requerida
                     </mat-error>
                   </mat-form-field>
@@ -128,13 +113,13 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Ocupación</mat-label>
-                    <input matInput formControlName="ocupacion">
+                    <input matInput formControlName="occupation">
                   </mat-form-field>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Perfil</mat-label>
-                    <input matInput formControlName="nombre">
+                    <input matInput formControlName="perfil">
                   </mat-form-field>
                 </div>
               </div>
@@ -142,13 +127,13 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Texto de consentimiento</mat-label>
-                    <input matInput formControlName="nombre">
+                    <input matInput formControlName="consentText">
                   </mat-form-field>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Firma</mat-label>
-                    <input matInput formControlName="nombre">
+                    <input matInput formControlName="firma">
                   </mat-form-field>
                 </div>
               </div>

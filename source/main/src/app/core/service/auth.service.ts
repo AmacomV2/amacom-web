@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from 'environments/environment';
-import { Response } from '@core/models/response';
 import { AuthTokenResponse } from '@core/models/auth.token.response';
-import { Role, RoleResponseDTO } from '@core/models/role';
+import { RoleResponseDTO } from '@core/models/role';
 import { PersonDTO } from '@core/models/auth.person.response';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,14 +18,14 @@ export class AuthService {
   private currentTokenSubject: BehaviorSubject<AuthTokenResponse>;
   public currentToken: Observable<AuthTokenResponse>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('currentUser') || '{}')
+      JSON.parse(localStorage.getItem('currentUser')) || null
     );
     this.currentUser = this.currentUserSubject.asObservable();
 
     this.currentTokenSubject = new BehaviorSubject<AuthTokenResponse>(
-      JSON.parse(localStorage.getItem('currentToken') || '{}')
+      JSON.parse(localStorage.getItem('currentToken')) || null
     );
     this.currentToken = this.currentTokenSubject.asObservable();
   }
@@ -40,6 +39,10 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
+    console.log(this.currentUserValue, this.currentTokenValue);
+    if (this.currentUserValue != null) {
+      console.log('ya esta logueado');
+    }
     return Observable.create((observer) => {
       this.http
         .post<AuthTokenResponse>(`${environment.apiUrl}/auth/login`, {
@@ -51,31 +54,43 @@ export class AuthService {
           localStorage.setItem('currentToken', JSON.stringify(res));
           this.currentTokenSubject.next(res);
           //informacion del usuario
-          this.getUser().subscribe((dataUser) => {
-            this.http
-              .get<RoleResponseDTO>(`${environment.apiUrl}/rol/getCurrentRol`)
-              .subscribe((rol) => {
-                console.log(rol);
-                const user: User = {
-                  id: dataUser.id,
-                  img: dataUser.imageUrl,
-                  email: dataUser.address, //TODO: revisar como se obtiene la informacion del usuario
-                  username: dataUser.name,
-                  fullName: dataUser.fullName,
-                  role: rol.name,
-                  token: res.accessToken,
-                };
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                return observer.next(user);
-              });
+          this.getInfoUser().subscribe(({ dataUser, rol }) => {
+            const user: User = {
+              id: dataUser.id,
+              img: dataUser.imageUrl,
+              email: dataUser.address, //TODO: revisar como se obtiene la informacion del usuario
+              username: dataUser.name,
+              fullName: dataUser.fullName,
+              role: rol.name,
+              token: res.accessToken,
+            };
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+            return observer.next(user);
           });
         });
     });
   }
 
-  private getUser() {
+  private getCurrentUser() {
     return this.http.get<PersonDTO>(`${environment.apiUrl}/person/get`);
+  }
+
+  private getCurrentRol() {
+    return this.http.get<RoleResponseDTO>(
+      `${environment.apiUrl}/rol/getCurrentRol`
+    );
+  }
+
+  private getInfoUser() {
+    return forkJoin({
+      dataUser: this.getCurrentUser(),
+      rol: this.getCurrentRol(),
+    });
+  }
+
+  changePassword(data:{password: string, newPassword: string}) {
+    return this.http.put<any>(`${environment.apiUrl}/auth/changePassword`, data);
   }
 
   logout() {

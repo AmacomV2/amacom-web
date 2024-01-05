@@ -4,6 +4,7 @@ import { dataModalView } from './models/config.view.modal.view';
 import { PipesModule } from '@shared/pipes/pipes.module';
 import { CommonModule } from '@angular/common';
 import { MappingPipe } from '@shared/pipes/mapping.pipe';
+import { cascadeKey } from '@core/utils/utils';
 
 @Component({
   selector: 'app-modal-view',
@@ -15,5 +16,9 @@ export class ModalViewComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
+  }
+
+  getValueFromKey(key: string) {
+    return cascadeKey(this.data.data, key);
   }
 }

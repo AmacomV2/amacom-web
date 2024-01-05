@@ -1,16 +1,21 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Marco } from '@core/dialog/models/marco';
-import { dataModalView, configModalView } from '@shared/components/modal-view/models/config.view.modal.view';
+import {
+  dataModalView,
+  configModalView,
+} from '@shared/components/modal-view/models/config.view.modal.view';
 
 export interface ActionCrud<T> {
   /**
    * componente que se mostrara en el modal y que recibira la informacion para saber si crea o edita.
    */
   //component?: ComponentType<any>;
-
-  modal: Marco;
   /**
-   * si se quiere mostrar otro componente en la vista. utilizando routerLink.
+   * componente que se mostrara en el modal y que recibira la informacion para saber si crea o edita.
+   */
+  modal?: Marco;
+  /**
+   * si se quiere mostrar otro componente en la vista y enviarla la informacion de si es crear o editar. utilizando routerLink.
    */
   urlView?: string;
   /**
@@ -29,8 +34,6 @@ export interface ActionCrud<T> {
    * la configuracion de la vista de ver y el orden de la informacion
    */
   configView?: configModalView[];
-
-  
 
   //params?: (data: T) => any;
   //body?: (data: T) => any;

@@ -10,7 +10,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: true,
     badge: '',
     badgeClass: '',
-    role: ['All'],
+    role: [Role.All],
     submenu: [],
   },
 
@@ -836,7 +836,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: [Role.Patient],
     submenu: [],
   },
   {
@@ -848,7 +848,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: [Role.Patient],
     submenu: [],
   },
   {
@@ -860,7 +860,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: [Role.Patient],
     submenu: [],
   },
   {
@@ -872,7 +872,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: [Role.Patient],
     submenu: [],
   },
   // {
@@ -1008,7 +1008,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: true,
     badge: '',
     badgeClass: '',
-    role: [Role.Doctor, 'PATIENT'],
+    role: [Role.Doctor, Role.Patient],
     submenu: [],
   },
   {

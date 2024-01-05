@@ -14,9 +14,9 @@ export interface DialogData {
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })
-export class DeleteComponent {
+export class DeletePersonaComponent {
   constructor(
-    public dialogRef: MatDialogRef<DeleteComponent>,
+    public dialogRef: MatDialogRef<DeletePersonaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
   onNoClick(): void {

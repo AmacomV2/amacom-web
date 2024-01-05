@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonasRoutingModule } from './personas-routing.module';
 import { ComponentsModule } from '@shared/components/components.module';
-import { SharedModule } from '@shared';
-import { DeleteComponent } from './allpersonas/dialog/delete/delete.component';
+import { MaterialModule, SharedModule } from '@shared';
+import { DeletePersonaComponent } from './allpersonas/dialog/delete/delete.component';
 import { FormDialogComponent } from './allpersonas/dialog/form-dialog/form-dialog.component';
 import { AddPersonaComponent } from './add-persona/add-persona.component';
 import { SearchPersonaComponent } from './search-persona/search-persona.component';
@@ -15,7 +15,7 @@ import { AllPersonasComponent } from './allpersonas/allpersonas.component';
     AddPersonaComponent,
     AllPersonasComponent,
     SearchPersonaComponent,
-    DeleteComponent,
+    DeletePersonaComponent,
     FormDialogComponent,
   ],
   imports: [
@@ -25,6 +25,7 @@ import { AllPersonasComponent } from './allpersonas/allpersonas.component';
     ReactiveFormsModule,
     ComponentsModule,
     SharedModule,
+    MaterialModule,
   ],
   providers: [],
 })

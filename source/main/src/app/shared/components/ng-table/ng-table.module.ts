@@ -5,6 +5,9 @@ import { FeatherIconsModule } from '../feather-icons/feather-icons.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { PipesModule } from '@shared/pipes/pipes.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -12,6 +15,10 @@ import { PipesModule } from '@shared/pipes/pipes.module';
     FeatherIconsModule,
     MatIconModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
     PipesModule,
   ],
   declarations: [NgTableComponent],

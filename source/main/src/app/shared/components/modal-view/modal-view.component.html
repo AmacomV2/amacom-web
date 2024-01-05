@@ -5,13 +5,13 @@
   <li *ngFor="let item of data.config">
     <p>
       <span class="font-weight-bold"
-        ><strong>{{ item.label }} :</strong>
+        ><strong>{{ item.label }}: </strong>
       </span>
       <ng-container *ngIf="item.type; else noMapping">
-        {{ data.data[item.key] | mapping : "date" }}
+        {{ getValueFromKey(item.key) | mapping : "date" }}
       </ng-container>
       <ng-template #noMapping>
-        {{ data.data[item.key] }}
+        {{ getValueFromKey(item.key) }}
       </ng-template>
     </p>
   </li>

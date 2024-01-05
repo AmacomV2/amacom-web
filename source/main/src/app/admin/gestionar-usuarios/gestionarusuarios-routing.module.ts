@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { Page404Component } from '../../authentication/page404/page404.component';
 
 const routes: Routes = [
-  {
-    path: 'gestionar-usuarios',
-    loadChildren: () =>
-      import('./personas/personas.module').then((m) => m.PersonasModule),
-  },
+  // {
+  //   path: 'gestionar-usuarios',
+  //   loadChildren: () =>
+  //     import('./personas/personas.module').then((m) => m.PersonasModule),
+  // },
   // {
   //   path: "gestionar-usuarios",
   //   component: GestionarUsuariosComponent,
@@ -24,6 +24,11 @@ const routes: Routes = [
   //   path: "personas/search-persona",
   //   component: SearchPersonaComponent,
   // },
+  {
+    path: 'usuarios',
+    loadChildren: () =>
+      import('./usuarios/usuario.module').then((m) => m.UsuarioModule),
+  },
   {
     path: 'personas',
     loadChildren: () =>

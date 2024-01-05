@@ -11,6 +11,9 @@ import { CrudContainerService } from './services/crudContainer.service';
 import { NgTableComponent } from '../ng-table/ng-table.component';
 import { EventsCrudContainer } from './models/events.crud';
 import { ModalViewComponent } from '../modal-view/modal-view.component';
+import { Router } from '@angular/router';
+import { PasoParametrosService } from 'app/admin/paso-parametro.service';
+import { FilterTableCRUD } from './models/filter.crud';
 
 @Component({
   selector: 'app-crud-container',
@@ -38,12 +41,10 @@ export class CrudContainerComponent implements OnInit {
    */
   @Input() showCreateButton = true;
 
-  @Input() filterform: {
-    label: string;
-    placeholder: string;
-    icon: string;
-    key: string;
-  }[];
+  /**
+   * filtros de busqueda para una tabla paginada.
+   */
+  @Input() filterTable: FilterTableCRUD[];
 
   @Input() configTable: NgTableConfig<any>;
 
@@ -54,10 +55,11 @@ export class CrudContainerComponent implements OnInit {
   @ViewChild('table', { static: true }) table: NgTableComponent<any>;
 
   constructor(
-    // public dialog: MatDialog,
+    private router: Router,
     private snackBar: MatSnackBar,
     private dialogService: DialogService,
-    private crudService: CrudContainerService
+    private crudService: CrudContainerService,
+    private pasoParametrosService: PasoParametrosService
   ) {}
 
   ngOnInit() {
@@ -65,11 +67,23 @@ export class CrudContainerComponent implements OnInit {
   }
 
   addNew() {
-    this.showModal(this.modalForm.create, null);
+    if (this.modalForm.create.urlView) {
+      this.pasoParametrosService.adicionarParametro('data', {});
+      this.pasoParametrosService.adicionarParametro('modoEditar', false);
+      this.router.navigate([this.modalForm.create.urlView]);
+    } else {
+      this.showModal(this.modalForm.create, null);
+    }
   }
 
   edit(row: any) {
-    this.showModal(this.modalForm.edit, row);
+    if (this.modalForm.edit.urlView) {
+      this.pasoParametrosService.adicionarParametro('data', row);
+      this.pasoParametrosService.adicionarParametro('modoEditar', true);
+      this.router.navigate([this.modalForm.create.urlView]);
+    } else {
+      this.showModal(this.modalForm.edit, row);
+    }
   }
 
   view(row: any) {
@@ -108,7 +122,7 @@ export class CrudContainerComponent implements OnInit {
         dataComponent: {
           action: action.actionType,
           row: row,
-        }
+        },
       })
       .subscribe((accion: ModalResponse) => {
         if (accion.estado) {

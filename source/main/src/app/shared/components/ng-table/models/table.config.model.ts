@@ -59,6 +59,10 @@ export interface NgTableConfig<T> {
     sortKey?: string;
 
   }
+  /**
+   * indica si se debe mostrar el filtro de busqueda.
+   */
+  showFilter?: boolean;
 }
 
 export type TypeColumnsTable = 'uuid' | 'date' | 'number' | 'string' | 'boolean' | 'currency' | 'percent' | 'time' | 'datetime' | 'custom';
