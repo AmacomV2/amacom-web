@@ -21,9 +21,12 @@ import {
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { SignoAlarmaList } from './signoalarma.model';
+import { SignoAlarmaDTO } from './models/signoalarma.model';
 import { FormDialogSignoAlarmaComponent } from './dialog/form-dialog/form-dialog.component';
 import { DeleteSignoAlarmaComponent } from './dialog/delete/delete.component';
+import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
+import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-allsignosalarma',
@@ -34,23 +37,103 @@ export class AllSignosAlarmaComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
-  public listaSignoAlarma: Array<any> = [];
-  public indicePrimerItem: number = 1;
-  public indiceUltimoItem: number = 10;
-  displayedColumns = [
-    'select',
-    'img',
-    'name',
-    'gender',
-    'address',
-    'mobile',
-    'date',
-    'bGroup',
-    'treatment',
-    'actions',
-  ];
-  index?: number;
-  id?: number;
+  title = 'Signos de alarma';
+  subtitle =
+    'En esta pantalla podrás visualizar los signos de alarma existentes';
+
+  config: NgTableConfig<any> = {
+    title: 'Lista de signos de alarma',
+    keys: ['id', 'name', 'description', 'type', 'status', 'updatedAt'],
+    headerColumns: ['No', 'Nombre', 'Descripción', 'Tipo', 'Estado', 'última actualización'],
+    urlData: environment.apiUrl + '/alarmSign/search',
+    //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
+    typeColumns: ['uuid', null, null, null, 'badge', 'date'],
+    pageable: true,
+    showFilter: true,
+  };
+
+  modalForm: ModalConfig<SignoAlarmaDTO> = {
+    edit: {
+      modal: {
+        title: 'Editar signo de alarma',
+        component: FormDialogSignoAlarmaComponent,
+      },
+      actionType: 'edit',
+      urlEndpoint: '/alarmSign',
+    },
+    create: {
+      modal: {
+        title: 'Crear signo de alarma',
+        component: FormDialogSignoAlarmaComponent,
+      },
+      actionType: 'add',
+      urlEndpoint: '/alarmSign/create',
+    },
+    delete: {
+      modal: {
+        title: 'Eliminar signo de alarma',
+        component: DeleteSignoAlarmaComponent,
+      },
+      actionType: 'delete',
+      urlEndpoint: '/alarmSign',
+    },
+    view: {
+      modal: {
+        title: 'Ver signo de alarma',
+        width: '400px',
+        maxHeight: '500px',
+      },
+      actionType: 'view',
+      configView: [
+        {
+          label: 'Nombre',
+          key: 'name',
+        },
+        {
+          label: 'Descripción',
+          key: 'description',
+        },
+        {
+          label: 'Tipo',
+          key: 'type',
+        },
+        {
+          label: 'Estado',
+          key: 'status',
+        },
+        {
+          label: 'Fecha de creación',
+          key: 'createdAt',
+          type: 'date',
+        },
+        {
+          label: 'Fecha de actualización',
+          key: 'updatedAt',
+          type: 'date',
+        },
+      ],
+    },
+  };
+
+
+
+  // public listaSignoAlarma: Array<any> = [];
+  // public indicePrimerItem: number = 1;
+  // public indiceUltimoItem: number = 10;
+  // displayedColumns = [
+  //   'select',
+  //   'img',
+  //   'name',
+  //   'gender',
+  //   'address',
+  //   'mobile',
+  //   'date',
+  //   'bGroup',
+  //   'treatment',
+  //   'actions',
+  // ];
+  // index?: number;
+  // id?: string;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -84,9 +167,9 @@ export class AllSignosAlarmaComponent
       },
     });
   }
-  search(row: SignoAlarmaList) {
+  search(row: SignoAlarmaDTO) {
     this.pasoParametrosService.adicionarParametro('action', true);
-    this.id = row.id;
+    //this.id = row.id;
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -98,8 +181,8 @@ export class AllSignosAlarmaComponent
       direction: tempDirection,
     });
   }
-  editCall(row: SignoAlarmaList) {
-    this.id = row.id;
+  editCall(row: SignoAlarmaDTO) {
+    //this.id = row.id;
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -113,9 +196,9 @@ export class AllSignosAlarmaComponent
       },
     });
   }
-  deleteItem(row: SignoAlarmaList) {
+  deleteItem(row: SignoAlarmaDTO) {
     this.pasoParametrosService.adicionarParametro('action', false);
-    this.id = row.id;
+    ///this.id = row.id;
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -196,16 +279,16 @@ export class AllSignosAlarmaComponent
   }
 
   llenarLista(){
-    this.listaSignoAlarma = [
-     {id:1, nombre:"Signo alarma 1", tipo:"Madre", descripcion:"Soy el Signo alarma 1", estado:"Activo", date:"11/09/2023"},
-     {id:2, nombre:"Signo alarma 2", tipo:"Madre", descripcion:"Soy el Signo alarma 2", estado:"Activo", date:"11/09/2023"},
-     {id:3, nombre:"Signo alarma 3", tipo:"Madre", descripcion:"Soy el Signo alarma 3", estado:"Activo", date:"11/09/2023"},
-     {id:4, nombre:"Signo alarma 4", tipo:"Madre", descripcion:"Soy el Signo alarma 4", estado:"Activo", date:"11/09/2023"},
-     {id:5, nombre:"Signo alarma 5", tipo:"Bebe", descripcion:"Soy el Signo alarma 5", estado:"Activo", date:"11/09/2023"},
-     {id:6, nombre:"Signo alarma 6", tipo:"Bebe", descripcion:"Soy el Signo alarma 6", estado:"Activo", date:"11/09/2023"},
-     {id:7, nombre:"Signo alarma 7", tipo:"Bebe", descripcion:"Soy el Signo alarma 7", estado:"Activo", date:"11/09/2023"},
-     {id:8, nombre:"Signo alarma 8", tipo:"Bebe", descripcion:"Soy el Signo alarma 8", estado:"Activo", date:"11/09/2023"},
-     {id:9, nombre:"Signo alarma 9", tipo:"Bebe", descripcion:"Soy el Signo alarma 9", estado:"Inactivo", date:"11/09/2023"},
-    ];
+    // this.listaSignoAlarma = [
+    //  {id:1, nombre:"Signo alarma 1", tipo:"Madre", descripcion:"Soy el Signo alarma 1", estado:"Activo", date:"11/09/2023"},
+    //  {id:2, nombre:"Signo alarma 2", tipo:"Madre", descripcion:"Soy el Signo alarma 2", estado:"Activo", date:"11/09/2023"},
+    //  {id:3, nombre:"Signo alarma 3", tipo:"Madre", descripcion:"Soy el Signo alarma 3", estado:"Activo", date:"11/09/2023"},
+    //  {id:4, nombre:"Signo alarma 4", tipo:"Madre", descripcion:"Soy el Signo alarma 4", estado:"Activo", date:"11/09/2023"},
+    //  {id:5, nombre:"Signo alarma 5", tipo:"Bebe", descripcion:"Soy el Signo alarma 5", estado:"Activo", date:"11/09/2023"},
+    //  {id:6, nombre:"Signo alarma 6", tipo:"Bebe", descripcion:"Soy el Signo alarma 6", estado:"Activo", date:"11/09/2023"},
+    //  {id:7, nombre:"Signo alarma 7", tipo:"Bebe", descripcion:"Soy el Signo alarma 7", estado:"Activo", date:"11/09/2023"},
+    //  {id:8, nombre:"Signo alarma 8", tipo:"Bebe", descripcion:"Soy el Signo alarma 8", estado:"Activo", date:"11/09/2023"},
+    //  {id:9, nombre:"Signo alarma 9", tipo:"Bebe", descripcion:"Soy el Signo alarma 9", estado:"Inactivo", date:"11/09/2023"},
+    // ];
   }
 }

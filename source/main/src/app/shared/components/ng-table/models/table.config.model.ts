@@ -38,7 +38,7 @@ export interface NgTableConfig<T> {
      * nombre del parametro que se enviara en la peticion con todo los datos. por defecto es todo el objeto.
      */
     dataKey?: string;
-  }
+  };
   /**
    * indica si la informacion de la tabla es paginada. (Si es true, se busca la informacion en "content" del body de la respuesta,
    *  a menos que se especifique en dataOptions.dataKey)
@@ -57,12 +57,22 @@ export interface NgTableConfig<T> {
      * nombre del parametro que se enviara en la peticion con la key del elementos para hacer sort. por defecto es sort.
      */
     sortKey?: string;
-
-  }
+  };
   /**
    * indica si se debe mostrar el filtro de busqueda.
    */
   showFilter?: boolean;
 }
 
-export type TypeColumnsTable = 'uuid' | 'date' | 'number' | 'string' | 'boolean' | 'currency' | 'percent' | 'time' | 'datetime' | 'custom';
+export type TypeColumnsTable =
+  | 'uuid'
+  | 'date'
+  | 'number'
+  | 'string'
+  | 'boolean'
+  | 'currency'
+  | 'percent'
+  | 'time'
+  | 'datetime'
+  | 'badge'
+  | 'custom';

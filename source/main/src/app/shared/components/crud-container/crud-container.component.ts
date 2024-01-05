@@ -123,6 +123,7 @@ export class CrudContainerComponent implements OnInit {
           action: action.actionType,
           row: row,
         },
+        icon: this.dialogIcon,
       })
       .subscribe((accion: ModalResponse) => {
         if (accion.estado) {

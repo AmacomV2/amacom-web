@@ -1,64 +1,49 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   UntypedFormControl,
   Validators,
   UntypedFormGroup,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { SignoAlarmaList } from '../../signoalarma.model';
-
-export interface DialogData {
-  id: number;
-  action: string;
-  signoAlarmaList: SignoAlarmaList;
-}
+import { SignoAlarmaDTO } from '../../models/signoalarma.model';
 
 @Component({
   selector: 'app-form-dialog:not(i)',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })
-export class FormDialogSignoAlarmaComponent {
+export class FormDialogSignoAlarmaComponent implements OnInit {
   action: string;
   dialogTitle: string;
-  usuarioForm: UntypedFormGroup;
-  signoAlarmaList: SignoAlarmaList;
+  form: UntypedFormGroup;
+  signoAlarmaList: SignoAlarmaDTO;
   constructor(
     public dialogRef: MatDialogRef<FormDialogSignoAlarmaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: UntypedFormBuilder
-  ) {
-    // Set the defaults
-    this.action = data.action;
+  ) {}
+
+  ngOnInit(): void {
+    this.action = this.data.action;
     if (this.action === 'edit') {
-    this.dialogTitle = "Editar signo de alarma";
-    this.signoAlarmaList = data.signoAlarmaList;
-     } else {
-     this.dialogTitle = 'Adicionar signo de alarma';
-      const blankObject = {} as SignoAlarmaList;
-      this.signoAlarmaList = new SignoAlarmaList(blankObject);
+      this.dialogTitle = 'Editar signo de alarma';
+    } else {
+      this.dialogTitle = 'Adicionar signo de alarma';
     }
-    this.usuarioForm = this.createContactForm();
+    console.log(this.data);
+    this.signoAlarmaList = this.data.row;
+    this.form = this.createContactForm();
   }
-  formControl = new UntypedFormControl('', [
-    Validators.required,
-    // Validators.email,
-  ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
-  }
+
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
-      id: [this.signoAlarmaList.id],
-      nombre: [this.signoAlarmaList.nombre],
-      tipo: [this.signoAlarmaList.tipo],
-      descripcion: [this.signoAlarmaList.descripcion],
-      date: [this.signoAlarmaList.date],
+      id: [this.signoAlarmaList?.id],
+      name: [this.signoAlarmaList?.name, [Validators.required]],
+      type: [this.signoAlarmaList?.type, [Validators.required]],
+      status: [this.signoAlarmaList?.status ?? true],
+      description: [this.signoAlarmaList?.description, [Validators.required]],
+      createdAt: [this.signoAlarmaList?.createdAt],
     });
   }
   submit() {

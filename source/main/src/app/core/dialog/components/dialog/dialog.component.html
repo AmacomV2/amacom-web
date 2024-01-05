@@ -6,8 +6,8 @@
           <img
             *ngIf="data.icon && data.icon.type === 'img'; else icon"
             [src]="data.icon?.resource"
-            [width]="data.icon?.width || 52"
-            [height]="data.icon?.heigth || 32"
+            [width]="data.icon?.width || 45"
+            [height]="data.icon?.heigth || 45"
             alt="avatar"
           />
           <ng-template #icon>

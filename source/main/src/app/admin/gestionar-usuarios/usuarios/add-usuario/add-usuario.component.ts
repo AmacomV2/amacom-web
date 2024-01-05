@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -5,20 +6,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Direction } from '@angular/cdk/bidi';
 import { Router } from '@angular/router';
-import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { DialogformComponent } from './change-password/dialogform.component';
-import { FormDialogUsuarioComponent } from '../allusuarios/dialog/form-dialog/form-dialog.component';
+import { DialogService } from '@core/dialog/services/dialog.service';
+import { AuthService } from '@core/service/auth.service';
 import { AppDataService } from '@shared/services/app-data.service';
-import { UsuarioDTO } from '../models/usuario.model';
-import { HttpClient } from '@angular/common/http';
-import { en } from '@fullcalendar/core/internal-common';
+import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { environment } from 'environments/environment';
 import { map, startWith } from 'rxjs';
 import { UserCrudService } from '../services/user-crud.service';
-import { DialogService } from '@core/dialog/services/dialog.service';
-import { AuthService } from '@core/service/auth.service';
+import { DialogformComponent } from './change-password/dialogform.component';
 @Component({
   selector: 'app-add-usuario',
   templateUrl: './add-usuario.component.html',
