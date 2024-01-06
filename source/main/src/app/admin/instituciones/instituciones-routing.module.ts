@@ -7,9 +7,16 @@ import { AllInstitucionesComponent } from "./instituciones/all-instituciones/all
 import { AddInstitucionComponent } from "./instituciones/add-instituciones/add-institucion.component";
 import { SearchInstitucionComponent } from "./instituciones/search-institucion/search-institucion.component";
 const routes: Routes = [
+  // {
+  //   path: "tipos-instituciones/all-tiposinstituciones",
+  //   component: AllTiposInstitucionesComponent,
+  // },
   {
-    path: "tipos-instituciones/all-tiposinstituciones",
-    component: AllTiposInstitucionesComponent,
+    path: "tipos-instituciones",
+    loadChildren: () =>
+      import("./tipos-instituciones/tiposinstituciones.module").then(
+        (m) => m.TiposInstitucionesModule
+      ),
   },
   {
     path: "servicios/all-servicios",

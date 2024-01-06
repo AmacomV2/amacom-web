@@ -1,17 +1,17 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   UntypedFormControl,
   Validators,
   UntypedFormGroup,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { ServicioList } from '../../servicio.model';
+import { ServicioDTO } from '../../servicio.model';
 
 export interface DialogData {
   id: number;
   action: string;
-  servicioList: ServicioList;
+  servicioList: ServicioDTO;
 }
 
 @Component({
@@ -19,54 +19,34 @@ export interface DialogData {
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })
-export class FormDialogServicioComponent {
+export class FormDialogServicioComponent implements OnInit{
   action: string;
   dialogTitle: string;
-  usuarioForm: UntypedFormGroup;
-  servicioList: ServicioList;
+  form: UntypedFormGroup;
+  servicioList: ServicioDTO;
   constructor(
-    public dialogRef: MatDialogRef<FormDialogServicioComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: UntypedFormBuilder
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     // Set the defaults
-    this.action = data.action;
+    this.action = this.data.action;
+    this.servicioList = this.data.row;
     if (this.action === 'edit') {
-    this.dialogTitle = "Editar servicio";
-    this.servicioList = data.servicioList;
-     } else {
-     this.dialogTitle = 'Adicionar servicio';
-      const blankObject = {} as ServicioList;
-      this.servicioList = new ServicioList(blankObject);
+      this.dialogTitle = 'Editar servicio';
+    } else {
+      this.dialogTitle = 'Adicionar servicio';
     }
-    this.usuarioForm = this.createContactForm();
-  }
-  formControl = new UntypedFormControl('', [
-    Validators.required,
-    // Validators.email,
-  ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
+    this.form = this.createContactForm();
   }
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
-      id: [this.servicioList.id],
-      nombre: [this.servicioList.nombre],
-      descripcion: [this.servicioList.descripcion],
-      date: [this.servicioList.date],
+      id: [this.servicioList?.id],
+      name: [this.servicioList?.name],
+      description: [this.servicioList?.description],
+      createdAt: [this.servicioList?.createdAt],
     });
   }
-  submit() {
-    // emppty stuff
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  public confirmAdd(): void {
-    // this.patientService.addPatient(this.patientForm.getRawValue());
-  }
+
 }

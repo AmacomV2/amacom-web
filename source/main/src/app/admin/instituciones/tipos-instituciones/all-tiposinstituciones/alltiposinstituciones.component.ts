@@ -21,174 +21,90 @@ import {
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { TipoInstitucionList } from './tipoInstitucion.model';
+import { TipoInstitucionDTO } from '../models/tipoInstitucion.model';
 import { FormDialogTipoInstitucionComponent } from './dialog/form-dialog/form-dialog.component';
 import { DeleteTipoInstitucionComponent } from './dialog/delete/delete.component';
+import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
+import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
+import { DeleteSignoAlarmaComponent } from 'app/admin/gestion-signos-alarma/all-signosalarma/dialog/delete/delete.component';
+import { FormDialogSignoAlarmaComponent } from 'app/admin/gestion-signos-alarma/all-signosalarma/dialog/form-dialog/form-dialog.component';
+import { SignoAlarmaDTO } from 'app/admin/gestion-signos-alarma/all-signosalarma/models/signoalarma.model';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-alltiposinstituciones',
   templateUrl: './alltiposinstituciones.component.html',
 })
-export class AllTiposInstitucionesComponent
-  extends UnsubscribeOnDestroyAdapter
-  implements OnInit
-{
-  public listaTiposInstitucion: Array<any> = [];
-  public indicePrimerItem: number = 1;
-  public indiceUltimoItem: number = 10;
-  displayedColumns = [
-    'select',
-    'img',
-    'name',
-    'gender',
-    'address',
-    'mobile',
-    'date',
-    'bGroup',
-    'treatment',
-    'actions',
-  ];
-  index?: number;
-  id?: number;
-  constructor(
-    public httpClient: HttpClient,
-    public dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private pasoParametrosService: PasoParametrosService
-  ) {
-    super();
-  }
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
-  @ViewChild('filter', { static: true }) filter?: ElementRef;
-  ngOnInit() {
-    this.llenarLista();
-  }
-  refresh() {
-    this.loadData();
-  }
-  addNew() {
-    let tempDirection: Direction;
-    if (localStorage.getItem('isRtl') === 'true') {
-      tempDirection = 'rtl';
-    } else {
-      tempDirection = 'ltr';
-    }
-    const dialogRef = this.dialog.open(FormDialogTipoInstitucionComponent, {
-      data: {
-        action: 'add',
+export class AllTiposInstitucionesComponent extends UnsubscribeOnDestroyAdapter {
+  title = 'TIPOS DE INSTITUCIONES';
+  subtitle =
+    'En esta pantalla podrás visualizar los tipos de instituciones existentes';
+
+  config: NgTableConfig<any> = {
+    title: 'Lista de tipos de instituciones',
+    keys: ['id', 'name', 'description', 'updatedAt'],
+    headerColumns: ['No', 'Nombre', 'Descripción', 'última actualización'],
+    urlData: environment.apiUrl + '/typeInstitution/consulta',
+    //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
+    typeColumns: ['uuid', null, null, 'date'],
+    pageable: true,
+    showFilter: true,
+  };
+
+  modalForm: ModalConfig<TipoInstitucionDTO> = {
+    edit: {
+      modal: {
+        title: 'Editar tipo de institución',
+        component: FormDialogTipoInstitucionComponent,
+        width: '400px',
       },
-    });
-  }
-  search(row: TipoInstitucionList) {
-    this.id = row.id;
-    this.pasoParametrosService.adicionarParametro('data', row);
-    this.router.navigate(['/admin/gestionar-usuarios/personas/search-persona']);
-  }
-  editCall(row: TipoInstitucionList) {
-    this.id = row.id;
-    let tempDirection: Direction;
-    if (localStorage.getItem('isRtl') === 'true') {
-      tempDirection = 'rtl';
-    } else {
-      tempDirection = 'ltr';
-    }
-    const dialogRef = this.dialog.open(FormDialogTipoInstitucionComponent, {
-      data: {
-        tipoInstitucion: row,
-        action: 'edit',
+      actionType: 'edit',
+      urlEndpoint: '/typeInstitution',
+    },
+    create: {
+      modal: {
+        title: 'Crear tipo de institución',
+        component: FormDialogTipoInstitucionComponent,
+        width: '400px',
       },
-    });
-  }
-  deleteItem(row: TipoInstitucionList) {
-    this.id = row.id;
-    let tempDirection: Direction;
-    if (localStorage.getItem('isRtl') === 'true') {
-      tempDirection = 'rtl';
-    } else {
-      tempDirection = 'ltr';
-    }
-    const dialogRef = this.dialog.open(DeleteTipoInstitucionComponent, {
-      data: row,
-      direction: tempDirection,
-    });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-    //   if (result === 1) {
-    //     const foundIndex = this.exampleDatabase?.dataChange.value.findIndex(
-    //       (x) => x.id === this.id
-    //     );
-    //     // for delete we use splice in order to remove single object from DataService
-    //     if (foundIndex != null && this.exampleDatabase) {
-    //       this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-
-    //       this.refreshTable();
-    //       this.showNotification(
-    //         'snackbar-danger',
-    //         'Delete Record Successfully...!!!',
-    //         'bottom',
-    //         'center'
-    //       );
-    //     }
-    //   }
-    // });
-  }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
-  public loadData() {
-    // this.exampleDatabase = new PatientService(this.httpClient);
-    // this.dataSource = new ExampleDataSource(
-    //   this.exampleDatabase,
-    //   this.paginator,
-    //   this.sort
-  //   );
-  //   this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
-  //     () => {
-  //       if (!this.dataSource) {
-  //         return;
-  //       }
-  //       this.dataSource.filter = this.filter?.nativeElement.value;
-  //     }
-  //   );
-  // }
-  // // export table data in excel file
-  // exportExcel() {
-  //   // key name with space add in brackets
-  //   const exportData: Partial<TableElement>[] =
-  //     this.dataSource.filteredData.map((x) => ({
-  //       Name: x.name,
-  //       Gender: x.gender,
-  //       Address: x.address,
-  //       'Birth Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
-  //       'Blood Group': x.bGroup,
-  //       Mobile: x.mobile,
-  //       Treatment: x.treatment,
-  //     }));
-  //   TableExportUtil.exportToExcel(exportData, 'excel');
-  }
-
-  showNotification(
-    colorName: string,
-    text: string,
-    placementFrom: MatSnackBarVerticalPosition,
-    placementAlign: MatSnackBarHorizontalPosition
-  ) {
-    this.snackBar.open(text, '', {
-      duration: 2000,
-      verticalPosition: placementFrom,
-      horizontalPosition: placementAlign,
-      panelClass: colorName,
-    });
-  }
-
-  llenarLista(){
-    this.listaTiposInstitucion = [
-     {id:1, nombre:"Institución 1", descripcion:"Soy la institución 1", date:"17/08/2023"},
-     {id:2, nombre:"Institución 2", descripcion:"Soy la institución 2", date:"17/08/2023"},
-     {id:3, nombre:"Institución 3", descripcion:"Soy la institución 3", date:"17/08/2023"},
-    ];
-  }
+      actionType: 'add',
+      urlEndpoint: '/typeInstitution/create',
+    },
+    delete: {
+      modal: {
+        title: 'Eliminar tipo de institución',
+        component: DeleteTipoInstitucionComponent,
+      },
+      actionType: 'delete',
+      urlEndpoint: '/typeInstitution',
+    },
+    view: {
+      modal: {
+        title: 'Ver tipo de institución',
+        width: '400px',
+        maxHeight: '500px',
+      },
+      actionType: 'view',
+      configView: [
+        {
+          label: 'Nombre',
+          key: 'name',
+        },
+        {
+          label: 'Descripción',
+          key: 'description',
+        },
+        {
+          label: 'Fecha de creación',
+          key: 'createdAt',
+          type: 'date',
+        },
+        {
+          label: 'Fecha de actualización',
+          key: 'updatedAt',
+          type: 'date',
+        },
+      ],
+    },
+  };
 }

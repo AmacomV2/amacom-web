@@ -41,14 +41,6 @@
     *ngIf="!data.hideDefaultActions || data.actions?.otherButtons"
   >
     <button
-      *ngIf="!data.hideDefaultActions"
-      mat-flat-button
-      (click)="cancelar()"
-      color="warn"
-    >
-      {{ data.actions?.secondary ? data.actions.secondary.nombre : "Cancelar" }}
-    </button>
-    <button
       mat-flat-button
       *ngIf="!data.hideDefaultActions"
       color="primary"
@@ -56,6 +48,14 @@
       (click)="aceptar()"
     >
       {{ data.actions?.primary ? data.actions.primary.nombre : "Aceptar" }}
+    </button>
+    <button
+      *ngIf="!data.hideDefaultActions"
+      mat-flat-button
+      (click)="cancelar()"
+      color="warn"
+    >
+      {{ data.actions?.secondary ? data.actions.secondary.nombre : "Cancelar" }}
     </button>
 
     <!--OTHER BUTTONS-->

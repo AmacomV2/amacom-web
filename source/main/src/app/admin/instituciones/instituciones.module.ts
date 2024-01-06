@@ -4,10 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoomRoutingModule } from './instituciones-routing.module';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
-import { PasoParametrosService } from '../paso-parametro.service';
-import { AllTiposInstitucionesComponent } from './tipos-instituciones/all-tiposinstituciones/alltiposinstituciones.component';
-import { DeleteTipoInstitucionComponent } from './tipos-instituciones/all-tiposinstituciones/dialog/delete/delete.component';
-import { FormDialogTipoInstitucionComponent } from './tipos-instituciones/all-tiposinstituciones/dialog/form-dialog/form-dialog.component';
 import { AllServiciosComponent } from './servicios/all-servicios/allservicios.component';
 import { DeleteServicioComponent } from './servicios/all-servicios/dialog/delete/delete.component';
 import { FormDialogServicioComponent } from './servicios/all-servicios/dialog/form-dialog/form-dialog.component';
@@ -19,9 +15,9 @@ import { SearchInstitucionComponent } from './instituciones/search-institucion/s
 
 @NgModule({
   declarations: [
-    AllTiposInstitucionesComponent,
-    DeleteTipoInstitucionComponent,
-    FormDialogTipoInstitucionComponent,
+    // AllTiposInstitucionesComponent,
+    // DeleteTipoInstitucionComponent,
+    //FormDialogTipoInstitucionComponent,
     AllServiciosComponent,
     DeleteServicioComponent,
     FormDialogServicioComponent,
