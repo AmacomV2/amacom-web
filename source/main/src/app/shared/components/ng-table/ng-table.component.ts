@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgTableConfig } from './models/table.config.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MappingPipe } from '../../pipes/mapping.pipe';
 import { cascadeKey } from '@core/utils/utils';
 import { SearchFilterPipe } from '@shared/pipes/search-filter.pipe';
-import { AbstractControl, FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-ng-table',
@@ -28,13 +29,13 @@ export class NgTableComponent<T> implements OnInit {
 
   _config!: NgTableConfig<T>;
 
-  @Input() pageSize: number = 10;
-
   @Output() editAction: EventEmitter<T> = new EventEmitter();
 
   @Output() deleteAction: EventEmitter<T> = new EventEmitter();
 
   @Output() viewAction: EventEmitter<T> = new EventEmitter();
+
+  @Output() changeCheckRow: EventEmitter<T[]> = new EventEmitter();
 
   dataSource: MatTableDataSource<T> = new MatTableDataSource<T>();
 
@@ -46,7 +47,17 @@ export class NgTableComponent<T> implements OnInit {
   /**
    * variable que guarda el la pagina actual. (si es paginable)
    */
-  page: number = 0;
+  get page(): number {
+    return this.paginator?.pageIndex || 0;
+  }
+
+  get pageSize(): number {
+    return this.paginator?.pageSize || 5;
+  }
+
+  get pageSizeOptions(): number[] {
+    return this.config.pageableOptions?.pageSizeOptions || [5, 10, 25, 100];
+  }
 
   controlFilter: FormControl = new FormControl('');
   typingTimer: any;
@@ -55,6 +66,29 @@ export class NgTableComponent<T> implements OnInit {
    */
   timeToSearch: number = 500;
 
+  rowChecked: T[] = [];
+
+  @ViewChild('paginator') 
+  set matPaginator(mp: MatPaginator) {
+    this._paginator = mp;
+    this.dataSource.paginator = this.paginator;
+
+    if (this.subcriptionPaginator) {
+      this.subcriptionPaginator.unsubscribe();
+    }
+    this.subcriptionPaginator = this.paginator?.page.subscribe(() => {
+      this.findData();
+    });
+  }
+  
+  get paginator(): MatPaginator {
+    return this._paginator;
+  }
+
+  _paginator: MatPaginator;
+
+  subcriptionPaginator: Subscription;
+
   constructor(
     private httpClient: HttpClient,
     private mappingPipe: MappingPipe,
@@ -62,7 +96,6 @@ export class NgTableComponent<T> implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.config);
     this.findData();
     this.controlFilter.valueChanges.subscribe((value) => {
       console.log(value);
@@ -104,6 +137,10 @@ export class NgTableComponent<T> implements OnInit {
       this.susbcribeHttpData = this.httpClient
         .get(this.config.urlData, { params: params })
         .subscribe((data: any) => {
+          if (!data) {
+            this.dataSource.data = [];
+            return;
+          }
           if (this.config.dataOptions?.dataKey) {
             this.dataSource = data[this.config.dataOptions?.dataKey];
           } else if (this.config.pageable) {
@@ -143,6 +180,19 @@ export class NgTableComponent<T> implements OnInit {
     } else {
       return value;
     }
+  }
+
+  /**
+   * Metodo que agrega o elimina un elemento a la lista de elementos seleccionados.
+   * @param row 
+   */
+  checkRow(row: any) {
+    if (this.rowChecked.find((item) => item === row)) {
+      this.rowChecked = this.rowChecked.filter((item) => item !== row);
+    } else {
+      this.rowChecked.push(row);
+    }
+    this.changeCheckRow.emit(this.rowChecked);
   }
 
   // ========================= DEFAULT ACTIONS =========================

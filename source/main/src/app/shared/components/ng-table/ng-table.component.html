@@ -3,7 +3,7 @@
     <h2>{{ config.title }}</h2>
   </div>
 
-  <div style="padding-left: 15px;">
+  <div style="padding-left: 15px">
     <mat-form-field appearance="fill" *ngIf="config.showFilter">
       <mat-icon matPrefix>search</mat-icon>
       <input
@@ -50,7 +50,7 @@
               "
               *ngFor="let key of config?.keys; let ikey = index"
             >
-              <span [innerHTML]="toMapper(row, key, ikey) "></span>
+              <span [innerHTML]="toMapper(row, key, ikey)"></span>
             </td>
             <!--ACCIONES-->
             <td class="text-center">
@@ -67,6 +67,10 @@
                   [class]="'tbl-fav-edit'"
                 ></app-feather-icons>
               </button>
+              <mat-slide-toggle
+                *ngIf="config.checkbox"
+                (click)="checkRow(row)"
+              ></mat-slide-toggle>
               <!--DEFAULT ACTIONS-->
               <ng-container *ngIf="!config.hideDefaultActions">
                 <!--VIEW BUTTON-->
@@ -110,6 +114,15 @@
           </tr>
         </tbody>
       </table>
+
+      <mat-paginator
+        #paginator
+        *ngIf="!config.hidePaginator"
+        [pageSizeOptions]="pageSizeOptions"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
     </div>
   </div>
 </div>

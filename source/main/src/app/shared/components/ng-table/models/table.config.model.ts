@@ -57,11 +57,23 @@ export interface NgTableConfig<T> {
      * nombre del parametro que se enviara en la peticion con la key del elementos para hacer sort. por defecto es sort.
      */
     sortKey?: string;
+    /**
+     * cantidad de elementos por pagina. por defecto es 5.
+     */
+    pageSizeOptions: number[];
   };
   /**
    * indica si se debe mostrar el filtro de busqueda.
    */
   showFilter?: boolean;
+  /**
+   * indica si se debe ocultar el paginador.
+   */
+  hidePaginator?: boolean;
+  /**
+   * indica si se debe mostrar el boton de check para seleccionar los elementos.
+   */
+  checkbox?: boolean;
 }
 
 export type TypeColumnsTable =

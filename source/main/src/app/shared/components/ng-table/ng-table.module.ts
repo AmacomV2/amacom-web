@@ -8,12 +8,16 @@ import { PipesModule } from '@shared/pipes/pipes.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
     CommonModule,
     FeatherIconsModule,
     MatIconModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,

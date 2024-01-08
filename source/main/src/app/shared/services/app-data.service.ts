@@ -19,12 +19,12 @@ export class AppDataService {
     return this.http.get<GenderDTO[]>(environment.apiUrl + '/genders/getAll');
   }
 
-  getCivilState(){
-    return this.http.get<any[]>(environment.apiUrl + '/civilStatus/getAll')
+  getCivilState() {
+    return this.http.get<any[]>(environment.apiUrl + '/civilStatus/getAll');
   }
 
-  getRoles(){
-    return this.http.get<any[]>(environment.apiUrl + '/rol/getAll')
+  getRoles() {
+    return this.http.get<any[]>(environment.apiUrl + '/rol/getAll');
   }
 
 }

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NgTableModule } from './ng-table/ng-table.module';
 import { CrudContainerModule } from './crud-container/crud-container.module';
 import { NgSelectAutocompleteModule } from './mat-select-complete/ng-select-autocomplete.module';
+import { MatStepperMainModule } from './mat-stepper-main/mat-stepper-main.module';
 
 @NgModule({
   declarations: [FileUploadComponent],
@@ -16,6 +17,7 @@ import { NgSelectAutocompleteModule } from './mat-select-complete/ng-select-auto
     NgTableModule,
     CrudContainerModule,
     NgSelectAutocompleteModule,
+    MatStepperMainModule,
   ],
 })
 export class ComponentsModule {}

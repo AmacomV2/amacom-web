@@ -162,20 +162,14 @@ export class MatSelectCompleteComponent implements OnInit, OnDestroy {
   filteredOptions: Observable<any[]>;
 
   ngOnInit() {
-    // this.filteredOptions = this.controlText.valueChanges.pipe(
-    //   startWith(''),
-    //   map((value) => this._filter(value || ''))
-    // );
     this.filteredOptions = this.changeFilterOptionsSubject.asObservable();
     this.controlText.valueChanges.subscribe((value) => {
       this.loadOptions(value);
     });
     this.controlText.setValue(this.value);
     if (!this.control) {
+      console.log('no se asigno control');
       this.control = new FormControl('');
-    } else {
-      //ya tiene el valor asignado
-      console.log(this.control.value);
     }
   }
 
@@ -203,13 +197,11 @@ export class MatSelectCompleteComponent implements OnInit, OnDestroy {
   }
 
   private _filter(value: string): Observable<any[]> {
-    console.log('filtrando');
     const filterValue = value.toLowerCase();
 
     if (!(this.options instanceof Function)) {
       return of(
         this.options.filter((option) => {
-          console.log();
           return typeof option === 'string'
             ? option.toLowerCase().includes(filterValue)
             : option[this.key].toLowerCase().includes(filterValue);
