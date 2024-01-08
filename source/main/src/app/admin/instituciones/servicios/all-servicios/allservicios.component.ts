@@ -1,33 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { DataSource } from '@angular/cdk/collections';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Direction } from '@angular/cdk/bidi';
-import {
-  TableExportUtil,
-  TableElement,
-  UnsubscribeOnDestroyAdapter,
-} from '@shared';
-import { formatDate } from '@angular/common';
-import { Router } from '@angular/router';
-import { PasoParametrosService } from 'app/admin/paso-parametro.service';
+import { Component } from '@angular/core';
 import { ServicioDTO } from './servicio.model';
 import { FormDialogServicioComponent } from './dialog/form-dialog/form-dialog.component';
 import { DeleteServicioComponent } from './dialog/delete/delete.component';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { environment } from 'environments/environment';
-import { DeleteTipoInstitucionComponent } from '../../tipos-instituciones/all-tiposinstituciones/dialog/delete/delete.component';
 
 @Component({
   selector: 'app-allservicios',

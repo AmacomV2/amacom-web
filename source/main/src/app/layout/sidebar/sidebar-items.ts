@@ -453,7 +453,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: [Role.Admin],
     submenu: [
       {
         path: '/admin/room/all-rooms',

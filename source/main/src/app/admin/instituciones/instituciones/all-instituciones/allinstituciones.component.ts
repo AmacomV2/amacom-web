@@ -1,56 +1,94 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { DataSource } from '@angular/cdk/collections';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SelectionModel } from '@angular/cdk/collections';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Direction } from '@angular/cdk/bidi';
-import {
-  TableExportUtil,
-  TableElement,
-  UnsubscribeOnDestroyAdapter,
-} from '@shared';
-import { formatDate } from '@angular/common';
+import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { InstitucionList } from './institucion.model';
-import { FormDialogInstitucionComponent } from './dialog/form-dialog/form-dialog.component';
+import { InstitucionDTO } from '../models/institucion.model';
 import { DeleteInstitucionComponent } from './dialog/delete/delete.component';
+import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
+import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
+import { SignoAlarmaDTO } from 'app/admin/gestion-signos-alarma/all-signosalarma/models/signoalarma.model';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-allinstituciones',
   templateUrl: './allinstituciones.component.html',
   styleUrls: ['./allinstituciones.component.scss'],
 })
-export class AllInstitucionesComponent
-  extends UnsubscribeOnDestroyAdapter
-  implements OnInit
-{
-  public listaInstitucion: Array<any> = [];
-  public indicePrimerItem: number = 1;
-  public indiceUltimoItem: number = 10;
-  displayedColumns = [
-    'select',
-    'img',
-    'name',
-    'gender',
-    'address',
-    'mobile',
-    'date',
-    'bGroup',
-    'treatment',
-    'actions',
-  ];
-  index?: number;
-  id?: number;
+export class AllInstitucionesComponent extends UnsubscribeOnDestroyAdapter {
+  title = 'INSTITUCIONES';
+  subtitle = 'En esta pantalla podrás visualizar las instituciones existentes';
+
+  config: NgTableConfig<any> = {
+    title: 'Lista de instituciones',
+    keys: ['id', 'name', 'description', 'institutionTypeName', 'updatedAt'],
+    headerColumns: [
+      'No',
+      'Nombre',
+      'Descripción',
+      'Tipo',
+      'última actualización',
+    ],
+    urlData: environment.apiUrl + '/institution/consulta',
+    typeColumns: ['uuid', null, null, null, 'date'],
+    pageable: true,
+    showFilter: true,
+  };
+
+  modalForm: ModalConfig<SignoAlarmaDTO> = {
+    edit: {
+      urlView: '/admin/instituciones/instituciones/add-institucion',
+      actionType: 'edit',
+    },
+    create: {
+      urlView: '/admin/instituciones/instituciones/add-institucion',
+      actionType: 'add',
+    },
+    delete: {
+      modal: {
+        title: 'Eliminar institucion',
+        component: DeleteInstitucionComponent,
+      },
+      actionType: 'delete',
+      urlEndpoint: '/alarmSign',
+    },
+    view: {
+      modal: {
+        title: 'Ver signo de alarma',
+        width: '400px',
+        maxHeight: '500px',
+      },
+      actionType: 'view',
+      configView: [
+        {
+          label: 'Nombre',
+          key: 'name',
+        },
+        {
+          label: 'Descripción',
+          key: 'description',
+        },
+        {
+          label: 'Tipo',
+          key: 'institutionTypeName',
+        },
+        {
+          label: 'Fecha de creación',
+          key: 'createdAt',
+          type: 'date',
+        },
+        {
+          label: 'Fecha de actualización',
+          key: 'updatedAt',
+          type: 'date',
+        },
+      ],
+    },
+  };
+
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -60,33 +98,29 @@ export class AllInstitucionesComponent
   ) {
     super();
   }
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
-  @ViewChild('filter', { static: true }) filter?: ElementRef;
-  ngOnInit() {
-    this.llenarLista();
-  }
-  refresh() {
-    this.loadData();
-  }
+
   addNew() {
-    this.router.navigate(['/admin/instituciones/instituciones/add-institucion']);
+    this.router.navigate([
+      '/admin/instituciones/instituciones/add-institucion',
+    ]);
   }
-  search(row: InstitucionList) {
-    this.id = row.id;
+  search(row: InstitucionDTO) {
+    //this.id = row.id;
     this.pasoParametrosService.adicionarParametro('data', row);
-    this.router.navigate(['/admin/instituciones/instituciones/search-institucion']);
+    this.router.navigate([
+      '/admin/instituciones/instituciones/search-institucion',
+    ]);
   }
-  editCall(row: InstitucionList) {
-    this.id = row.id;
+  editCall(row: InstitucionDTO) {
+    //this.id = row.id;
     this.pasoParametrosService.adicionarParametro('data', row);
     this.pasoParametrosService.adicionarParametro('modoEditar', true);
-    this.router.navigate(['/admin/instituciones/instituciones/add-institucion']);
+    this.router.navigate([
+      '/admin/instituciones/instituciones/add-institucion',
+    ]);
   }
-  deleteItem(row: InstitucionList) {
-    this.id = row.id;
+  deleteItem(row: InstitucionDTO) {
+    //this.id = row.id;
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -117,60 +151,35 @@ export class AllInstitucionesComponent
     //   }
     // });
   }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
   public loadData() {
     // this.exampleDatabase = new PatientService(this.httpClient);
     // this.dataSource = new ExampleDataSource(
     //   this.exampleDatabase,
     //   this.paginator,
     //   this.sort
-  //   );
-  //   this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
-  //     () => {
-  //       if (!this.dataSource) {
-  //         return;
-  //       }
-  //       this.dataSource.filter = this.filter?.nativeElement.value;
-  //     }
-  //   );
-  // }
-  // // export table data in excel file
-  // exportExcel() {
-  //   // key name with space add in brackets
-  //   const exportData: Partial<TableElement>[] =
-  //     this.dataSource.filteredData.map((x) => ({
-  //       Name: x.name,
-  //       Gender: x.gender,
-  //       Address: x.address,
-  //       'Birth Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
-  //       'Blood Group': x.bGroup,
-  //       Mobile: x.mobile,
-  //       Treatment: x.treatment,
-  //     }));
-  //   TableExportUtil.exportToExcel(exportData, 'excel');
-  }
-
-  showNotification(
-    colorName: string,
-    text: string,
-    placementFrom: MatSnackBarVerticalPosition,
-    placementAlign: MatSnackBarHorizontalPosition
-  ) {
-    this.snackBar.open(text, '', {
-      duration: 2000,
-      verticalPosition: placementFrom,
-      horizontalPosition: placementAlign,
-      panelClass: colorName,
-    });
-  }
-
-  llenarLista(){
-    this.listaInstitucion = [
-     {id:1, nombre:"Institucion 1", tipo:"tipo 1", descripcion:"La Institucion 1", date:"11/09/2023"},
-     {id:2, nombre:"Institucion 2", tipo:"tipo 2", descripcion:"La Institucion 2", date:"05/09/2023"},
-     {id:3, nombre:"Institucion 3", tipo:"tipo 3", descripcion:"La Institucion 3", date:"11/09/2023"},
-    ];
+    //   );
+    //   this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
+    //     () => {
+    //       if (!this.dataSource) {
+    //         return;
+    //       }
+    //       this.dataSource.filter = this.filter?.nativeElement.value;
+    //     }
+    //   );
+    // }
+    // // export table data in excel file
+    // exportExcel() {
+    //   // key name with space add in brackets
+    //   const exportData: Partial<TableElement>[] =
+    //     this.dataSource.filteredData.map((x) => ({
+    //       Name: x.name,
+    //       Gender: x.gender,
+    //       Address: x.address,
+    //       'Birth Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
+    //       'Blood Group': x.bGroup,
+    //       Mobile: x.mobile,
+    //       Treatment: x.treatment,
+    //     }));
+    //   TableExportUtil.exportToExcel(exportData, 'excel');
   }
 }
