@@ -98,13 +98,13 @@ const routes: Routes = [
       //   loadChildren: () =>
       //     import('./icons/icons.module').then((m) => m.IconsModule),
       // },
-      // {
-      //   path: 'extra-pages',
-      //   loadChildren: () =>
-      //     import('./extra-pages/extra-pages.module').then(
-      //       (m) => m.ExtraPagesModule
-      //     ),
-      // },
+      {
+        path: 'extra-pages',
+        loadChildren: () =>
+          import('./extra-pages/extra-pages.module').then(
+            (m) => m.ExtraPagesModule
+          ),
+      },
       // {
       //   path: 'maps',
       //   loadChildren: () =>
