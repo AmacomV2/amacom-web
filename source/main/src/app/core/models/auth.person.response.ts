@@ -1,9 +1,9 @@
 export interface PersonDTO {
   id: string;
   name: string;
-  documentType: DocumentType;
+  documentType: DocumentTypeDTO;
   documentTypeId: string;
-  gender: Gender;
+  gender: GenderDTO;
   genderId: string;
   civilStatus?: any;
   civilStatusId?: any;
@@ -20,14 +20,14 @@ export interface PersonDTO {
   createdAt: string;
   updatedAt: string;
 }
-export interface Gender {
+export interface GenderDTO {
   id: string;
   createdAt: string;
   updatedAt: string;
   deletedAt?: any;
   name: string;
 }
-export interface DocumentType {
+export interface DocumentTypeDTO {
   id: string;
   createdAt: string;
   updatedAt: string;

@@ -9,7 +9,9 @@ import { DeleteDialogUsuarioComponent } from './allusuarios/dialog/delete/delete
 import { FormDialogUsuarioComponent } from './allusuarios/dialog/form-dialog/form-dialog.component';
 import { SearchDialogUsuarioComponent } from './allusuarios/dialog/search/search.component';
 import { AddUsuarioComponent } from './add-usuario/add-usuario.component';
-import { DialogformComponent } from './add-usuario/dialogform/dialogform.component';
+import { DialogformComponent } from './add-usuario/change-password/dialogform.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { UserCrudService } from './services/user-crud.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,6 @@ import { DialogformComponent } from './add-usuario/dialogform/dialogform.compone
     SearchDialogUsuarioComponent,
     AddUsuarioComponent,
     DialogformComponent,
-
   ],
   imports: [
     CommonModule,
@@ -29,6 +30,6 @@ import { DialogformComponent } from './add-usuario/dialogform/dialogform.compone
     ComponentsModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [UserCrudService],
 })
 export class UsuarioModule {}

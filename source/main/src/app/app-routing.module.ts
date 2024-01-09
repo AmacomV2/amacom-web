@@ -39,11 +39,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./patient/patient.module').then((m) => m.PatientModule),
       },
-      // {
-      //   path: 'calendar',
-      //   loadChildren: () =>
-      //     import('./calendar/calendar.module').then((m) => m.CalendarsModule),
-      // },
+      {
+        path: 'calendar',
+        loadChildren: () =>
+          import('./calendar/calendar.module').then((m) => m.CalendarsModule),
+      },
       // {
       //   path: 'task',
       //   loadChildren: () =>
@@ -98,13 +98,13 @@ const routes: Routes = [
       //   loadChildren: () =>
       //     import('./icons/icons.module').then((m) => m.IconsModule),
       // },
-      // {
-      //   path: 'extra-pages',
-      //   loadChildren: () =>
-      //     import('./extra-pages/extra-pages.module').then(
-      //       (m) => m.ExtraPagesModule
-      //     ),
-      // },
+      {
+        path: 'extra-pages',
+        loadChildren: () =>
+          import('./extra-pages/extra-pages.module').then(
+            (m) => m.ExtraPagesModule
+          ),
+      },
       // {
       //   path: 'maps',
       //   loadChildren: () =>

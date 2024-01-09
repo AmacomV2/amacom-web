@@ -9,6 +9,7 @@ import { ModalDialogModule } from './dialog/modal-dialog.module';
 import { LoaderModule } from './loader/loader.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './loader/interceptor/loading.interceptor';
+import { CONFIG_SNACKBAR } from './utils/snackbar.config';
 
 @NgModule({
   declarations: [],
@@ -24,6 +25,7 @@ import { LoadingInterceptor } from './loader/interceptor/loading.interceptor';
       useClass: LoadingInterceptor,
       multi: true,
     },
+    CONFIG_SNACKBAR,
   ],
 })
 export class CoreModule {

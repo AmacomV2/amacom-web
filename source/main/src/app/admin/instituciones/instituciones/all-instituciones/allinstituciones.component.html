@@ -1,7 +1,6 @@
-<section class="content">
+<!-- <section class="content">
   <div class="content-block">
     <div class="block-header">
-      <!-- breadcrumb -->
       <app-breadcrumb [title]="'Lista de instituciones'" [items]="['Instituciones']"
         [active_item]="'Lista de instituciones'"></app-breadcrumb>
     </div>
@@ -111,4 +110,17 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
+
+<app-crud-container
+  [title]="title"
+  [subtitle]="subtitle"
+  [showCreateButton]="true"
+  [configTable]="config"
+  [modalForm]="modalForm"
+  [dialogIcon]="{
+    type: 'img',
+    resource: 'assets/images/alarma.png',
+  }"
+>
+</app-crud-container>

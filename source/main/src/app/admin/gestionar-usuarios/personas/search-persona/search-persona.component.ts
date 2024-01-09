@@ -42,7 +42,7 @@ export class SearchPersonaComponent {
     console.log('Form Value', this.patientForm.value);
   }
   createContactForm(): UntypedFormGroup {
-    this.data = this.pasoParametrosService.obtenerParametro("data");
+    this.data = this.pasoParametrosService.obtenerParametro("data") || {};
     return this.fb.group({
       id: [this.data.id, [Validators.required]],
       nombre: [this.data.nombre, [Validators.required]],

@@ -11,7 +11,10 @@ export class MappingPipe implements PipeTransform {
     if (type === 'uuid') {
       return value.slice(0, 8);
     }
-    return null;
+    if (type === 'badge') {
+      return `<span class="badge ${(value === true ? 'col-green':'col-orange')}">Activo</span>`;
+    }
+    return value;
   }
 }
 

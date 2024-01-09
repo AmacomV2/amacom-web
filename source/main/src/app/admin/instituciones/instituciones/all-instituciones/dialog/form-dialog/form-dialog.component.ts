@@ -6,12 +6,12 @@ import {
   UntypedFormGroup,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { InstitucionList } from '../../institucion.model';
+import { InstitucionDTO } from '../../../models/institucion.model';
 
 export interface DialogData {
   id: number;
   action: string;
-  institucionList: InstitucionList;
+  institucionList: InstitucionDTO;
 }
 
 @Component({
@@ -23,7 +23,7 @@ export class FormDialogInstitucionComponent {
   action: string;
   dialogTitle: string;
   usuarioForm: UntypedFormGroup;
-  institucionList: InstitucionList;
+  institucionList: InstitucionDTO;
   constructor(
     public dialogRef: MatDialogRef<FormDialogInstitucionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -36,8 +36,8 @@ export class FormDialogInstitucionComponent {
     this.institucionList = data.institucionList;
      } else {
      this.dialogTitle = 'Adicionar servicio';
-      const blankObject = {} as InstitucionList;
-      this.institucionList = new InstitucionList(blankObject);
+      const blankObject = {} as InstitucionDTO;
+      this.institucionList = new InstitucionDTO(blankObject);
     }
     this.usuarioForm = this.createContactForm();
   }

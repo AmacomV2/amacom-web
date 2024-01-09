@@ -5,17 +5,18 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class DataInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private snackbar: MatSnackBar) {}
 
   intercept(request: any, next: any): Observable<HttpEvent<Response>> {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          return event.clone({ body: event.body.data });
+          return event.clone({ body: event.body?.data });
         }
         return event;
       })
