@@ -34,7 +34,7 @@ export class AllTiposDocumentosComponent extends UnsubscribeOnDestroyAdapter {
   modalForm: ModalConfig<TipoDocumentoDTO> = {
     edit: {
       modal: {
-        title: 'Editar genero',
+        title: 'Editar tipo de documento',
         component: FormDialogTipoDocumentoComponent,
       },
       actionType: 'edit',
@@ -42,7 +42,7 @@ export class AllTiposDocumentosComponent extends UnsubscribeOnDestroyAdapter {
     },
     create: {
       modal: {
-        title: 'Crear genero',
+        title: 'Crear tipo de documento',
         component: FormDialogTipoDocumentoComponent,
       },
       actionType: 'add',
@@ -50,7 +50,7 @@ export class AllTiposDocumentosComponent extends UnsubscribeOnDestroyAdapter {
     },
     delete: {
       modal: {
-        title: 'Eliminar genero',
+        title: 'Eliminar tipo de documento',
         component: DeleteTipoDocumentoComponent,
       },
       actionType: 'delete',
@@ -95,126 +95,4 @@ export class AllTiposDocumentosComponent extends UnsubscribeOnDestroyAdapter {
   ) {
     super();
   }
-
-  // refresh() {
-  //   this.loadData();
-  // }
-  // addNew() {
-  //   let tempDirection: Direction;
-  //   if (localStorage.getItem('isRtl') === 'true') {
-  //     tempDirection = 'rtl';
-  //   } else {
-  //     tempDirection = 'ltr';
-  //   }
-  //   const dialogRef = this.dialog.open(FormDialogTipoDocumentoComponent, {
-  //     data: {
-  //       action: 'add',
-  //     },
-  //   });
-  // }
-  // search(row: TipoDocumentoList) {
-  //   this.id = row.id;
-  //   this.pasoParametrosService.adicionarParametro('data', row);
-  //   this.router.navigate(['/admin/gestionar-usuarios/personas/search-persona']);
-  // }
-  editCall(row: TipoDocumentoDTO) {
-    // this.id = row.id;
-    // let tempDirection: Direction;
-    // if (localStorage.getItem('isRtl') === 'true') {
-    //   tempDirection = 'rtl';
-    // } else {
-    //   tempDirection = 'ltr';
-    // }
-    // const dialogRef = this.dialog.open(FormDialogTipoDocumentoComponent, {
-    //   data: {
-    //     genero: row,
-    //     action: 'edit',
-    //   },
-    // });
-  }
-  deleteItem(row: TipoDocumentoDTO) {
-    // this.id = row.id;
-    // let tempDirection: Direction;
-    // if (localStorage.getItem('isRtl') === 'true') {
-    //   tempDirection = 'rtl';
-    // } else {
-    //   tempDirection = 'ltr';
-    // }
-    // const dialogRef = this.dialog.open(DeleteTipoDocumentoComponent, {
-    //   data: row,
-    //   direction: tempDirection,
-    // });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-    //   if (result === 1) {
-    //     const foundIndex = this.exampleDatabase?.dataChange.value.findIndex(
-    //       (x) => x.id === this.id
-    //     );
-    //     // for delete we use splice in order to remove single object from DataService
-    //     if (foundIndex != null && this.exampleDatabase) {
-    //       this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-    //       this.refreshTable();
-    //       this.showNotification(
-    //         'snackbar-danger',
-    //         'Delete Record Successfully...!!!',
-    //         'bottom',
-    //         'center'
-    //       );
-    //     }
-    //   }
-    // });
-  }
-  public loadData() {
-    // this.exampleDatabase = new PatientService(this.httpClient);
-    // this.dataSource = new ExampleDataSource(
-    //   this.exampleDatabase,
-    //   this.paginator,
-    //   this.sort
-    //   );
-    //   this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
-    //     () => {
-    //       if (!this.dataSource) {
-    //         return;
-    //       }
-    //       this.dataSource.filter = this.filter?.nativeElement.value;
-    //     }
-    //   );
-    // }
-    // // export table data in excel file
-    // exportExcel() {
-    //   // key name with space add in brackets
-    //   const exportData: Partial<TableElement>[] =
-    //     this.dataSource.filteredData.map((x) => ({
-    //       Name: x.name,
-    //       Gender: x.gender,
-    //       Address: x.address,
-    //       'Birth Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
-    //       'Blood Group': x.bGroup,
-    //       Mobile: x.mobile,
-    //       Treatment: x.treatment,
-    //     }));
-    //   TableExportUtil.exportToExcel(exportData, 'excel');
-  }
-
-  // showNotification(
-  //   colorName: string,
-  //   text: string,
-  //   placementFrom: MatSnackBarVerticalPosition,
-  //   placementAlign: MatSnackBarHorizontalPosition
-  // ) {
-  //   this.snackBar.open(text, '', {
-  //     duration: 2000,
-  //     verticalPosition: placementFrom,
-  //     horizontalPosition: placementAlign,
-  //     panelClass: colorName,
-  //   });
-  // }
-
-  // llenarLista(){
-  //   this.listaTiposDocumento = [
-  //    {id:1, tipo:"Cédula de ciudadanía", codigo:"CC", date:"11/09/2023"},
-  //    {id:2, tipo:"Cédula de extranjeto", codigo:"CE", date:"11/09/2023"},
-  //    {id:3, tipo:"Tarjeta de identidad", codigo:"TI", date:"11/09/2023"},
-  //    {id:4, tipo:"Número de identificación tributaria", codigo:"NIT", date:"11/09/2023"},
-  //   ];
-  // }
 }

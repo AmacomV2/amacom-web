@@ -1,17 +1,13 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component } from '@angular/core';
 import {
   UnsubscribeOnDestroyAdapter
 } from '@shared';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
+import { FilterTableCRUD } from '@shared/components/crud-container/models/filter.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { environment } from 'environments/environment';
-import { DeleteTipoDocumentoComponent } from '../../tipos-documentos/alltiposdocumentos/dialog/delete/delete.component';
-import { FormDialogTipoDocumentoComponent } from '../../tipos-documentos/alltiposdocumentos/dialog/form-dialog/form-dialog.component';
 import { TipoDocumentoDTO } from '../../tipos-documentos/models/tipoDocumento.model';
 import { DeletePersonaComponent } from './dialog/delete/delete.component';
-import { FilterTableCRUD } from '@shared/components/crud-container/models/filter.crud';
 
 @Component({
   selector: 'app-allpersonas',
@@ -30,6 +26,7 @@ export class AllPersonasComponent extends UnsubscribeOnDestroyAdapter {
     //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
     typeColumns: ['uuid', null, null, null, 'date'],
     pageable: true,
+    showFilter: true,
   };
 
   modalForm: ModalConfig<TipoDocumentoDTO> = {
@@ -43,61 +40,29 @@ export class AllPersonasComponent extends UnsubscribeOnDestroyAdapter {
     },
     delete: {
       modal: {
-        title: 'Eliminar persona',
+        title: '¿Está seguro de eliminar la persona?',
         component: DeletePersonaComponent,
       },
       actionType: 'delete',
       urlEndpoint: '/person',
     },
     view: {
-      modal: {
-        title: 'Ver Persona',
-        width: '400px',
-        maxHeight: '500px',
-      },
+      urlView: '/admin/gestionar-usuarios/personas/search-persona',
       actionType: 'view',
-      configView: [
-        {
-          label: 'Nombre Completo',
-          key: 'fullName',
-        },
-        {
-          label: 'Genero',
-          key: 'gender.name',
-        },
-        {
-          label: 'Tipo de documento',
-          key: 'documentType.name',
-        },
-        {
-          label: 'Número de documento',
-          key: 'documentNo',
-        },
-        {
-          label: 'Fecha de creación',
-          key: 'createdAt',
-          type: 'date',
-        },
-        {
-          label: 'Fecha de actualización',
-          key: 'updatedAt',
-          type: 'date',
-        },
-      ],
     },
   };
 
   filterTable: FilterTableCRUD[] = [
-    {
-      label: 'Nombre',
-      placeholder: 'Ingrese el nombre',
-      key: 'name',
-    },
-    {
-      label: 'Apellido',
-      placeholder: 'Ingrese el apellido',
-      key: 'lastName',
-    }
+    // {
+    //   label: 'Nombre',
+    //   placeholder: 'Ingrese el nombre',
+    //   key: 'name',
+    // },
+    // {
+    //   label: 'Apellido',
+    //   placeholder: 'Ingrese el apellido',
+    //   key: 'lastName',
+    // }
   ]
 
   constructor() {

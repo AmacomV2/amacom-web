@@ -26,6 +26,7 @@ import { AllPersonasComponent } from './allpersonas/allpersonas.component';
     ComponentsModule,
     SharedModule,
     MaterialModule,
+    //RoomModule,
   ],
   providers: [],
 })

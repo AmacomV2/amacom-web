@@ -1,28 +1,15 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
-
-export interface DialogData {
-  id: number;
-  nombre: string;
-  apellido: string;
-  tipoDocumento: string;
-  numeroDocumento: number;
-}
+import { Component, Inject, OnInit } from '@angular/core';
+import { PersonDTO } from '@core/models/auth.person.response';
 
 @Component({
-  selector: 'app-delete:not(i)',
+  selector: 'app-delete-persona',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })
 export class DeletePersonaComponent {
   constructor(
     public dialogRef: MatDialogRef<DeletePersonaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: { row: PersonDTO }
   ) {}
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  confirmDelete(): void {
-    // this.patientService.deletePatient(this.data.id);
-  }
 }

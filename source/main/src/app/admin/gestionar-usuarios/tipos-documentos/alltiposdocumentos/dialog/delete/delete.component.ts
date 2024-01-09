@@ -1,12 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-
-export interface DialogData {
-  id: number;
-  tipo: string;
-  codigo: string;
-  date: string;
-}
+import { TipoDocumentoDTO } from '../../../models/tipoDocumento.model';
 
 @Component({
   selector: 'app-delete:not(i)',
@@ -16,12 +10,6 @@ export interface DialogData {
 export class DeleteTipoDocumentoComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteTipoDocumentoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: { row: TipoDocumentoDTO }
   ) {}
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  confirmDelete(): void {
-    // this.patientService.deletePatient(this.data.id);
-  }
 }

@@ -1,6 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
+import { TemaDTO } from '../../models/tema.model';
 
 export interface DialogData {
   id: number;
@@ -20,25 +21,8 @@ export interface DialogData {
   styleUrls: ['./delete.component.scss'],
 })
 export class DeleteTemaComponent {
-  action: boolean = false;
-  dialogTitle: string;
   constructor(
     public dialogRef: MatDialogRef<DeleteTemaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private pasoParametrosService: PasoParametrosService
-  ) {
-    this.action = this.pasoParametrosService.obtenerParametro("action");
-    
-    if (this.action == true) {
-    this.dialogTitle = "Consultar tema";
-     } else {
-     this.dialogTitle = '¿Está seguro de eliminar el tema?';
-    }
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  confirmDelete(): void {
-    // this.patientService.deletePatient(this.data.id);
-  }
+    @Inject(MAT_DIALOG_DATA) public data: { row: TemaDTO }
+  ) {}
 }

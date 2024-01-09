@@ -51,7 +51,6 @@ export class AddPersonaComponent {
 
   createContactForm(): UntypedFormGroup {
     this.data = this.pasoParametrosService.obtenerParametro('data');
-    console.log('DATAA', this.data);
     this.modoEditar = this.pasoParametrosService.obtenerParametro('modoEditar');
     if (this.modoEditar == true) {
       this.titulo = 'Editar persona';

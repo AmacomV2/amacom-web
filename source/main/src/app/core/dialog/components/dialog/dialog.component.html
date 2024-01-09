@@ -47,7 +47,7 @@
       [mat-dialog-close]="1"
       (click)="aceptar()"
     >
-      {{ data.actions?.primary ? data.actions.primary.nombre : "Aceptar" }}
+      {{ data.actions?.primary ? data.actions.primary : "Aceptar" }}
     </button>
     <button
       *ngIf="!data.hideDefaultActions"
@@ -55,7 +55,7 @@
       (click)="cancelar()"
       color="warn"
     >
-      {{ data.actions?.secondary ? data.actions.secondary.nombre : "Cancelar" }}
+      {{ data.actions?.secondary ? data.actions.secondary : "Cancelar" }}
     </button>
 
     <!--OTHER BUTTONS-->

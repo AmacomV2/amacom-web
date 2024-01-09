@@ -59,11 +59,11 @@ export interface Marco {
     /**
      * Nombre que tendrá la acción primaria
      */
-    primary?: string | any;
+    primary?: string;
     /**
      * Nombre que tendrá la acción secundaria
      */
-    secondary?: string | any;
+    secondary?: string;
     /**
      * Otros botones que se mostrarán en el dialog
      */
