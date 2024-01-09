@@ -775,7 +775,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: [Role.Doctor],
+    role: [Role.Doctor, Role.Admin],
     submenu: [],
   },
   // {

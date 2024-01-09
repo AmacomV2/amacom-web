@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { TemaList } from '../all-temas/tema.model';
+import { TemaDTO } from '../all-temas/models/tema.model';
 @Component({
   selector: 'app-search-tema',
   templateUrl: './search-tema.component.html',
@@ -92,7 +92,7 @@ implements OnInit{
       });
   } 
 
-  editCall(row: TemaList){
+  editCall(row: TemaDTO){
     this.pasoParametrosService.adicionarParametro('data', row);
     this.pasoParametrosService.adicionarParametro('modoEditar', true);
     this.router.navigate(['/admin/gestion-temas/add-temas']);

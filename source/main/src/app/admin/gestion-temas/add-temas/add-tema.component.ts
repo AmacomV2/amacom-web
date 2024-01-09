@@ -7,14 +7,18 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
+import { TemaDTO } from '../all-temas/models/tema.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { map } from 'rxjs';
+
 @Component({
   selector: 'app-add-tema',
   templateUrl: './add-tema.component.html',
   styleUrls: ['./add-tema.component.scss'],
 })
-export class AddTemaComponent 
-implements OnInit{
-  public data: any;
+export class AddTemaComponent implements OnInit {
+  public data: TemaDTO;
   public modoEditar: boolean = false;
   public titulo: any;
   public subtitulo: any;
@@ -44,29 +48,32 @@ implements OnInit{
   prevStep() {
     this.step--;
   }
-  constructor(private fb: UntypedFormBuilder,
+
+  valueParent: TemaDTO;
+
+  constructor(
+    private fb: UntypedFormBuilder,
     private router: Router,
-    private pasoParametrosService: PasoParametrosService) {
+    private pasoParametrosService: PasoParametrosService,
+    private http: HttpClient
+  ) {
     this.roomForm = this.createContactForm();
   }
   ngOnInit() {
-     this.llenarLista();
-   }
-  onSubmit() {
-    console.log('Form Value', this.roomForm.value);
+    this.getTemaParent();
   }
 
-  llenarLista(){
-    this.listaSigAlarMadre = [
-     {id:1, descripcion:"Primer signo de alarma"},
-     {id:2, descripcion:"Segundo signo de alarma"},
-     {id:3, descripcion:"Tercer signo de alarma"},
-     {id:4, descripcion:"Cuarto signo de alarma"},
-     {id:5, descripcion:"Quinto signo de alarma"},
-     {id:6, descripcion:"Sexto signo de alarma"},
-     {id:7, descripcion:"Septimo signo de alarma"},
-     {id:8, descripcion:"Octavo signo de alarma"},
-    ];
+  onSubmit() {
+    const observable = this.modoEditar
+      ? this.http.put(environment.apiUrl + '/subject', this.roomForm.value)
+      : this.http.post(
+          environment.apiUrl + '/subject/create',
+          this.roomForm.value
+        );
+
+    observable.subscribe((res) => {
+      this.cancel();
+    });
   }
 
   cancel() {
@@ -74,30 +81,42 @@ implements OnInit{
   }
 
   createContactForm(): UntypedFormGroup {
-    this.data = this.pasoParametrosService.obtenerParametro("data");
-    console.log("DATAA", this.data);
-    this.modoEditar = this.pasoParametrosService.obtenerParametro("modoEditar");
-    if(this.modoEditar==true){
-      this.titulo = "Editar tema";
-      this.subtitulo = "En esta pantalla podrás editar el tema";
-      return this.fb.group({
-        id: [this.data.id, [Validators.required]],
-        nombre: [this.data.nombre, [Validators.required]],
-        validez: [this.data.validez, [Validators.required]],
-        temaPadre: [this.data.temaPadre, [Validators.required]],
-        date: [this.data.date, [Validators.required]],
-      });
+    this.data = this.pasoParametrosService.obtenerParametro('data');
+    this.modoEditar = this.pasoParametrosService.obtenerParametro('modoEditar');
+    if (this.modoEditar == true) {
+      this.titulo = 'Editar tema';
+      this.subtitulo = 'En esta pantalla podrás editar el tema';
     } else {
-      this.titulo = "Adicionar tema";
-      this.subtitulo = "En esta pantalla podrás adicionar un tema";
-      return this.fb.group({
-        id: ['', [Validators.required]],
-        nombre: ['', [Validators.required]],
-        validez: ['', [Validators.required]],
-        temaPadre: ['', [Validators.required]],
-        date: ['', [Validators.required]],
-      });
+      this.titulo = 'Adicionar tema';
+      this.subtitulo = 'En esta pantalla podrás adicionar un tema';
     }
-  } 
-  
+    return this.fb.group({
+      id: [this.data?.id],
+      name: [this.data?.name, [Validators.required]],
+      validityIndicator: [this.data?.validityIndicator, [Validators.required]],
+      parentId: [this.data?.parentId],
+      createdAt: [this.data?.createdAt],
+    });
+  }
+
+  getTemaParent() {
+    if (this.modoEditar && this.data?.parentId) {
+      this.http
+        .get(environment.apiUrl + '/subject/' + this.data?.parentId)
+        .subscribe((res: any) => {
+          this.valueParent = res;
+        });
+    }
+  }
+
+  listTema(filtro) {
+    const params = {
+      size: 10,
+      page: 0,
+      query: filtro,
+    };
+    return this.http
+      .get(environment.apiUrl + '/subject/search', { params: params })
+      .pipe(map((res: any) => res?.content ?? []));
+  }
 }

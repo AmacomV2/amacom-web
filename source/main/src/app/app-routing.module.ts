@@ -39,11 +39,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./patient/patient.module').then((m) => m.PatientModule),
       },
-      // {
-      //   path: 'calendar',
-      //   loadChildren: () =>
-      //     import('./calendar/calendar.module').then((m) => m.CalendarsModule),
-      // },
+      {
+        path: 'calendar',
+        loadChildren: () =>
+          import('./calendar/calendar.module').then((m) => m.CalendarsModule),
+      },
       // {
       //   path: 'task',
       //   loadChildren: () =>

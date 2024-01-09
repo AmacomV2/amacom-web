@@ -5,8 +5,6 @@ export class SignoAlarmaDTO extends GenericDTO{
   type: string;
   status: string;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
   // constructor(signoAlarmaList: SignoAlarmaList) {
   //   {
   //     this.id = signoAlarmaList.id || this.getRandomID();

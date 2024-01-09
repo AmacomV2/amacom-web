@@ -6,7 +6,5 @@ export class UsuarioDTO extends GenericDTO {
   username: string;
   email: string;
   password: string;
-  createdAt: string;
-  updatedAt: string;
   enumRol: string;
 }

@@ -6,12 +6,12 @@ import {
   UntypedFormGroup,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { TemaList } from '../../tema.model';
+import { TemaDTO } from '../../models/tema.model';
 
 export interface DialogData {
   id: number;
   action: string;
-  signoAlarmaList: TemaList;
+  signoAlarmaList: TemaDTO;
 }
 
 @Component({
@@ -23,7 +23,7 @@ export class FormDialogTemaComponent {
   action: string;
   dialogTitle: string;
   usuarioForm: UntypedFormGroup;
-  temaList: TemaList;
+  temaList: TemaDTO;
   constructor(
     public dialogRef: MatDialogRef<FormDialogTemaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -36,8 +36,8 @@ export class FormDialogTemaComponent {
     this.temaList = data.signoAlarmaList;
      } else {
      this.dialogTitle = 'Adicionar signo de alarma';
-      const blankObject = {} as TemaList;
-      this.temaList = new TemaList(blankObject);
+      const blankObject = {} as TemaDTO;
+      this.temaList = new TemaDTO(blankObject);
     }
     this.usuarioForm = this.createContactForm();
   }
@@ -55,10 +55,10 @@ export class FormDialogTemaComponent {
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.temaList.id],
-      nombre: [this.temaList.nombre],
-      tipo: [this.temaList.validez],
-      descripcion: [this.temaList.temaPadre],
-      date: [this.temaList.date],
+      nombre: [this.temaList.name],
+      tipo: [this.temaList.validityIndicator],
+      descripcion: [this.temaList.parentId],
+      date: [this.temaList.createdAt],
     });
   }
   submit() {
