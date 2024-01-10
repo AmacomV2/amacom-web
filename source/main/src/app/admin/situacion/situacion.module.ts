@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RoomRoutingModule } from './room-routing.module';
-import { AllroomComponent } from './allroom/allroom.component';
-import { DeleteDialogComponent } from './allroom/dialog/delete/delete.component';
-import { FormDialogComponent } from './allroom/dialog/form-dialog/form-dialog.component';
-import { EditAllotmentComponent } from './edit-allotment/edit-allotment.component';
-import { AddAllotmentComponent } from './add-allotment/add-allotment.component';
-import { RoomService } from './allroom/room.service';
+import { SituacionRoutingModule } from './situacion-routing.module';
+import { AllSituacionesComponent } from './all-situaciones/all-situaciones.component';
+import { DeleteDialogComponent } from './all-situaciones/dialog/delete/delete.component';
+import { FormDialogComponent } from './all-situaciones/dialog/form-dialog/form-dialog.component';
+import { ViewSituacionComponent } from './view-situacion/view-situacion.component';
+import { AddSituacionComponent } from './add-situacion/add-situacion.component';
+import { RoomService } from './services/room.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
-import { PasoParametrosService } from '../paso-parametro.service';
 import { DeleteDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/delete/delete.component';
 import { AllDiagnosticosComponent } from './diagnostico/all-diagnosticos/alldiagnosticos.component';
 import { FormDialogDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/form-dialog/form-dialog.component';
@@ -19,11 +18,11 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
 
 @NgModule({
   declarations: [
-    AllroomComponent,
+    AllSituacionesComponent,
     DeleteDialogComponent,
     FormDialogComponent,
-    EditAllotmentComponent,
-    AddAllotmentComponent,
+    ViewSituacionComponent,
+    AddSituacionComponent,
     DeleteDiagnosticoComponent,
     FormDialogDiagnosticoComponent,
     AllDiagnosticosComponent,
@@ -34,10 +33,22 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RoomRoutingModule,
+    SituacionRoutingModule,
     ComponentsModule,
     SharedModule,
   ],
+  exports: [
+    AllSituacionesComponent,
+    DeleteDialogComponent,
+    FormDialogComponent,
+    ViewSituacionComponent,
+    AddSituacionComponent,
+    DeleteDiagnosticoComponent,
+    FormDialogDiagnosticoComponent,
+    AllDiagnosticosComponent,
+    AddDiagnosticoComponent,
+    SearchDiagnosticoComponent,
+  ],
   providers: [RoomService],
 })
-export class RoomModule {}
+export class SituacionModule {}

@@ -1,24 +1,24 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AllroomComponent } from "./allroom/allroom.component";
-import { AddAllotmentComponent } from "./add-allotment/add-allotment.component";
-import { EditAllotmentComponent } from "./edit-allotment/edit-allotment.component";
-import { Page404Component } from "./../../authentication/page404/page404.component";
+import { AllSituacionesComponent } from "./all-situaciones/all-situaciones.component";
+import { AddSituacionComponent } from "./add-situacion/add-situacion.component";
+import { ViewSituacionComponent } from "./view-situacion/view-situacion.component";
+import { Page404Component } from "../../authentication/page404/page404.component";
 import { AllDiagnosticosComponent } from "./diagnostico/all-diagnosticos/alldiagnosticos.component";
 import { AddDiagnosticoComponent } from "./diagnostico/add-diagnostico/add-diagnostico.component";
 import { SearchDiagnosticoComponent } from "./diagnostico/search-diagnostico/search-diagnostico.component";
 const routes: Routes = [
   {
     path: "all-rooms",
-    component: AllroomComponent,
+    component: AllSituacionesComponent,
   },
   {
     path: "add-allotment",
-    component: AddAllotmentComponent,
+    component: AddSituacionComponent,
   },
   {
     path: "edit-allotment",
-    component: EditAllotmentComponent,
+    component: ViewSituacionComponent,
   },
   {
     path: "all-diagnosticos",
@@ -38,4 +38,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RoomRoutingModule {}
+export class SituacionRoutingModule {}

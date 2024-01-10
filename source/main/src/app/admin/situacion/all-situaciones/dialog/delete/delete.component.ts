@@ -1,6 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { RoomService } from '../../room.service';
+import { RoomService } from '../../../services/room.service';
 
 export interface DialogData {
   id: number;

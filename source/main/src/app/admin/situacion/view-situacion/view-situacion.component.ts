@@ -8,11 +8,11 @@ import {
 import { PasoParametrosService } from '../../paso-parametro.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-edit-allotment',
-  templateUrl: './edit-allotment.component.html',
-  styleUrls: ['./edit-allotment.component.scss'],
+  selector: 'app-view-situacion',
+  templateUrl: './view-situacion.component.html',
+  styleUrls: ['./view-situacion.component.scss'],
 })
-export class EditAllotmentComponent 
+export class ViewSituacionComponent 
 implements OnInit{
   panelOpenState = false;
   step = 0;

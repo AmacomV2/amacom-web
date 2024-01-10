@@ -25,7 +25,7 @@ import {
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { Room } from 'app/admin/room/allroom/room.model';
+import { Room } from 'app/admin/situacion/models/room.model';
 import { UsuarioList } from './usuario.model';
 import { SearchDialogComponent } from './dialog/search/search.component';
 @Component({

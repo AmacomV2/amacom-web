@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: 'room',
-    loadChildren: () => import('./room/room.module').then((m) => m.RoomModule),
+    loadChildren: () => import('./situacion/situacion.module').then((m) => m.SituacionModule),
   },
   {
     path: 'departments',

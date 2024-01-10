@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RoomService } from './room.service';
+import { RoomService } from '../services/room.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Room } from './room.model';
+import { Room } from '../models/room.model';
 import { DataSource } from '@angular/cdk/collections';
 import {
   MatSnackBar,
@@ -23,16 +23,16 @@ import {
   UnsubscribeOnDestroyAdapter,
 } from '@shared';
 import { formatDate } from '@angular/common';
-import { SituacionList } from './situacion.model';
+import { SituacionList } from '../models/situacion.model';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from '../../paso-parametro.service';
 
 @Component({
-  selector: 'app-allroom',
-  templateUrl: './allroom.component.html',
-  styleUrls: ['./allroom.component.scss'],
+  selector: 'app-situaciones',
+  templateUrl: './all-situaciones.component.html',
+  styleUrls: ['./all-situaciones.component.scss'],
 })
-export class AllroomComponent
+export class AllSituacionesComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {

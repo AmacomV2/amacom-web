@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
-import { AddAllotmentComponent } from "./add-allotment.component";
-describe("AddAllotmentComponent", () => {
-  let component: AddAllotmentComponent;
-  let fixture: ComponentFixture<AddAllotmentComponent>;
+import { AllSituacionesComponent } from "./all-situaciones.component";
+describe("AllSituacionesComponent", () => {
+  let component: AllSituacionesComponent;
+  let fixture: ComponentFixture<AllSituacionesComponent>;
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [AddAllotmentComponent],
+        declarations: [AllSituacionesComponent],
       }).compileComponents();
     })
   );
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddAllotmentComponent);
+    fixture = TestBed.createComponent(AllSituacionesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

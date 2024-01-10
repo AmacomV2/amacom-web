@@ -9,6 +9,7 @@ import { FormDialogComponent } from './allpersonas/dialog/form-dialog/form-dialo
 import { AddPersonaComponent } from './add-persona/add-persona.component';
 import { SearchPersonaComponent } from './search-persona/search-persona.component';
 import { AllPersonasComponent } from './allpersonas/allpersonas.component';
+import { SituacionModule } from 'app/admin/situacion/situacion.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { AllPersonasComponent } from './allpersonas/allpersonas.component';
     ComponentsModule,
     SharedModule,
     MaterialModule,
-    //RoomModule,
+    SituacionModule,
   ],
   providers: [],
 })

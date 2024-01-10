@@ -1,13 +1,13 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { RoomService } from '../../room.service';
+import { RoomService } from '../../../services/room.service';
 import {
   UntypedFormControl,
   Validators,
   UntypedFormGroup,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { Room } from '../../room.model';
+import { Room } from '../../../models/room.model';
 
 export interface DialogData {
   id: number;

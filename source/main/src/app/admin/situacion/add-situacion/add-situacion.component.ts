@@ -6,13 +6,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PasoParametrosService } from 'app/admin/paso-parametro.service';
+import { PasoParametrosService } from '../../paso-parametro.service';
 @Component({
-  selector: 'app-add-allotment',
-  templateUrl: './add-allotment.component.html',
-  styleUrls: ['./add-allotment.component.scss'],
+  selector: 'app-add-situacion',
+  templateUrl: './add-situacion.component.html',
+  styleUrls: ['./add-situacion.component.scss'],
 })
-export class AddAllotmentComponent 
+export class AddSituacionComponent 
 implements OnInit{
   public data: any;
   public modoEditar: boolean = false;

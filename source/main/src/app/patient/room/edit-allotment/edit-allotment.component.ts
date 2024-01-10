@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 @Component({
-  selector: 'app-edit-allotment',
+  selector: 'app-view-situacion',
   templateUrl: './edit-allotment.component.html',
   styleUrls: ['./edit-allotment.component.scss'],
 })
