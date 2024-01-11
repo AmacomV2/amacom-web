@@ -74,7 +74,7 @@ export class CrudContainerComponent implements OnInit {
 
   addNew() {
     if (this.modalForm.create.action) {
-      this.modalForm.create.action();
+      this.modalForm.create.action(null);
     }
     if (this.modalForm.create.urlView) {
       this.pasoParametrosService.adicionarParametro('data', {});
@@ -87,7 +87,7 @@ export class CrudContainerComponent implements OnInit {
 
   edit(row: any) {
     if (this.modalForm.edit.action) {
-      this.modalForm.edit.action();
+      this.modalForm.edit.action(row);
     }
     if (this.modalForm.edit.urlView) {
       this.pasoParametrosService.adicionarParametro('data', row);
@@ -100,7 +100,7 @@ export class CrudContainerComponent implements OnInit {
 
   view(row: any) {
     if (this.modalForm.view.action) {
-      this.modalForm.view.action();
+      this.modalForm.view.action(row);
     }
     if (this.modalForm.view.urlView) {
       this.pasoParametrosService.adicionarParametro('data', row);

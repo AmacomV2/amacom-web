@@ -4,7 +4,7 @@ import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { environment } from 'environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs';
-import { SituacionSignAlrmDTO } from '../models/situacion.model';
+import { SituacionDTO, SituacionSignAlrmDTO } from '../models/situacion.model';
 @Injectable()
 export class SituacionService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient, private snackbar: MatSnackBar) {
@@ -13,7 +13,7 @@ export class SituacionService extends UnsubscribeOnDestroyAdapter {
 
   createSituation(situation: any) {
     return this.httpClient
-      .post(environment.apiUrl + '/personSituation/create', situation)
+      .post<SituacionDTO>(environment.apiUrl + '/personSituation/create', situation)
       .pipe(
         tap(() => {
           this.snackbar.open('Situación creada con éxito', 'Aceptar');
@@ -23,7 +23,7 @@ export class SituacionService extends UnsubscribeOnDestroyAdapter {
 
   updateSituation(situation: any) {
     return this.httpClient
-      .put(environment.apiUrl + '/personSituation', situation)
+      .put<SituacionDTO>(environment.apiUrl + '/personSituation', situation)
       .pipe(
         tap(() => {
           this.snackbar.open('Situación creada con éxito', 'Aceptar');

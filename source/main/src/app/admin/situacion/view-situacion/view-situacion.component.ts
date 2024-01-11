@@ -1,19 +1,16 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-import { PasoParametrosService } from '../../paso-parametro.service';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
+import { environment } from 'environments/environment';
+import { PasoParametrosService } from '../../paso-parametro.service';
 @Component({
   selector: 'app-view-situacion',
   templateUrl: './view-situacion.component.html',
   styleUrls: ['./view-situacion.component.scss'],
 })
-export class ViewSituacionComponent 
-implements OnInit{
+export class ViewSituacionComponent implements OnInit {
   panelOpenState = false;
   step = 0;
   setStep(index: number) {
@@ -25,73 +22,69 @@ implements OnInit{
   prevStep() {
     this.step--;
   }
-  public listaSigAlarMadre: Array<any> = [];
-  public listaSigAlarBebe: Array<any> = [];
-  public indicePrimerItem: number = 1;
-  public indiceUltimoItem: number = 10;
-  public data: any;
-  roomForm: UntypedFormGroup;
-  formdata = {
-    rNo: '105',
-    rType: '2',
-    pName: 'John Deo',
-    aDate: '2020-02-17T14:22:18Z',
-    dDate: '2020-02-19T14:22:18Z',
+
+  data: any;
+
+  configTableMother: NgTableConfig<any> = {
+    title: 'Madre',
+    keys: ['alarmSignName', 'alarmSignDescription'],
+    headerColumns: ['Nombre', 'Descripción'],
+    urlData: environment.apiUrl + '/personSituationHasAlarmSigns/search',
+    pageable: true,
+    showFilter: true,
+    hideDefaultActions: {
+      add: true,
+      edit: true,
+      delete: false,
+      view: true,
+    },
+    pageableOptions: {
+      otherParams: {
+        type: 'MOTHER',
+      },
+    },
   };
-  alerta = new UntypedFormControl();
-  alertaList: string[] = [
-    'Alerta 1',
-    'Alerta 2',
-    'Alerta 3',
-  ];
-  estado = new UntypedFormControl();
-  estadoList: string[] = [
-    'Activo',
-    'Inactivo',
-  ];
-  constructor(private fb: UntypedFormBuilder,
+
+  configTableBaby: NgTableConfig<any> = {
+    title: 'Bebe',
+    keys: ['alarmSignName', 'alarmSignDescription'],
+    headerColumns: ['Nombre', 'Descripción'],
+    urlData: environment.apiUrl + '/personSituationHasAlarmSigns/search',
+    pageable: true,
+    showFilter: true,
+    hideDefaultActions: {
+      add: true,
+      edit: true,
+      delete: false,
+      view: true,
+    },
+    pageableOptions: {
+      otherParams: {
+        type: 'BABY',
+      },
+    },
+  };
+
+  constructor(
+    private fb: UntypedFormBuilder,
     private pasoParametrosService: PasoParametrosService,
-    private router: Router) {
-    this.roomForm = this.createContactForm();
-  }
-  ngOnInit(){
-    this.data = this.pasoParametrosService.obtenerParametro("data");
-    console.log(this.data, "DATAAAA");
-    this.llenarLista();
-  }
-  onSubmit() {
-    console.log('Form Value', this.roomForm.value);
-  }
-  createContactForm(): UntypedFormGroup {
-    this.data = this.pasoParametrosService.obtenerParametro("data");
-    return this.fb.group({
-      rNo: [this.data.id, [Validators.required]],
-      rType: [this.data.tema, [Validators.required]],
-      pName: [this.data.desripcion, [Validators.required]],
-      dDate: [this.data.date, [Validators.required]],
-      grado: [this.data.gradoAfectacion, [Validators.required]],
-      primerPensamiento: [this.data.firstPen, [Validators.required]],
-      comportamiento: [this.data.comportamiento, [Validators.required]],
-      sentimiento: ['Tristeza', [Validators.required]],
-    });
+    private router: Router,
+    private location: Location
+  ) {}
+  ngOnInit() {
+    this.data = this.pasoParametrosService.obtenerParametro('data');
+    if (this.data == null) {
+      this.volver();
+    }
+    this.configTableBaby.pageableOptions.otherParams['situationId'] =
+      this.data.id;
+    this.configTableMother.pageableOptions.otherParams['situationId'] =
+      this.data.id;
   }
 
-  llenarLista(){
-    this.listaSigAlarMadre = [
-     {id:1, descripcion:"Soy el Signo alarma 1", estado:"Sí", usuario:"Valentina Escobar"},
-     {id:2, descripcion:"Soy el Signo alarma 2", estado:"No", usuario:"Valentina Escobar"},
-     {id:3, descripcion:"Soy el Signo alarma 3", estado:"Sí", usuario:"Valentina Escobar"},
-     {id:4, descripcion:"Soy el Signo alarma 4", estado:"No", usuario:"Valentina Escobar"},
-    ];
-    this.listaSigAlarBebe = [
-      {id:1, descripcion:"Soy el Signo alarma 5", estado:"No", usuario:"Valentina Escobar"},
-      {id:2, descripcion:"Soy el Signo alarma 6", estado:"Sí", usuario:"Valentina Escobar"},
-      {id:3, descripcion:"Soy el Signo alarma 7", estado:"No", usuario:"Valentina Escobar"},
-      {id:4, descripcion:"Soy el Signo alarma 8", estado:"Sí", usuario:"Valentina Escobar"},
-     ];
-  }
 
   volver() {
-    this.router.navigate(['/admin/room/all-rooms']);
+    this.location.back();
+    //this.router.navigate(['/admin/room/all-rooms']);
   }
 }

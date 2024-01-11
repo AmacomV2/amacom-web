@@ -1,9 +1,6 @@
 <section class="content">
   <div class="content-block">
     <div class="block-header">
-      <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Consultar situación'" [items]="['Situación']"
-        [active_item]="'Consultar situación'"></app-breadcrumb>
     </div>
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -29,15 +26,15 @@
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Tema: </strong></span>{{data.tema}}</h6>
+                <h6><span class="font-weight-bold"><strong>Tema: </strong></span>{{data.subjectName}}</h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Descripción: </strong></span>{{ data.descripcion }}</h6>
+                <h6><span class="font-weight-bold"><strong>Descripción: </strong></span>{{ data.description }}</h6>
               </div>
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Grado de afectación: </strong></span>{{data.gradoAfectacion}}
+                <h6><span class="font-weight-bold"><strong>Grado de afectación: </strong></span>{{data.affectationDegree}}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -48,100 +45,41 @@
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Primer pensamiento: </strong></span>{{data.firstPen}}
+                <h6><span class="font-weight-bold"><strong>Primer pensamiento: </strong></span>{{data.firstThought}}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
-                  <span class="font-weight-bold"><strong>Comportamiento: </strong></span>{{data.comportamiento}}
+                  <span class="font-weight-bold"><strong>Comportamiento: </strong></span>{{data.behavior}}
                 </h6>
               </div>
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Fecha de creación: </strong></span>{{data.date}}
+                <h6><span class="font-weight-bold"><strong>Fecha de creación: </strong></span>{{data.createdAt}}
                 </h6>
               </div>
             </div>
-            <form class="m-4" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+            
 
               <div class="row clearfix">
                 <h2>
                   <strong>Signos de alarma</strong>
                 </h2>
-                <div class="col-xl-6 col-sm-12 col-md-12 col-lg-12">
-                  <div class="card">
-                    <div class="header">
-                      <h2>Signos de alarma madre</h2>
-                    </div>
-                    <div class="tableBody">
-                      <div class="table-responsive">
-                        <table class="table display product-overview mb-30" id="support_table">
-                          <thead>
-                            <tr>
-                              <th class="text-center">No</th>
-                              <th class="text-left">Signo de alarma</th>
-                              <th class="text-left">Acción</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let data of listaSigAlarMadre; let i = index">
-                              <td class="text-center" id="{{i+'n'}}"
-                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
-                                {{data.id}}</td>
-                              <td class="text-left" id="{{i+'n'}}"
-                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
-                                {{data.descripcion}}</td>
-                              <td class="text-left" id="{{i+'f'}}"
-                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
-                                {{data.estado}}
-                                <mat-icon *ngIf="data.estado === 'Sí'" style="color: red">check</mat-icon>
-                                <mat-icon *ngIf="data.estado === 'No'" style="color: greenyellow">close</mat-icon>
-                              </td>
-                            </tr>
-
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div class="body table-responsive">
+                    <app-ng-table
+                      #tableMother
+                      [config]="configTableMother"
+                    ></app-ng-table>
                   </div>
                 </div>
-                <div class="col-xl-6 col-sm-12 col-md-12 col-lg-12">
-                  <div class="card">
-                    <div class="header">
-                      <h2>Signos de alarma bebe</h2>
-                    </div>
-                    <div class="tableBody">
-                      <div class="table-responsive">
-                        <table class="table display product-overview mb-30" id="support_table">
-                          <thead>
-                            <tr>
-                              <th class="text-center">No</th>
-                              <th class="text-left">Signo de alarma</th>
-                              <th class="text-left">Acción</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let data of listaSigAlarBebe; let i = index">
-                              <td class="text-center" id="{{i+'n'}}"
-                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
-                                {{data.id}}</td>
-                              <td class="text-left" id="{{i+'n'}}"
-                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
-                                {{data.descripcion}}</td>
-                              <td class="text-left" id="{{i+'f'}}"
-                                *ngIf="i+1 >= indicePrimerItem && i < indiceUltimoItem">
-                                {{data.estado}}
-                                <mat-icon *ngIf="data.estado === 'Sí'" style="color: red">check</mat-icon>
-                                <mat-icon *ngIf="data.estado === 'No'" style="color: greenyellow">close</mat-icon>
-                              </td>
-
-                            </tr>
-
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div class="body table-responsive">
+                    <app-ng-table
+                      #tableBaby
+                      [config]="configTableBaby"
+                    ></app-ng-table>
                   </div>
                 </div>
 
@@ -161,7 +99,6 @@
                   </mat-expansion-panel>
                 </mat-accordion>
               </div>
-            </form>
           </div>
         </div>
       </div>

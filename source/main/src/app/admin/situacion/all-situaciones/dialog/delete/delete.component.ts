@@ -1,24 +1,16 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SituacionService } from '../../../services/situacion.service';
-
-export interface DialogData {
-  id: number;
-  tema: string;
-  descripcion: string;
-  date: string;
-  gradoAfectacion: number;
-}
+import { SituacionDTO } from 'app/admin/situacion/models/situacion.model';
 
 @Component({
   selector: 'app-delete:not(m)',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })
-export class DeleteDialogComponent {
+export class DeleteSituacionDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<DeleteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public roomService: SituacionService
+    public dialogRef: MatDialogRef<DeleteSituacionDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { row: SituacionDTO }
   ) {}
 }
