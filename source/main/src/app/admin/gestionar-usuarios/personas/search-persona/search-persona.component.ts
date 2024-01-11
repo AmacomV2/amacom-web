@@ -42,7 +42,7 @@ export class SearchPersonaComponent {
     console.log('Form Value', this.patientForm.value);
   }
   createContactForm(): UntypedFormGroup {
-    this.data = this.pasoParametrosService.obtenerParametro("data") || {};
+    this.data = this.pasoParametrosService.obtenerParametro("data");
     return this.fb.group({
       id: [this.data.id, [Validators.required]],
       nombre: [this.data.nombre, [Validators.required]],
@@ -62,5 +62,19 @@ export class SearchPersonaComponent {
 
   volver(){
     this.router.navigate(['/admin/gestionar-usuarios/personas/all-personas']);
+  }
+
+  bitacora(row: any){
+    this.pasoParametrosService.adicionarParametro('data', row);
+    this.router.navigate(['/doctor/inventory/item-stock-list']);
+  }
+
+  situacion(row: any){
+    this.pasoParametrosService.adicionarParametro('data', row);
+    this.router.navigate(['/doctor/room/all-rooms']);
+  }
+
+  calendario(row: any){
+    this.router.navigate(['calendar']);
   }
 }

@@ -14,6 +14,7 @@ import { ModalViewComponent } from '../modal-view/modal-view.component';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { FilterTableCRUD } from './models/filter.crud';
+import { Marco } from '@core/dialog/models/marco';
 
 @Component({
   selector: 'app-crud-container',
@@ -90,19 +91,24 @@ export class CrudContainerComponent implements OnInit {
     //this.id = row.id;
     // this.pasoParametrosService.adicionarParametro('data', row);
     // this.router.navigate(['/admin/gestionar-usuarios/usuarios/view-usuario']);
-    this.dialogService
-      .show({
-        component: ModalViewComponent,
-        ...this.modalForm.view.modal,
-        dataComponent: {
-          data: row,
-          config: this.modalForm.view.configView,
-        },
-        hideDefaultActions: true,
-      })
-      .subscribe((data: ModalResponse) => {
-        console.log(data);
-      });
+    if (this.modalForm.view.urlView) {
+      this.pasoParametrosService.adicionarParametro('data', row);
+      this.router.navigate([this.modalForm.view.urlView]);
+    } else {
+      this.dialogService
+        .show({
+          component: ModalViewComponent,
+          ...this.modalForm.view.modal,
+          dataComponent: {
+            data: row,
+            config: this.modalForm.view.configView,
+          },
+          hideDefaultActions: true,
+        })
+        .subscribe((data: ModalResponse) => {
+          console.log(data);
+        });
+    }
   }
 
   deleteItem(row: any) {
@@ -116,44 +122,46 @@ export class CrudContainerComponent implements OnInit {
   }
 
   showModal(action: ActionCrud<any>, row: any) {
-    this.dialogService
-      .show({
-        ...action.modal,
-        dataComponent: {
-          action: action.actionType,
-          row: row,
-        },
-        icon: this.dialogIcon,
-      })
-      .subscribe((accion: ModalResponse) => {
-        if (accion.estado) {
-          let observer;
-          switch (action.actionType) {
-            case 'add':
-              observer = this.crudService.postData(
-                action.urlEndpoint,
-                accion.data
-              );
-              break;
-            case 'delete':
-              observer = this.crudService.deleteData(
-                action.urlEndpoint,
-                row.id
-              );
-              break;
-            case 'edit':
-              observer = this.crudService.putData(
-                action.urlEndpoint,
-                accion.data
-              );
-              break;
-          }
+    const dataModal: Marco = {
+      ...action.modal,
+      dataComponent: {
+        action: action.actionType,
+        row: row,
+      },
+      icon: this.dialogIcon,
+    };
+    if (action.actionType === 'delete' && !action.modal.actions?.primary) {
+      if (!dataModal.actions) {
+        dataModal.actions = {};
+      }
+      dataModal.actions.primary = 'Eliminar';
+    }
 
-          observer.subscribe((data) => {
-            console.log('sucess post', data);
-            this.table.findData();
-          });
+    this.dialogService.show(dataModal).subscribe((accion: ModalResponse) => {
+      if (accion.estado) {
+        let observer;
+        switch (action.actionType) {
+          case 'add':
+            observer = this.crudService.postData(
+              action.urlEndpoint,
+              accion.data
+            );
+            break;
+          case 'delete':
+            observer = this.crudService.deleteData(action.urlEndpoint, row.id);
+            break;
+          case 'edit':
+            observer = this.crudService.putData(
+              action.urlEndpoint,
+              accion.data
+            );
+            break;
         }
-      });
+
+        observer.subscribe((data) => {
+          this.table.findData();
+        });
+      }
+    });
   }
 }

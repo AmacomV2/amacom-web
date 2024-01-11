@@ -98,7 +98,6 @@ export class NgTableComponent<T> implements OnInit {
   ngOnInit() {
     this.findData();
     this.controlFilter.valueChanges.subscribe((value) => {
-      console.log(value);
       if (this.config.pageable) {
         clearTimeout(this.typingTimer); // Limpiar el temporizador previo
         this.typingTimer = setTimeout(() => {
@@ -111,11 +110,6 @@ export class NgTableComponent<T> implements OnInit {
           this.config.keys
         );
       }
-      // this.dataSource.data = this.filterPipe.transform(
-      //   this.dataSource.data,
-      //   value,
-      //   this.config.keys
-      // );
     });
   }
 

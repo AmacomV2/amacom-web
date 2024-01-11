@@ -14,7 +14,7 @@ export class PersonService {
   createPerson(data: PersonDTO) {
     return this.http.post(environment.apiUrl + '/person/create', data).pipe(
       tap((res: any) => {
-        this.snackbar.open(res.message, 'Aceptar');
+        this.snackbar.open('Persona creada correctamente.', 'Aceptar');
       }),
       catchError((err) => {
         this.snackbar.open(err, 'Aceptar');
@@ -26,7 +26,7 @@ export class PersonService {
   updatePerson(data: PersonDTO) {
     return this.http.put(environment.apiUrl + '/person', data).pipe(
       tap((res: any) => {
-        this.snackbar.open(res.message, 'Aceptar');
+        this.snackbar.open('Persona actualizada correctamente', 'Aceptar');
       }),
       catchError((err) => {
         console.log(err);

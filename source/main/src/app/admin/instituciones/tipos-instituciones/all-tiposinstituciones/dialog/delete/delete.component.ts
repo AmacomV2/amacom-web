@@ -1,12 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-
-export interface DialogData {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  date: string;
-}
+import { TipoInstitucionDTO } from '../../../models/tipoInstitucion.model';
 
 @Component({
   selector: 'app-delete:not(i)',
@@ -16,7 +10,7 @@ export interface DialogData {
 export class DeleteTipoInstitucionComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteTipoInstitucionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: { row: TipoInstitucionDTO }
   ) {}
   onNoClick(): void {
     this.dialogRef.close();

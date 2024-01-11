@@ -2,19 +2,19 @@
   <li>
     <p>
       <span class="font-weight-bold"><strong>Nombre: </strong> </span
-      >{{ data.tipo }}
+      >{{ data?.row.name }}
     </p>
   </li>
   <li>
     <p>
       <span class="font-weight-bold"><strong>Código: </strong> </span
-      >{{ data.codigo }}
+      >{{ data?.row.acronym }}
     </p>
   </li>
   <li>
     <p>
       <span class="font-weight-bold"><strong>Fecha: </strong></span
-      >{{ data.date }}
+      >{{ data?.row.createdAt }}
     </p>
   </li>
 </ul>

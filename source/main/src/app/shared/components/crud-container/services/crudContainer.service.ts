@@ -13,12 +13,10 @@ export class CrudContainerService {
   postData(url: string, data: any) {
     return this.http.post(environment.apiUrl + url, data).pipe(
       tap((res) => {
-        this.showSuscessMessage();
+        this.showSuscessMessage('Registro creado correctamente');
       }),
       catchError((err) => {
-        this.snackbar.open(err, 'Cerrar', {
-          duration: 4000,
-        });
+        this.snackbar.open(err, 'Cerrar');
         throw err;
       })
     );
@@ -27,12 +25,10 @@ export class CrudContainerService {
   deleteData(url: string, id) {
     return this.http.delete(environment.apiUrl + url + '/' + id).pipe(
       tap((res) => {
-        this.showSuscessMessage();
+        this.showSuscessMessage('Registro eliminado correctamente');
       }),
       catchError((err) => {
-        this.snackbar.open(err, 'Cerrar', {
-          duration: 4000,
-        });
+        this.snackbar.open(err, 'Cerrar');
         throw err;
       })
     );
@@ -41,20 +37,16 @@ export class CrudContainerService {
   putData(url: string, data: any) {
     return this.http.put(environment.apiUrl + url, data).pipe(
       tap((res) => {
-        this.showSuscessMessage();
+        this.showSuscessMessage('Registro actualizado correctamente');
       }),
       catchError((err) => {
-        this.snackbar.open(err, 'Cerrar', {
-          duration: 4000,
-        });
+        this.snackbar.open(err, 'Cerrar');
         throw err;
       })
     );
   }
 
   private showSuscessMessage(msg?: string) {
-    this.snackbar.open(msg ?? 'Registro creado correctamente', 'Cerrar', {
-      duration: 4000,
-    });
+    this.snackbar.open(msg ?? 'Trasaccion exitosa', 'Cerrar');
   }
 }

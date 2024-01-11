@@ -2,71 +2,169 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Consultar persona'" [items]="['Personas']"
-        [active_item]="'Consultar persona'"></app-breadcrumb>
+      <app-breadcrumb
+        [title]="'Consultar persona'"
+        [items]="['Personas']"
+        [active_item]="'Consultar persona'"
+      ></app-breadcrumb>
     </div>
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card">
           <div class="body">
-            <a mat-mini-fab (click)="volver()" matTooltip="Volver"
-              class="btn bg-purple btn-lg btn-block waves-effect"><mat-icon>keyboard_return</mat-icon></a>
+            <a
+              mat-mini-fab
+              (click)="volver()"
+              matTooltip="Volver"
+              class="btn bg-purple btn-lg btn-block waves-effect"
+              ><mat-icon>keyboard_return</mat-icon></a
+            >
           </div>
           <div class="header">
-            <h1><strong> Consultar persona</strong></h1>
+            <h1>
+              <strong> {{ data.nombre }} {{ data.apellido }}</strong>
+            </h1>
           </div>
           <div class="header">
-            <h6>En esta pantalla podrás consultar la persona</h6>
+            <h6>
+              En esta pantalla podrás consultar la información de
+              <strong> {{ data.nombre }} {{ data.apellido }}</strong>
+            </h6>
           </div>
+
           <div class="body">
-            <div class="row">
-              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Nombre: </strong></span>{{data.nombre}}</h6>
-              </div>
-              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Apellido: </strong></span>{{ data.apellido }}</h6>
+            <div class="row clearfix jsdemo-notification-button">
+              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <img
+                  src="assets/images/usuaria.png"
+                  height="100sspx"
+                  width="100px"
+                  alt=""
+                  class="rounded-circle"
+                />
               </div>
             </div>
+
+            <br />
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Tipo de documento: </strong></span>{{data.tipoDocumento}}
+                <h6>
+                  <span class="font-weight-bold"><strong>Nombre: </strong></span
+                  >{{ data.nombre }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
-                  <span class="font-weight-bold"><strong>Número de documento: </strong></span>{{data.numeroDocumento}}
+                  <span class="font-weight-bold"
+                    ><strong>Apellido: </strong></span
+                  >{{ data.apellido }}
                 </h6>
               </div>
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Fecha de nacimiento: </strong></span>{{data.fechaNacimiento}}
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Tipo de documento: </strong></span
+                  >{{ data.tipoDocumento }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
-                  <span class="font-weight-bold"><strong>Dirección: </strong></span>{{data.direccion}}
+                  <span class="font-weight-bold"
+                    ><strong>Número de documento: </strong></span
+                  >{{ data.numeroDocumento }}
                 </h6>
               </div>
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Genero: </strong></span>{{data.genero}}
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Fecha de nacimiento: </strong></span
+                  >{{ data.fechaNacimiento }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Estado civil: </strong></span>{{data.estadoCivil}}
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Dirección: </strong></span
+                  >{{ data.direccion }}
                 </h6>
               </div>
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Oupación: </strong></span>{{data.ocupacion}}
+                <h6>
+                  <span class="font-weight-bold"><strong>Genero: </strong></span
+                  >{{ data.genero }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Fecha de creación: </strong></span>{{data.date}}
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Estado civil: </strong></span
+                  >{{ data.estadoCivil }}
                 </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Oupación: </strong></span
+                  >{{ data.ocupacion }}
+                </h6>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Fecha de creación: </strong></span
+                  >{{ data.date }}
+                </h6>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+              <div class="card">
+                <mat-tab-group>
+                  <mat-tab>
+                    <ng-template mat-tab-label>
+                      <mat-icon class="example-tab-icon msr-2">face</mat-icon>
+                      Situación
+                    </ng-template>
+                    <app-situaciones></app-situaciones>
+                  </mat-tab>
+
+                  <mat-tab>
+                    <ng-template mat-tab-label>
+                      <mat-icon class="example-tab-icon msr-2"
+                        >settings</mat-icon
+                      >
+                      Bitacora
+                    </ng-template>
+
+                    <!-- <app-all-bitacora></app-bitacora> -->
+                  </mat-tab>
+
+                  <mat-tab>
+                    <ng-template mat-tab-label>
+                      <mat-icon class="example-tab-icon msr-2"
+                        >settings</mat-icon
+                      >
+                      Calendario
+                    </ng-template>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                      <button
+                        mat-raised-button
+                        class="bg-cyan"
+                        (click)="calendario(data)"
+                      >
+                        Calendario
+                      </button>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
               </div>
             </div>
           </div>
