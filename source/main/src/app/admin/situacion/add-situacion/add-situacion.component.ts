@@ -30,7 +30,7 @@ export class AddSituacionComponent implements OnInit {
   public modoEditar: boolean = false;
   public titulo: any;
   public subtitulo: any;
-  roomForm: UntypedFormGroup;
+  situacionForm: UntypedFormGroup;
 
   configTableMother: NgTableConfig<any> = {
     title: 'Madre',
@@ -52,15 +52,6 @@ export class AddSituacionComponent implements OnInit {
     },
   };
 
-  private _checkedMother = [];
-  public get checkedMother() {
-    return this._checkedMother;
-  }
-  public set checkedMother(value) {
-    this.roomForm.controls['motherAlarmSigns'].setValue(value.map((x) => x.id));
-    this._checkedMother = value;
-  }
-
   configTableBaby: NgTableConfig<any> = {
     title: 'Bebe',
     keys: ['alarmSignName', 'alarmSignDescription'],
@@ -80,15 +71,6 @@ export class AddSituacionComponent implements OnInit {
       },
     },
   };
-
-  private _checkedBaby = [];
-  public get checkedBaby() {
-    return this._checkedBaby;
-  }
-  public set checkedBaby(value) {
-    this.roomForm.controls['babyAlarmSigns'].setValue(value.map((x) => x.id));
-    this._checkedBaby = value;
-  }
 
   valueSubject: any;
 
@@ -117,7 +99,7 @@ export class AddSituacionComponent implements OnInit {
     private http: HttpClient,
     private situacionService: SituacionService
   ) {
-    this.roomForm = this.createContactForm();
+    this.situacionForm = this.createContactForm();
   }
   ngOnInit() {
     this.configTableBaby.pageableOptions.otherParams['situationId'] =
@@ -130,21 +112,15 @@ export class AddSituacionComponent implements OnInit {
   }
   onSubmit() {
     const observer = this.modoEditar
-      ? this.situacionService.updateSituation(this.roomForm.value)
-      : this.situacionService.createSituation(this.roomForm.value);
+      ? this.situacionService.updateSituation(this.situacionForm.value)
+      : this.situacionService.createSituation(this.situacionForm.value);
 
     observer.subscribe((data) => {
-      //this.cancel();
-    });
-  }
-
-  submitSign() {
-    const observer = this.modoEditar
-      ? this.situacionService.updateSituation(this.roomForm.value)
-      : this.situacionService.createSituation(this.roomForm.value);
-
-    observer.subscribe((data) => {
-      this.cancel();
+      console.log('SITUACION CREADA', data);
+      this.situacionForm.controls['id'].setValue(data.id);
+      this.configTableBaby.pageableOptions.otherParams['situationId'] = data.id;
+      this.configTableMother.pageableOptions.otherParams['situationId'] =
+        data.id;
     });
   }
 
@@ -158,7 +134,8 @@ export class AddSituacionComponent implements OnInit {
 
   createContactForm(): UntypedFormGroup {
     this.data = this.pasoParametrosService.obtenerParametro('data');
-    this.personId = this.pasoParametrosService.obtenerParametro('personId');
+    this.personId =
+      this.pasoParametrosService.obtenerParametro('dataPersona').id;
     console.log('DATAA', this.data, this.personId);
     this.modoEditar = this.pasoParametrosService.obtenerParametro('modoEditar');
     if (this.modoEditar == true) {
@@ -226,7 +203,7 @@ export class AddSituacionComponent implements OnInit {
       this.http
         .get(environment.apiUrl + '/personSituation/' + this.data.id)
         .subscribe((data: any) => {
-          this.roomForm.controls['feelings'].setValue(data.feelings);
+          this.situacionForm.controls['feelings'].setValue(data.feelings);
         });
     }
   }
@@ -235,7 +212,7 @@ export class AddSituacionComponent implements OnInit {
     this.situacionService
       .createSituationSign({
         alarmSignId: this.controlSignMother.value,
-        personSituationId: this.data.id,
+        personSituationId: this.situacionForm.value.id,
       })
       .subscribe((data) => {
         this.tableMother.findData();

@@ -8,6 +8,7 @@ import { NgTableConfig } from '@shared/components/ng-table/models/table.config.m
 import { environment } from 'environments/environment';
 import { TipoDocumentoDTO } from '../../tipos-documentos/models/tipoDocumento.model';
 import { DeletePersonaComponent } from './dialog/delete/delete.component';
+import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 
 @Component({
   selector: 'app-allpersonas',
@@ -23,7 +24,6 @@ export class AllPersonasComponent extends UnsubscribeOnDestroyAdapter {
     keys: ['id', 'fullName', 'gender.name', 'documentType.name', 'updatedAt'],
     headerColumns: ['No', 'Nombre Completo', 'Genero', 'Documento', 'última actualización'],
     urlData: environment.apiUrl + '/person/query',
-    //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
     typeColumns: ['uuid', null, null, null, 'date'],
     pageable: true,
     showFilter: true,
@@ -49,6 +49,9 @@ export class AllPersonasComponent extends UnsubscribeOnDestroyAdapter {
     view: {
       urlView: '/admin/gestionar-usuarios/personas/search-persona',
       actionType: 'view',
+      action: (row)=>{
+        this.pasarParametrosService.adicionarParametro('dataPersona', row);
+      }
     },
   };
 
@@ -65,7 +68,7 @@ export class AllPersonasComponent extends UnsubscribeOnDestroyAdapter {
     // }
   ]
 
-  constructor() {
+  constructor(private pasarParametrosService: PasoParametrosService) {
     super();
   }
   // refresh() {

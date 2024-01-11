@@ -44,7 +44,7 @@ export class SearchPersonaComponent implements OnInit {
     // this.patientForm = this.createContactForm();
   }
   ngOnInit(): void {
-    this.data = this.pasoParametrosService.obtenerParametro('data');
+    this.data = this.pasoParametrosService.obtenerParametro('dataPersona');
     if (this.data == null) {
       this.volver();
     }

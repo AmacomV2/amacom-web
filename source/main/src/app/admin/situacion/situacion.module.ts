@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SituacionRoutingModule } from './situacion-routing.module';
 import { AllSituacionesComponent } from './all-situaciones/all-situaciones.component';
-import { DeleteDialogComponent } from './all-situaciones/dialog/delete/delete.component';
-import { FormDialogComponent } from './all-situaciones/dialog/form-dialog/form-dialog.component';
+import { DeleteSituacionDialogComponent } from './all-situaciones/dialog/delete/delete.component';
 import { ViewSituacionComponent } from './view-situacion/view-situacion.component';
 import { AddSituacionComponent } from './add-situacion/add-situacion.component';
 import { SituacionService } from './services/situacion.service';
@@ -19,8 +18,7 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
 @NgModule({
   declarations: [
     AllSituacionesComponent,
-    DeleteDialogComponent,
-    FormDialogComponent,
+    DeleteSituacionDialogComponent,
     ViewSituacionComponent,
     AddSituacionComponent,
     DeleteDiagnosticoComponent,
@@ -39,8 +37,7 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
   ],
   exports: [
     AllSituacionesComponent,
-    DeleteDialogComponent,
-    FormDialogComponent,
+    DeleteSituacionDialogComponent,
     ViewSituacionComponent,
     AddSituacionComponent,
     DeleteDiagnosticoComponent,
