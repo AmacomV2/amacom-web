@@ -53,7 +53,12 @@ export class AddInstitucionComponent implements OnInit {
     typeColumns: ['uuid', null, null],
     pageable: true,
     showFilter: false,
-    hideDefaultActions: true,
+    hideDefaultActions: {
+      add: true,
+      view: true,
+      edit: true,
+      delete: true,
+    },
     checkbox: true,
   };
 

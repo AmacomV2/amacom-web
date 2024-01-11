@@ -1,5 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NgTableConfig } from './models/table.config.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MappingPipe } from '../../pipes/mapping.pipe';
@@ -29,13 +36,21 @@ export class NgTableComponent<T> implements OnInit {
 
   _config!: NgTableConfig<T>;
 
+  /**
+   * filas de la tabla que estan seleccionados por el checkbox.
+   */
+  @Input()
+  checked: T[] = [];
+
   @Output() editAction: EventEmitter<T> = new EventEmitter();
 
   @Output() deleteAction: EventEmitter<T> = new EventEmitter();
 
   @Output() viewAction: EventEmitter<T> = new EventEmitter();
 
-  @Output() changeCheckRow: EventEmitter<T[]> = new EventEmitter();
+  @Output() addAction: EventEmitter<T> = new EventEmitter();
+
+  @Output() checkedChange: EventEmitter<T[]> = new EventEmitter();
 
   dataSource: MatTableDataSource<T> = new MatTableDataSource<T>();
 
@@ -66,9 +81,7 @@ export class NgTableComponent<T> implements OnInit {
    */
   timeToSearch: number = 500;
 
-  rowChecked: T[] = [];
-
-  @ViewChild('paginator') 
+  @ViewChild('paginator')
   set matPaginator(mp: MatPaginator) {
     this._paginator = mp;
     this.dataSource.paginator = this.paginator;
@@ -80,7 +93,7 @@ export class NgTableComponent<T> implements OnInit {
       this.findData();
     });
   }
-  
+
   get paginator(): MatPaginator {
     return this._paginator;
   }
@@ -120,12 +133,21 @@ export class NgTableComponent<T> implements OnInit {
     if (this.config.urlData) {
       let params = {};
       if (this.config.pageable) {
-        params = {
-          page: this.page,
-          size: this.pageSize,
-          query: this.controlFilter.value,
-          //sort: 'id,desc',//TODO: cambiar por el parametro de ordenamiento
-        };
+        params[this.config.pageableOptions?.pageKey || 'page'] = this.page;
+        params[this.config.pageableOptions?.sizeKey || 'size'] = this.pageSize;
+        params['query'] = this.controlFilter.value;
+        // params.[
+        //   this.config.pageableOptions?.sortKey || 'sort'] =
+        //   'id,desc'
+        // ;
+        if (this.config.pageableOptions?.otherParams) {
+          Object.keys(this.config.pageableOptions?.otherParams).forEach(
+            (key) => {
+              params[key] = this.config.pageableOptions?.otherParams[key];
+            }
+          );
+        }
+        console.log(params);
       }
       this.susbcribeHttpData?.unsubscribe();
       this.susbcribeHttpData = this.httpClient
@@ -178,15 +200,15 @@ export class NgTableComponent<T> implements OnInit {
 
   /**
    * Metodo que agrega o elimina un elemento a la lista de elementos seleccionados.
-   * @param row 
+   * @param row
    */
   checkRow(row: any) {
-    if (this.rowChecked.find((item) => item === row)) {
-      this.rowChecked = this.rowChecked.filter((item) => item !== row);
+    if (this.checked.find((item) => item === row)) {
+      this.checked = this.checked.filter((item) => item !== row);
     } else {
-      this.rowChecked.push(row);
+      this.checked.push(row);
     }
-    this.changeCheckRow.emit(this.rowChecked);
+    this.checkedChange.emit(this.checked);
   }
 
   // ========================= DEFAULT ACTIONS =========================

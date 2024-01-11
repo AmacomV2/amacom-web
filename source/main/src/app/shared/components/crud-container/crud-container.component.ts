@@ -53,7 +53,12 @@ export class CrudContainerComponent implements OnInit {
 
   @Input() events: EventsCrudContainer;
 
-  @ViewChild('table', { static: true }) table: NgTableComponent<any>;
+  /**
+   * oculta el contenedor y muestra unicamente la tabla.
+   */
+  @Input() hideContainer = false;
+
+  @ViewChild('table') table: NgTableComponent<any>;
 
   constructor(
     private router: Router,
@@ -68,6 +73,9 @@ export class CrudContainerComponent implements OnInit {
   }
 
   addNew() {
+    if (this.modalForm.create.action) {
+      this.modalForm.create.action();
+    }
     if (this.modalForm.create.urlView) {
       this.pasoParametrosService.adicionarParametro('data', {});
       this.pasoParametrosService.adicionarParametro('modoEditar', false);
@@ -78,6 +86,9 @@ export class CrudContainerComponent implements OnInit {
   }
 
   edit(row: any) {
+    if (this.modalForm.edit.action) {
+      this.modalForm.edit.action();
+    }
     if (this.modalForm.edit.urlView) {
       this.pasoParametrosService.adicionarParametro('data', row);
       this.pasoParametrosService.adicionarParametro('modoEditar', true);
@@ -88,9 +99,9 @@ export class CrudContainerComponent implements OnInit {
   }
 
   view(row: any) {
-    //this.id = row.id;
-    // this.pasoParametrosService.adicionarParametro('data', row);
-    // this.router.navigate(['/admin/gestionar-usuarios/usuarios/view-usuario']);
+    if (this.modalForm.view.action) {
+      this.modalForm.view.action();
+    }
     if (this.modalForm.view.urlView) {
       this.pasoParametrosService.adicionarParametro('data', row);
       this.router.navigate([this.modalForm.view.urlView]);

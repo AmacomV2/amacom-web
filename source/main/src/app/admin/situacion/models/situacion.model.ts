@@ -1,28 +1,33 @@
-export class SituacionList {
-  id: number;
-  tema: string;
-  date: string;
-  descripcion: string;
-  gradoAfectacion: number;
-  sentimiento: string;
-  firstPen: string;
-  comportamiento: string;
-  constructor(situacionList: SituacionList) {
-    {
-      this.id = situacionList.id || this.getRandomID();
-      this.tema = situacionList.tema || '';
-      this.date = situacionList.date;
-      this.descripcion = situacionList.descripcion;
-      this.gradoAfectacion = situacionList.gradoAfectacion;
-      this.sentimiento = situacionList.sentimiento;
-      this.firstPen = situacionList.firstPen;
-      this.comportamiento = situacionList.comportamiento;
-    }
-  }
-  public getRandomID(): number {
-    const S4 = () => {
-      return ((1 + Math.random()) * 0x10000) | 0;
-    };
-    return S4() + S4();
-  }
+import { GenericDTO } from '@shared/models/GenericDTO';
+
+export class SituacionDTO extends GenericDTO {
+  affectationDegree: number;
+  babyAlarmSigns: string[];
+  behavior: string;
+  createdById: string;
+  currentDiagnosis: CurrentDiagnosis;
+  description: string;
+  feelings: string[];
+  firstThought: string;
+  motherAlarmSigns: string[];
+  nursingAssessment: string;
+  personId: string;
+  subjectId: string;
+  subjectName: string;
+}
+
+export interface CurrentDiagnosis {
+  consultationAlert: string;
+  consultationResult: string;
+  consultationStatus: string;
+  id: string;
+  personSituationId: string;
+}
+
+export interface SituacionSignAlrmDTO {
+  id?: string;
+  personSituationId: string;
+  alarmSignId: string;
+  alarmSignName?: string;
+  alarmSignDescription?: string;
 }

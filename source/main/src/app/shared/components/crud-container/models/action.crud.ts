@@ -35,6 +35,11 @@ export interface ActionCrud<T> {
    */
   configView?: configModalView[];
 
+  /**
+   * accion que se invoka si no se paso una urlView o una modal, para determinar el comportamiento de dicho boton.
+   */
+  action?: () => void;
+
   //params?: (data: T) => any;
   //body?: (data: T) => any;
 }
