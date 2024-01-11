@@ -22,13 +22,13 @@
           </div>
           <div class="header">
             <h1>
-              <strong> {{ data.nombre }} {{ data.apellido }}</strong>
+              <strong> {{ data.fullName }}</strong>
             </h1>
           </div>
           <div class="header">
             <h6>
               En esta pantalla podrás consultar la información de
-              <strong> {{ data.nombre }} {{ data.apellido }}</strong>
+              <strong> {{ data.fullName }}</strong>
             </h6>
           </div>
 
@@ -50,14 +50,14 @@
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
                   <span class="font-weight-bold"><strong>Nombre: </strong></span
-                  >{{ data.nombre }}
+                  >{{ data.name }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Apellido: </strong></span
-                  >{{ data.apellido }}
+                  >{{ data.lastName }}
                 </h6>
               </div>
             </div>
@@ -66,14 +66,14 @@
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Tipo de documento: </strong></span
-                  >{{ data.tipoDocumento }}
+                  >{{ data.documentType.name }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Número de documento: </strong></span
-                  >{{ data.numeroDocumento }}
+                  >{{ data.documentNo }}
                 </h6>
               </div>
             </div>
@@ -82,14 +82,14 @@
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Fecha de nacimiento: </strong></span
-                  >{{ data.fechaNacimiento }}
+                  >{{ data.birthDate }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Dirección: </strong></span
-                  >{{ data.direccion }}
+                  >{{ data.address }}
                 </h6>
               </div>
             </div>
@@ -97,14 +97,14 @@
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
                   <span class="font-weight-bold"><strong>Genero: </strong></span
-                  >{{ data.genero }}
+                  >{{ data.gender?.name }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Estado civil: </strong></span
-                  >{{ data.estadoCivil }}
+                  >{{ data.civilStatus?.name }}
                 </h6>
               </div>
             </div>
@@ -113,14 +113,14 @@
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Oupación: </strong></span
-                  >{{ data.ocupacion }}
+                  >{{ data.occupation?.name }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <h6>
                   <span class="font-weight-bold"
                     ><strong>Fecha de creación: </strong></span
-                  >{{ data.date }}
+                  >{{ data.createdAt }}
                 </h6>
               </div>
             </div>

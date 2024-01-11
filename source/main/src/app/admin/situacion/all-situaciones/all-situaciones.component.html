@@ -1,8 +1,6 @@
-<section class="content">
+<!-- <section class="content">
   <div class="content-block">
     <div class="block-header">
-      <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Lista de situaciones'" [items]="['Situaciones']" [active_item]="'Lista de situaciones'"></app-breadcrumb>
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -115,4 +113,11 @@
         </div>
       </div>
   </div>
-</section>
+</section> -->
+
+<app-crud-container
+  [hideContainer]="true"
+  [configTable]="config"
+  [modalForm]="modalForm"
+>
+</app-crud-container>

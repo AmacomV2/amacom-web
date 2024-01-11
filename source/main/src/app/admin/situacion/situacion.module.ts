@@ -7,7 +7,7 @@ import { DeleteDialogComponent } from './all-situaciones/dialog/delete/delete.co
 import { FormDialogComponent } from './all-situaciones/dialog/form-dialog/form-dialog.component';
 import { ViewSituacionComponent } from './view-situacion/view-situacion.component';
 import { AddSituacionComponent } from './add-situacion/add-situacion.component';
-import { RoomService } from './services/room.service';
+import { SituacionService } from './services/situacion.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
 import { DeleteDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/delete/delete.component';
@@ -49,6 +49,6 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
     AddDiagnosticoComponent,
     SearchDiagnosticoComponent,
   ],
-  providers: [RoomService],
+  providers: [SituacionService],
 })
 export class SituacionModule {}

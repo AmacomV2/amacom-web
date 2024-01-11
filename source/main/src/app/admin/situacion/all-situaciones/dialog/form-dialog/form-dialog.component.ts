@@ -1,6 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { RoomService } from '../../../services/room.service';
+import { SituacionService } from '../../../services/situacion.service';
 import {
   UntypedFormControl,
   Validators,
@@ -28,7 +28,7 @@ export class FormDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<FormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public roomService: RoomService,
+    public roomService: SituacionService,
     private fb: UntypedFormBuilder
   ) {
     // Set the defaults
@@ -73,6 +73,6 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
-    this.roomService.addRoom(this.roomForm.getRawValue());
+    //this.roomService.addRoom(this.roomForm.getRawValue());
   }
 }

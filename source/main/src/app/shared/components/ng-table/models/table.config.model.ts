@@ -27,7 +27,12 @@ export interface NgTableConfig<T> {
   /**
    * si se quiere ocultar las acciones por defecto (CRUD).
    */
-  hideDefaultActions?: boolean;
+  hideDefaultActions?: {
+    add?: boolean;
+    view?: boolean;
+    edit?: boolean;
+    delete?: boolean;
+  };
   /**
    * todos los datos de la tabla.
    */
@@ -60,7 +65,10 @@ export interface NgTableConfig<T> {
     /**
      * cantidad de elementos por pagina. por defecto es 5.
      */
-    pageSizeOptions: number[];
+    pageSizeOptions?: number[];
+    otherParams?: {
+      [key: string]: any;
+    };
   };
   /**
    * indica si se debe mostrar el filtro de busqueda.
