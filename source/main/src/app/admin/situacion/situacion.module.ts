@@ -9,11 +9,7 @@ import { AddSituacionComponent } from './add-situacion/add-situacion.component';
 import { SituacionService } from './services/situacion.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
-import { DeleteDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/delete/delete.component';
-import { AllDiagnosticosComponent } from './diagnostico/all-diagnosticos/alldiagnosticos.component';
-import { FormDialogDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/form-dialog/form-dialog.component';
-import { AddDiagnosticoComponent } from './diagnostico/add-diagnostico/add-diagnostico.component';
-import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/search-diagnostico.component';
+import { DiagnosticoModule } from './diagnostico/diagnostico.module';
 
 @NgModule({
   declarations: [
@@ -21,11 +17,6 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
     DeleteSituacionDialogComponent,
     ViewSituacionComponent,
     AddSituacionComponent,
-    DeleteDiagnosticoComponent,
-    FormDialogDiagnosticoComponent,
-    AllDiagnosticosComponent,
-    AddDiagnosticoComponent,
-    SearchDiagnosticoComponent,
   ],
   imports: [
     CommonModule,
@@ -34,17 +25,13 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
     SituacionRoutingModule,
     ComponentsModule,
     SharedModule,
+    DiagnosticoModule,
   ],
   exports: [
     AllSituacionesComponent,
     DeleteSituacionDialogComponent,
     ViewSituacionComponent,
     AddSituacionComponent,
-    DeleteDiagnosticoComponent,
-    FormDialogDiagnosticoComponent,
-    AllDiagnosticosComponent,
-    AddDiagnosticoComponent,
-    SearchDiagnosticoComponent,
   ],
   providers: [SituacionService],
 })

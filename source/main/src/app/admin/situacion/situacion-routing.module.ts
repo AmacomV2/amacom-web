@@ -4,9 +4,9 @@ import { AllSituacionesComponent } from "./all-situaciones/all-situaciones.compo
 import { AddSituacionComponent } from "./add-situacion/add-situacion.component";
 import { ViewSituacionComponent } from "./view-situacion/view-situacion.component";
 import { Page404Component } from "../../authentication/page404/page404.component";
-import { AllDiagnosticosComponent } from "./diagnostico/all-diagnosticos/alldiagnosticos.component";
-import { AddDiagnosticoComponent } from "./diagnostico/add-diagnostico/add-diagnostico.component";
-import { SearchDiagnosticoComponent } from "./diagnostico/search-diagnostico/search-diagnostico.component";
+import { AllDiagnosticosComponent } from "./diagnostico/components/alldiagnosticos.component";
+import { AddDiagnosticoComponent } from "./diagnostico/components/add-diagnostico/add-diagnostico.component";
+import { SearchDiagnosticoComponent } from "./diagnostico/components/search-diagnostico/search-diagnostico.component";
 const routes: Routes = [
   {
     path: "all-rooms",

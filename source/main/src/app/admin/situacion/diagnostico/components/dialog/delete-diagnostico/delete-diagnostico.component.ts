@@ -1,5 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
+import { DiagnosticoDTO } from '../../../models/diagnostico.model';
 
 export interface DialogData {
   id: number;
@@ -10,19 +11,13 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-delete:not(i)',
-  templateUrl: './delete.component.html',
-  styleUrls: ['./delete.component.scss'],
+  selector: 'app-delete-diagnostico:not(i)',
+  templateUrl: './delete-diagnostico.component.html',
+  styleUrls: ['./delete-diagnostico.component.scss'],
 })
 export class DeleteDiagnosticoComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteDiagnosticoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: { row: DiagnosticoDTO }
   ) {}
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  confirmDelete(): void {
-    // this.patientService.deletePatient(this.data.id);
-  }
 }

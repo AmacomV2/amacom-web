@@ -63,6 +63,7 @@ export class AuthService {
               fullName: dataUser.fullName,
               role: rol.name,
               token: res.accessToken,
+              person: dataUser,
             };
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);

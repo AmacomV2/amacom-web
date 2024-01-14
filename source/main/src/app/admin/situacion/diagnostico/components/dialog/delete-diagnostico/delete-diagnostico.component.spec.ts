@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
-import { FormDialogDiagnosticoComponent } from "./form-dialog.component";
 
+import { DeleteDiagnosticoComponent } from "./delete-diagnostico.component";
 
-describe("FormDialogComponent", () => {
-  let component: FormDialogDiagnosticoComponent;
-  let fixture: ComponentFixture<FormDialogDiagnosticoComponent>;
+describe("DeleteComponent", () => {
+  let component: DeleteDiagnosticoComponent;
+  let fixture: ComponentFixture<DeleteDiagnosticoComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [FormDialogDiagnosticoComponent],
+        declarations: [DeleteDiagnosticoComponent],
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormDialogDiagnosticoComponent);
+    fixture = TestBed.createComponent(DeleteDiagnosticoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

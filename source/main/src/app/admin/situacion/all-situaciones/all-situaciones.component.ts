@@ -64,7 +64,7 @@ export class AllSituacionesComponent
       actionType: 'add',
     },
     edit: {
-      urlView: '/admin/gestionar-usuarios/personas/add-persona',
+      urlView: '/admin/room/add-allotment',
       actionType: 'edit',
     },
     delete: {
@@ -78,6 +78,9 @@ export class AllSituacionesComponent
     view: {
       urlView: '/admin/room/edit-allotment',
       actionType: 'view',
+      action: (row: any) => {
+        this.pasoParametrosService.adicionarParametro('situation', row);
+      },
     },
   };
 
