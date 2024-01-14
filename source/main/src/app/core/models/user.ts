@@ -1,3 +1,4 @@
+import { PersonDTO } from './auth.person.response';
 import { Role } from './role';
 
 export class User {
@@ -11,4 +12,6 @@ export class User {
   // lastName!: string;
   role!: Role;
   token!: string;
+
+  person?: PersonDTO;
 }

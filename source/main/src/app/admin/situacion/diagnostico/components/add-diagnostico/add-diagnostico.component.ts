@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { DiagnosticoDTO } from '../all-diagnosticos/diagnostico.model';
-import { DiagnosticoService } from '../services/diagnostico.service';
+import { DiagnosticoDTO } from '../../models/diagnostico.model';
+import { DiagnosticoService } from '../../services/diagnostico.service';
 
 @Component({
   selector: 'app-add-diagnostico',

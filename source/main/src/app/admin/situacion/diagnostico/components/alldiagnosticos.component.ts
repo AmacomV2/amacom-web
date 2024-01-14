@@ -8,7 +8,6 @@ import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { TipoDocumentoDTO } from 'app/admin/gestionar-usuarios/tipos-documentos/models/tipoDocumento.model';
-import { DeletePersonaComponent } from 'app/doctor/personas/allpersonas/dialog/delete/delete.component';
 import { environment } from 'environments/environment';
 import { DeleteDiagnosticoComponent } from './dialog/delete-diagnostico/delete-diagnostico.component';
 

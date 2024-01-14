@@ -1,9 +1,5 @@
 <section class="content">
   <div class="content-block">
-    <div class="block-header">
-      <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Profile'" [items]="['Extra']" [active_item]="'Profile'"></app-breadcrumb>
-    </div>
     <!-- Your content goes here  -->
     <div class="row clearfix">
       <div class="col-lg-4 col-md-12">
@@ -11,30 +7,29 @@
           <div class="m-b-20">
             <div class="contact-grid">
               <div class="profile-header bg-dark">
-                <div class="user-name">Valentina Escobar</div>
-                <div class="name-center">Administrador</div>
+                <div class="user-name">{{ data.person?.fullName }}</div>
+                <div class="name-center">{{ data.role }}</div>
               </div>
-              <img src="assets/images/user/admin.jpg" class="user-img" alt="">
+              <img
+                [src]="data.img ?? 'assets/images/user/admin.jpg'"
+                class="user-img"
+                alt=""
+              />
               <p>
-                Calle 48 #27-05
-                <br />Girón
+                {{ data.person?.address }}
               </p>
-              <div>
-                <span class="phone">
-                  <i class="material-icons">phone</i>264-625-2583</span>
-              </div>
             </div>
           </div>
         </div>
         <div class="row">
-              <div class="p-4">
-                <small class="text-muted">Correo electrónico: </small>
-                <p>nenitq@gmail.com</p>
-                <hr>
-                <small class="text-muted">Estado usuario: </small>
-                <p>Activo</p>
-                <hr>
-              </div>
+          <div class="p-4">
+            <small class="text-muted">Correo electrónico: </small>
+            <p>{{ data.email }}</p>
+            <hr />
+            <small class="text-muted">Estado usuario: </small>
+            <p>Activo</p>
+            <hr />
+          </div>
         </div>
       </div>
       <div class="col-lg-8 col-md-12">
@@ -48,49 +43,57 @@
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Nombre</strong></h2> Valentina Escobar
+                    <h2><strong>Nombre</strong></h2>
+                    {{ data.person?.fullName }}
                   </div>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Identificación</strong></h2> CC - 272727
+                    <h2><strong>Identificación</strong></h2>
+                    {{ data.person?.documentType.acronym }} -
+                    {{ data.person?.documentNo }}
                   </div>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Correo electrónico</strong></h2> nenitq@gmail.com
+                    <h2><strong>Correo electrónico</strong></h2>
+                    {{ data.email }}
                   </div>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Genero</strong></h2> Desconocido
+                    <h2><strong>Genero</strong></h2>
+                    {{ data.person?.gender.name ?? "Desconocido" }}
                   </div>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Estado civil</strong></h2> Deesconocido
+                    <h2><strong>Estado civil</strong></h2>
+                    {{ data.person?.civilStatus ?? "Desconocido" }}
                   </div>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Edad</strong></h2> 22
+                    <h2><strong>Edad</strong></h2>
+                    {{ edad }}
                   </div>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="project_widget">
                   <div class="header">
-                    <h2><strong>Fecha de nacimiento</strong></h2> 27/06/2001
+                    <h2><strong>Fecha de nacimiento</strong></h2>
+                    {{ data.person?.birthDate | date : "dd/MM/yyyy" }}
                   </div>
                 </div>
               </div>

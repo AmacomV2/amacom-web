@@ -1,6 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { DiagnosticoDTO } from '../../diagnostico.model';
+import { DiagnosticoDTO } from '../../../models/diagnostico.model';
 
 export interface DialogData {
   id: number;
