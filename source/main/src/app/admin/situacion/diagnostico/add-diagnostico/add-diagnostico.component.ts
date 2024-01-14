@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
+import { DiagnosticoDTO } from '../all-diagnosticos/diagnostico.model';
+import { DiagnosticoService } from '../services/diagnostico.service';
 
 @Component({
   selector: 'app-add-diagnostico',
@@ -15,28 +17,21 @@ import { PasoParametrosService } from 'app/admin/paso-parametro.service';
   styleUrls: ['./add-diagnostico.component.scss'],
 })
 export class AddDiagnosticoComponent {
-  public data: any;
-  public modoEditar: boolean = false;
+  data: DiagnosticoDTO;
+  modoEditar: boolean = false;
+  situacionId: number;
+
   public titulo: any;
   public subtitulo: any;
-  patientForm: UntypedFormGroup;
-  alerta = new UntypedFormControl();
-  alertaList: string[] = [
-    'Alerta 1',
-    'Alerta 2',
-    'Alerta 3',
-  ];
-  estado = new UntypedFormControl();
-  estadoList: string[] = [
-    'Activo',
-    'Inactivo',
-  ];
+
+  form: UntypedFormGroup;
+
+  alertaList: string[] = ['INFORMATION', 'TO_REVIEW', 'URGENT'];
+
+  estadoList: string[] = ['PENDING', 'IN_PROGRESS', 'COMPLETED'];
+
   indicador = new UntypedFormControl();
-  indicadorList: string[] = [
-    'Indicador 1',
-    'Indicador 2',
-    'Indicador 3',
-  ];
+  indicadorList: string[] = ['Indicador 1', 'Indicador 2', 'Indicador 3'];
   actividad = new UntypedFormControl();
   actividadList: string[] = [
     'Actividad 1',
@@ -45,64 +40,60 @@ export class AddDiagnosticoComponent {
     'Actividad 4',
     'Actividad 5',
   ];
-  constructor(private fb: UntypedFormBuilder,
+  constructor(
+    private fb: UntypedFormBuilder,
     private router: Router,
     private pasoParametrosService: PasoParametrosService,
-    private location: Location) {
-    this.patientForm = this.createContactForm();
-    
-    this.fb.group({
-      first: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      last: [''],
-      gender: ['', [Validators.required]],
-      mobile: [''],
-      dob: ['', [Validators.required]],
-      age: [''],
-      email: [
-        '',
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
-      maritalStatus: [''],
-      address: [''],
-      bGroup: [''],
-      bPresure: [''],
-      sugger: [''],
-      injury: [''],
-      uploadFile: [''],
-    });
+    private diganosticoService: DiagnosticoService,
+    private location: Location
+  ) {
+    this.form = this.createContactForm();
   }
+
   onSubmit() {
-    console.log('Form Value', this.patientForm.value);
+    const observer = this.modoEditar
+      ? this.diganosticoService.updateDiagnosis(this.form.value)
+      : this.diganosticoService.createDiagnosis(this.form.value);
+
+    observer.subscribe((data) => {
+      this.volver();
+    });
   }
 
   cancelar() {
     this.location.back();
   }
 
+  volver() {
+    this.location.back();
+  }
+
   createContactForm(): UntypedFormGroup {
-    this.data = this.pasoParametrosService.obtenerParametro("data");
-    console.log("DATAA", this.data);
-    this.modoEditar = this.pasoParametrosService.obtenerParametro("modoEditar");
-    if(this.modoEditar==true){
-      this.titulo = "Editar diagnostico";
-      this.subtitulo = "En esta pantalla podrás editar el diagnostico";
-      return this.fb.group({
-        id: [this.data.id, [Validators.required]],
-        resultado: [this.data.resultado, [Validators.required]],
-        alerta: [this.data.alerta, [Validators.required]],
-        estado: [this.data.estado, [Validators.required]],
-        date: [this.data.date, [Validators.required]],
-      });
+    this.data = this.pasoParametrosService.obtenerParametro('data');
+    this.situacionId =
+      this.pasoParametrosService.obtenerParametro('situation')?.id;
+    this.modoEditar = this.pasoParametrosService.obtenerParametro('modoEditar');
+
+    if (this.modoEditar == true) {
+      this.titulo = 'Editar diagnostico';
+      this.subtitulo = 'En esta pantalla podrás editar el diagnostico';
     } else {
-      this.titulo = "Adicionar diagnostico";
-      this.subtitulo = "En esta pantalla podrás adicionar un diagnostico";
-      return this.fb.group({
-        id: ['', [Validators.required]],
-        resultado: ['', [Validators.required]],
-        alerta: ['', [Validators.required]],
-        estado: ['', [Validators.required]],
-        date: ['', [Validators.required]],
-      });
+      this.titulo = 'Adicionar diagnostico';
+      this.subtitulo = 'En esta pantalla podrás adicionar un diagnostico';
     }
-  } 
+    return this.fb.group({
+      id: [this.data?.id],
+      personSituationId: [this.situacionId, [Validators.required]],
+      consultationResult: [
+        this.data?.consultationResult,
+        [Validators.required],
+      ],
+      consultationAlert: [this.data?.consultationAlert, [Validators.required]],
+      consultationStatus: [
+        this.data?.consultationStatus,
+        [Validators.required],
+      ],
+      createdAt: [this.data?.createdAt ?? new Date(), [Validators.required]],
+    });
+  }
 }

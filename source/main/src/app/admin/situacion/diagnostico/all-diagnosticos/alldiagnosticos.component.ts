@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,29 +10,37 @@ import { NgTableConfig } from '@shared/components/ng-table/models/table.config.m
 import { TipoDocumentoDTO } from 'app/admin/gestionar-usuarios/tipos-documentos/models/tipoDocumento.model';
 import { DeletePersonaComponent } from 'app/doctor/personas/allpersonas/dialog/delete/delete.component';
 import { environment } from 'environments/environment';
+import { DeleteDiagnosticoComponent } from './dialog/delete-diagnostico/delete-diagnostico.component';
 
 @Component({
   selector: 'app-alldiagnosticos',
   templateUrl: './alldiagnosticos.component.html',
   styleUrls: ['./alldiagnosticos.component.scss'],
 })
-export class AllDiagnosticosComponent extends UnsubscribeOnDestroyAdapter {
+export class AllDiagnosticosComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   title = 'DIAGNOSTICOS';
-  subtitle = 'En esta pantalla podrás visualizar las personas';
+  subtitle = 'En esta pantalla podrás visualizar los dianosticos de la persona';
 
   config: NgTableConfig<any> = {
     title: 'Lista de diagnosticos',
-    keys: ['id', 'fullName', 'gender.name', 'documentType.name', 'updatedAt'],
-    headerColumns: [
-      'No',
-      'Nombre Completo',
-      'Genero',
-      'Documento',
-      'última actualización',
+    keys: [
+      'id',
+      'consultationAlert',
+      'consultationResult',
+      'consultationStatus',
     ],
-    urlData: environment.apiUrl + '/person/query',
-    typeColumns: ['uuid', null, null, null, 'date'],
+    headerColumns: ['No', 'Alerta', 'Resultado', 'Estado'],
+    urlData: environment.apiUrl + '/diagnosis/search',
+    typeColumns: ['uuid', null, null, null],
     pageable: true,
+    pageableOptions: {
+      otherParams: {
+        situationId: null,
+      },
+    },
     showFilter: true,
   };
 
@@ -48,16 +56,18 @@ export class AllDiagnosticosComponent extends UnsubscribeOnDestroyAdapter {
     delete: {
       modal: {
         title: '¿Está seguro de eliminar la persona?',
-        component: DeletePersonaComponent,
+        component: DeleteDiagnosticoComponent,
       },
       actionType: 'delete',
-      urlEndpoint: '/person',
+      urlEndpoint: '/diagnosis',
     },
     view: {
       urlView: '/admin/room/diagnostico/search-diagnostico',
       actionType: 'view',
     },
   };
+
+  situacionId: number;
 
   constructor(
     public httpClient: HttpClient,
@@ -67,6 +77,15 @@ export class AllDiagnosticosComponent extends UnsubscribeOnDestroyAdapter {
     private pasoParametrosService: PasoParametrosService
   ) {
     super();
+  }
+  ngOnInit(): void {
+    console.log(
+      'DIAGNOSTICOS',
+      this.pasoParametrosService.obtenerParametro('situation')
+    );
+    this.situacionId =
+      this.pasoParametrosService.obtenerParametro('situation')?.id;
+    this.config.pageableOptions.otherParams['situationId'] = this.situacionId;
   }
   // @ViewChild(MatPaginator, { static: true })
   // paginator!: MatPaginator;

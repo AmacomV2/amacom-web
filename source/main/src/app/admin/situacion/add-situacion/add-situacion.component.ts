@@ -5,10 +5,10 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Router, RouterState } from '@angular/router';
+import { Router } from '@angular/router';
 import { PasoParametrosService } from '../../paso-parametro.service';
 import { SituacionDTO } from '../models/situacion.model';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { SituacionService } from '../services/situacion.service';

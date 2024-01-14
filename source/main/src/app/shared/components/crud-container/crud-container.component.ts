@@ -94,7 +94,7 @@ export class CrudContainerComponent implements OnInit {
     if (this.modalForm.edit.urlView) {
       this.pasoParametrosService.adicionarParametro('data', row);
       this.pasoParametrosService.adicionarParametro('modoEditar', true);
-      this.router.navigate([this.modalForm.create.urlView]);
+      this.router.navigate([this.modalForm.edit.urlView]);
     } else {
       this.showModal(this.modalForm.edit, row);
     }

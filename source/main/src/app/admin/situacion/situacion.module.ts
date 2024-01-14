@@ -9,9 +9,8 @@ import { AddSituacionComponent } from './add-situacion/add-situacion.component';
 import { SituacionService } from './services/situacion.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
-import { DeleteDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/delete/delete.component';
+import { DeleteDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/delete-diagnostico/delete-diagnostico.component';
 import { AllDiagnosticosComponent } from './diagnostico/all-diagnosticos/alldiagnosticos.component';
-import { FormDialogDiagnosticoComponent } from './diagnostico/all-diagnosticos/dialog/form-dialog/form-dialog.component';
 import { AddDiagnosticoComponent } from './diagnostico/add-diagnostico/add-diagnostico.component';
 import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/search-diagnostico.component';
 
@@ -22,7 +21,6 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
     ViewSituacionComponent,
     AddSituacionComponent,
     DeleteDiagnosticoComponent,
-    FormDialogDiagnosticoComponent,
     AllDiagnosticosComponent,
     AddDiagnosticoComponent,
     SearchDiagnosticoComponent,
@@ -41,7 +39,6 @@ import { SearchDiagnosticoComponent } from './diagnostico/search-diagnostico/sea
     ViewSituacionComponent,
     AddSituacionComponent,
     DeleteDiagnosticoComponent,
-    FormDialogDiagnosticoComponent,
     AllDiagnosticosComponent,
     AddDiagnosticoComponent,
     SearchDiagnosticoComponent,

@@ -35,7 +35,7 @@ export class ViewSituacionComponent implements OnInit {
     hideDefaultActions: {
       add: true,
       edit: true,
-      delete: false,
+      delete: true,
       view: true,
     },
     pageableOptions: {
@@ -55,7 +55,7 @@ export class ViewSituacionComponent implements OnInit {
     hideDefaultActions: {
       add: true,
       edit: true,
-      delete: false,
+      delete: true,
       view: true,
     },
     pageableOptions: {
@@ -72,7 +72,7 @@ export class ViewSituacionComponent implements OnInit {
     private location: Location
   ) {}
   ngOnInit() {
-    this.data = this.pasoParametrosService.obtenerParametro('data');
+    this.data = this.pasoParametrosService.obtenerParametro('situation');
     if (this.data == null) {
       this.volver();
     }
