@@ -4,9 +4,8 @@ import { InventoryRoutingModule } from './inventory-routing.module';
 import { ItemStockListComponent } from './item-stock-list/item-stock-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormDialogComponent } from './item-stock-list/dialog/form-dialog/form-dialog.component';
-import { DeleteDialogComponent } from './item-stock-list/dialog/delete/delete.component';
+import { DeleteBitacoraComponent } from './item-stock-list/dialog/delete-bitacora/delete-bitacora.component';
 import { FormDialogComponent as IssuedItemForm } from './issued-items/dialog/form-dialog/form-dialog.component';
-import { DeleteDialogComponent as IssuedItemDelete } from './issued-items/dialog/delete/delete.component';
 import { ItemStockListService } from './item-stock-list/item-stock-list.service';
 import { IssuedItemsService } from './issued-items/issued-items.service';
 import { ComponentsModule } from '@shared/components/components.module';
@@ -17,10 +16,9 @@ import { IssuedItemsComponent } from './issued-items/issued-items.component';
   declarations: [
     ItemStockListComponent,
     FormDialogComponent,
-    DeleteDialogComponent,
+    DeleteBitacoraComponent,
     IssuedItemsComponent,
     IssuedItemForm,
-    IssuedItemDelete,
   ],
   imports: [
     CommonModule,

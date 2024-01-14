@@ -16,13 +16,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { AppointmentsService } from './appointments/appointments.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
-import { ItemStockListComponent } from './inventory/item-stock-list/item-stock-list.component';
-import { IssuedItemsComponent } from './inventory/issued-items/issued-items.component';
-import { FormDialogComponent } from './inventory/item-stock-list/dialog/form-dialog/form-dialog.component';
-import { DeleteDialogComponent } from './inventory/item-stock-list/dialog/delete/delete.component';
 import { AddPersonaComponent } from './personas/add-persona/add-persona.component';
 import { AllPersonasComponent } from './personas/allpersonas/allpersonas.component';
-import { SearchPersonaComponent } from './personas/search-persona/search-persona.component';
 import { DeletePersonaComponent } from './personas/allpersonas/dialog/delete/delete.component';
 import { FormDialogPersonaComponent } from './personas/allpersonas/dialog/form-dialog/form-dialog.component';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
@@ -36,7 +31,7 @@ import { FormDialogDiagnosticoComponent } from './room/diagnostico/all-diagnosti
 import { AllDiagnosticosComponent } from './room/diagnostico/all-diagnosticos/alldiagnosticos.component';
 import { AddDiagnosticoComponent } from './room/diagnostico/add-diagnostico/add-diagnostico.component';
 import { SearchDiagnosticoComponent } from './room/diagnostico/search-diagnostico/search-diagnostico.component';
-import { BitacoraComponent } from 'app/doctor/inventory/item-stock-list/bitacora.component';
+//import { BitacoraComponent } from './bitacora/item-stock-list/bitacora.component';
 import { SituacionComponent } from './room/allroom/situacion.component';
 
 @NgModule({
@@ -47,13 +42,8 @@ import { SituacionComponent } from './room/allroom/situacion.component';
     DoctorsComponent,
     PatientsComponent,
     SettingsComponent,
-    ItemStockListComponent,
-    IssuedItemsComponent,
-    FormDialogComponent,
-    DeleteDialogComponent,
     AddPersonaComponent,
     AllPersonasComponent,
-    SearchPersonaComponent,
     DeletePersonaComponent,
     FormDialogPersonaComponent,
     AllroomComponent,
@@ -66,7 +56,6 @@ import { SituacionComponent } from './room/allroom/situacion.component';
     AllDiagnosticosComponent,
     AddDiagnosticoComponent,
     SearchDiagnosticoComponent,
-    BitacoraComponent,
     SituacionComponent,
   ],
   imports: [
@@ -83,6 +72,6 @@ import { SituacionComponent } from './room/allroom/situacion.component';
     ComponentsModule,
     SharedModule,
   ],
-  providers: [AppointmentsService, PasoParametrosService],
+  providers: [AppointmentsService],
 })
 export class DoctorModule {}

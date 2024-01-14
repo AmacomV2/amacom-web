@@ -48,7 +48,6 @@ export class SearchPersonaComponent implements OnInit {
     if (this.data == null) {
       this.volver();
     }
-    console.log('data', this.data);
   }
   // onSubmit() {
   //   console.log('Form Value', this.patientForm.value);

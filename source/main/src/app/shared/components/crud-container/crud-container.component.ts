@@ -58,6 +58,8 @@ export class CrudContainerComponent implements OnInit {
    */
   @Input() hideContainer = false;
 
+  @Input() disableContainer = false;
+
   @ViewChild('table') table: NgTableComponent<any>;
 
   constructor(

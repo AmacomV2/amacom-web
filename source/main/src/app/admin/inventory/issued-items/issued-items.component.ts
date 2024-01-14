@@ -27,7 +27,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-issued-items',
+  selector: 'app-add-bitacora',
   templateUrl: './issued-items.component.html',
   styleUrls: ['./issued-items.component.scss'],
 })

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -46,7 +47,8 @@ export class AddDiagnosticoComponent {
   ];
   constructor(private fb: UntypedFormBuilder,
     private router: Router,
-    private pasoParametrosService: PasoParametrosService) {
+    private pasoParametrosService: PasoParametrosService,
+    private location: Location) {
     this.patientForm = this.createContactForm();
     
     this.fb.group({
@@ -74,7 +76,7 @@ export class AddDiagnosticoComponent {
   }
 
   cancelar() {
-  //  this.router.navigate(['/admin/patients/all-patients']);
+    this.location.back();
   }
 
   createContactForm(): UntypedFormGroup {

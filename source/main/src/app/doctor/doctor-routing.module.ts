@@ -6,18 +6,18 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { PatientsComponent } from './patients/patients.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ItemStockListComponent } from './inventory/item-stock-list/item-stock-list.component';
-import { IssuedItemsComponent } from './inventory/issued-items/issued-items.component';
+import { AllBitacoraComponent } from './bitacora/components/all-bitacora/all-bitacora.component';
+import { AddBitacoraComponent } from './bitacora/components/add-bitacora/add-bitacora.component';
 import { AllPersonasComponent } from './personas/allpersonas/allpersonas.component';
 import { AddPersonaComponent } from './personas/add-persona/add-persona.component';
-import { SearchPersonaComponent } from './personas/search-persona/search-persona.component';
+// import { SearchPersonaComponent } from './personas/search-persona/search-persona.component';
 import { AllroomComponent } from './room/allroom/allroom.component';
 import { AddAllotmentComponent } from './room/add-allotment/add-allotment.component';
 import { EditAllotmentComponent } from './room/edit-allotment/edit-allotment.component';
 import { AllDiagnosticosComponent } from './room/diagnostico/all-diagnosticos/alldiagnosticos.component';
 import { AddDiagnosticoComponent } from './room/diagnostico/add-diagnostico/add-diagnostico.component';
 import { SearchDiagnosticoComponent } from './room/diagnostico/search-diagnostico/search-diagnostico.component';
-import { BitacoraComponent } from 'app/doctor/inventory/item-stock-list/bitacora.component';
+import { BitacoraComponent } from './bitacora/components/bitacora.component';
 import { SituacionComponent } from './room/allroom/situacion.component';
 const routes: Routes = [
   {
@@ -42,11 +42,11 @@ const routes: Routes = [
   },
   {
     path: 'inventory/item-stock-list',
-    component: ItemStockListComponent,
+    component: AllBitacoraComponent,
   },
   {
     path: 'inventory/issued-items',
-    component: IssuedItemsComponent,
+    component: AddBitacoraComponent,
   },
   {
     path: 'personas/all-personas',
@@ -56,10 +56,10 @@ const routes: Routes = [
     path: 'personas/add-persona',
     component: AddPersonaComponent,
   },
-  {
-    path: 'personas/search-persona',
-    component: SearchPersonaComponent,
-  },
+  // {
+  //   path: 'personas/search-persona',
+  //   component: SearchPersonaComponent,
+  // },
   {
     path: "room/all-rooms",
     component: AllroomComponent,
