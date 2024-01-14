@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-item-stock-list',
+  selector: 'app-all-bitacora',
   templateUrl: './item-stock-list.component.html',
   styleUrls: ['./item-stock-list.component.scss'],
 })

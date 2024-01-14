@@ -4,40 +4,28 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ItemStockList } from './item-stock-list.model';
-import { DataSource } from '@angular/cdk/collections';
-import { FormDialogComponent } from './dialog/form-dialog/form-dialog.component';
-import { DeleteDialogComponent } from './dialog/delete/delete.component';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Direction } from '@angular/cdk/bidi';
-import {
-  TableExportUtil,
-  TableElement,
-  UnsubscribeOnDestroyAdapter,
-} from '@shared';
-import { formatDate } from '@angular/common';
+import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-item-stock-list',
-  templateUrl: './item-stock-list.component.html',
-  styleUrls: ['./item-stock-list.component.scss'],
+  selector: 'app-all-bitacora',
+  templateUrl: './all-bitacora.component.html',
+  styleUrls: ['./all-bitacora.component.scss'],
 })
-export class ItemStockListComponent
+export class AllBitacoraComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
-  
-public listaBitacora: Array<any> = [];
-public indicePrimerItem: number = 1;
-public indiceUltimoItem: number = 10;
+  public listaBitacora: Array<any> = [];
+  public indicePrimerItem: number = 1;
+  public indiceUltimoItem: number = 10;
   displayedColumns = [
     'select',
     'i_name',
@@ -66,13 +54,13 @@ public indiceUltimoItem: number = 10;
   sort!: MatSort;
   @ViewChild('filter', { static: true }) filter?: ElementRef;
   ngOnInit() {
-   // this.loadData();
-    console.log(this.listaBitacora, "LISTAAA1");
+    // this.loadData();
+    console.log(this.listaBitacora, 'LISTAAA1');
     this.llenarLista();
-    console.log(this.listaBitacora, "LISTAAA");
+    console.log(this.listaBitacora, 'LISTAAA');
   }
   refresh() {
-   // this.loadData();
+    // this.loadData();
   }
   addNew() {
     this.router.navigate(['/doctor/inventory/issued-items']);
@@ -88,13 +76,13 @@ public indiceUltimoItem: number = 10;
     } else {
       tempDirection = 'ltr';
     }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
-      data: {
-        itemStockList: data2,
-        bandera: true,
-      },
-      direction: tempDirection,
-    });
+    // const dialogRef = this.dialog.open(FormDialogComponent, {
+    //   data: {
+    //     itemStockList: data2,
+    //     bandera: true,
+    //   },
+    //   direction: tempDirection,
+    // });
   }
   editCall(data1: any) {
     this.id = data1.id;
@@ -104,13 +92,13 @@ public indiceUltimoItem: number = 10;
     } else {
       tempDirection = 'ltr';
     }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
-      data: {
-        itemStockList: data1,
-        bandera: false,
-      },
-      direction: tempDirection,
-    });
+    // const dialogRef = this.dialog.open(FormDialogComponent, {
+    //   data: {
+    //     itemStockList: data1,
+    //     bandera: false,
+    //   },
+    //   direction: tempDirection,
+    // });
   }
   deleteItem(data3: any) {
     this.id = data3.id;
@@ -120,15 +108,15 @@ public indiceUltimoItem: number = 10;
     } else {
       tempDirection = 'ltr';
     }
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: data3,
-      direction: tempDirection,
-    });
+    // const dialogRef = this.dialog.open(DeleteBitacoraDialogComponent, {
+    //   data: data3,
+    //   direction: tempDirection,
+    // });
   }
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
-  
+
   showNotification(
     colorName: string,
     text: string,
@@ -143,11 +131,15 @@ public indiceUltimoItem: number = 10;
     });
   }
 
-  
-  llenarLista(){
+  llenarLista() {
     this.listaBitacora = [
-     {id:1, i_name:"pruebita", date:"27/06/2001", descripcion:"hellou"},
-     {id:2, i_name:"pruebita2", date:"27/06/2001", descripcion:"no soy una descripción"}
+      { id: 1, i_name: 'pruebita', date: '27/06/2001', descripcion: 'hellou' },
+      {
+        id: 2,
+        i_name: 'pruebita2',
+        date: '27/06/2001',
+        descripcion: 'no soy una descripción',
+      },
     ];
   }
 }

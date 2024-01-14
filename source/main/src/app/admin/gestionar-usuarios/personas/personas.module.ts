@@ -10,6 +10,7 @@ import { AddPersonaComponent } from './add-persona/add-persona.component';
 import { SearchPersonaComponent } from './search-persona/search-persona.component';
 import { AllPersonasComponent } from './allpersonas/allpersonas.component';
 import { SituacionModule } from 'app/admin/situacion/situacion.module';
+import { BitacoraModule } from 'app/doctor/bitacora/bitacora.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SituacionModule } from 'app/admin/situacion/situacion.module';
     SharedModule,
     MaterialModule,
     SituacionModule,
+    BitacoraModule,
   ],
   providers: [],
 })

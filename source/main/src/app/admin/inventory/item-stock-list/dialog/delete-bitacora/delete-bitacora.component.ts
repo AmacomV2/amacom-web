@@ -10,13 +10,13 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-delete:not(h)',
-  templateUrl: './delete.component.html',
-  styleUrls: ['./delete.component.scss'],
+  selector: 'app-delete-bitacora-bitacora:not(h)',
+  templateUrl: './delete-bitacora.component.html',
+  styleUrls: ['./delete-bitacora.component.scss'],
 })
-export class DeleteDialogComponent {
+export class DeleteBitacoraComponent {
   constructor(
-    public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    public dialogRef: MatDialogRef<DeleteBitacoraComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public itemStockListService: ItemStockListService
   ) {}

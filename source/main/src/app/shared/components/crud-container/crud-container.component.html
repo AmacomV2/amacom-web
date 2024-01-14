@@ -1,4 +1,4 @@
-<section class="content" *ngIf="!hideContainer">
+<section [ngClass]="disableContainer?'':'content'" *ngIf="!hideContainer">
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->

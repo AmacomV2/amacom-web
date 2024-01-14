@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { ItemStockList } from './item-stock-list.model';
 import { DataSource } from '@angular/cdk/collections';
 import { FormDialogComponent } from './dialog/form-dialog/form-dialog.component';
-import { DeleteDialogComponent } from './dialog/delete/delete.component';
+import { DeleteBitacoraComponent } from './dialog/delete-bitacora/delete-bitacora.component';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-item-stock-list',
+  selector: 'app-all-bitacora',
   templateUrl: './item-stock-list.component.html',
   styleUrls: ['./item-stock-list.component.scss'],
 })
@@ -166,7 +166,7 @@ public indiceUltimoItem: number = 10;
     } else {
       tempDirection = 'ltr';
     }
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteBitacoraComponent, {
       data: data3,
       direction: tempDirection,
     });

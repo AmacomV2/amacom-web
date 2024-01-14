@@ -9,7 +9,7 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-delete:not(h)',
+  selector: 'app-delete-bitacora-bitacora:not(h)',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })

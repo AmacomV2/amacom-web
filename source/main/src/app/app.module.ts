@@ -25,6 +25,7 @@ import {
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { DataInterceptor } from '@core/interceptor/data.interceptor';
+import { PasoParametrosService } from './admin/paso-parametro.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -64,6 +65,7 @@ export function createTranslateLoader(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DataInterceptor, multi: true },
     //fakeBackendProvider,
+    PasoParametrosService,
   ],
   bootstrap: [AppComponent],
 })

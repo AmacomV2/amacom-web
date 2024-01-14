@@ -5,10 +5,10 @@ import { IssuedItemsComponent } from './issued-items/issued-items.component';
 import { ItemStockListComponent } from './item-stock-list/item-stock-list.component';
 
 const routes: Routes = [
-  {
-    path: 'item-stock-list',
-    component: ItemStockListComponent,
-  },
+  // {
+  //   path: 'item-stock-list',
+  //   component: ItemStockListComponent,
+  // },
   {
     path: 'issued-items',
     component: IssuedItemsComponent,

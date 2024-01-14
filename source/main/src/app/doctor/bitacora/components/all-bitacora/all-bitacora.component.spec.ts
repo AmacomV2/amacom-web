@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IssuedItemsComponent } from './issued-items.component';
+import { AllBitacoraComponent } from './all-bitacora.component';
 
-describe('IssuedItemsComponent', () => {
-  let component: IssuedItemsComponent;
-  let fixture: ComponentFixture<IssuedItemsComponent>;
+describe('AllBitacoraComponent', () => {
+  let component: AllBitacoraComponent;
+  let fixture: ComponentFixture<AllBitacoraComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IssuedItemsComponent ]
+      declarations: [ AllBitacoraComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IssuedItemsComponent);
+    fixture = TestBed.createComponent(AllBitacoraComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

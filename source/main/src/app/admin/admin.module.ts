@@ -8,6 +8,6 @@ import { PasoParametrosService } from "./paso-parametro.service";
   
   ],
   imports: [CommonModule, AdminRoutingModule],
-  providers: [PasoParametrosService],
+  //providers: [PasoParametrosService],
 })
 export class AdminModule {}

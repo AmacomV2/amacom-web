@@ -85,6 +85,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./gestion-temas/temas.module').then((m) => m.TemasModule),
   },
+  // {
+  //   path: 'bitacora',
+  //   loadChildren: () =>
+  //     import('./bitacora/bitacora.module').then((m) => m.BitacoraModule),
+  // }
 ];
 
 @NgModule({
