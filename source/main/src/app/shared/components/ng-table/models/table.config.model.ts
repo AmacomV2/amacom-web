@@ -71,7 +71,7 @@ export interface NgTableConfig<T> {
     };
   };
   /**
-   * indica si se debe mostrar el filtro de busqueda.
+   * indica si se debe mostrar el filtro de busqueda. (por defecto es true).
    */
   showFilter?: boolean;
   /**

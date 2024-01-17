@@ -6,5 +6,5 @@ export interface dataModalView {
 export interface configModalView {
     label: string;
     key: string;
-    type?: 'date' | 'uuid' | 'string';
+    type?: string;
 }

@@ -3,22 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DataSource } from '@angular/cdk/collections';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SelectionModel } from '@angular/cdk/collections';
 import { Direction } from '@angular/cdk/bidi';
-import {
-  TableExportUtil,
-  TableElement,
-  UnsubscribeOnDestroyAdapter,
-} from '@shared';
-import { formatDate } from '@angular/common';
+import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { SignoAlarmaDTO } from './models/signoalarma.model';
@@ -44,7 +35,14 @@ export class AllSignosAlarmaComponent
   config: NgTableConfig<any> = {
     title: 'Lista de signos de alarma',
     keys: ['id', 'name', 'description', 'type', 'status', 'updatedAt'],
-    headerColumns: ['No', 'Nombre', 'Descripción', 'Tipo', 'Estado', 'última actualización'],
+    headerColumns: [
+      'No',
+      'Nombre',
+      'Descripción',
+      'Tipo',
+      'Estado',
+      'última actualización',
+    ],
     urlData: environment.apiUrl + '/alarmSign/search',
     //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
     typeColumns: ['uuid', null, null, null, 'badge', 'date'],
@@ -100,6 +98,7 @@ export class AllSignosAlarmaComponent
         {
           label: 'Estado',
           key: 'status',
+          type: 'badge',
         },
         {
           label: 'Fecha de creación',
@@ -114,8 +113,6 @@ export class AllSignosAlarmaComponent
       ],
     },
   };
-
-
 
   // public listaSignoAlarma: Array<any> = [];
   // public indicePrimerItem: number = 1;
@@ -238,30 +235,30 @@ export class AllSignosAlarmaComponent
     //   this.exampleDatabase,
     //   this.paginator,
     //   this.sort
-  //   );
-  //   this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
-  //     () => {
-  //       if (!this.dataSource) {
-  //         return;
-  //       }
-  //       this.dataSource.filter = this.filter?.nativeElement.value;
-  //     }
-  //   );
-  // }
-  // // export table data in excel file
-  // exportExcel() {
-  //   // key name with space add in brackets
-  //   const exportData: Partial<TableElement>[] =
-  //     this.dataSource.filteredData.map((x) => ({
-  //       Name: x.name,
-  //       Gender: x.gender,
-  //       Address: x.address,
-  //       'Birth Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
-  //       'Blood Group': x.bGroup,
-  //       Mobile: x.mobile,
-  //       Treatment: x.treatment,
-  //     }));
-  //   TableExportUtil.exportToExcel(exportData, 'excel');
+    //   );
+    //   this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
+    //     () => {
+    //       if (!this.dataSource) {
+    //         return;
+    //       }
+    //       this.dataSource.filter = this.filter?.nativeElement.value;
+    //     }
+    //   );
+    // }
+    // // export table data in excel file
+    // exportExcel() {
+    //   // key name with space add in brackets
+    //   const exportData: Partial<TableElement>[] =
+    //     this.dataSource.filteredData.map((x) => ({
+    //       Name: x.name,
+    //       Gender: x.gender,
+    //       Address: x.address,
+    //       'Birth Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
+    //       'Blood Group': x.bGroup,
+    //       Mobile: x.mobile,
+    //       Treatment: x.treatment,
+    //     }));
+    //   TableExportUtil.exportToExcel(exportData, 'excel');
   }
 
   showNotification(
@@ -278,7 +275,7 @@ export class AllSignosAlarmaComponent
     });
   }
 
-  llenarLista(){
+  llenarLista() {
     // this.listaSignoAlarma = [
     //  {id:1, nombre:"Signo alarma 1", tipo:"Madre", descripcion:"Soy el Signo alarma 1", estado:"Activo", date:"11/09/2023"},
     //  {id:2, nombre:"Signo alarma 2", tipo:"Madre", descripcion:"Soy el Signo alarma 2", estado:"Activo", date:"11/09/2023"},

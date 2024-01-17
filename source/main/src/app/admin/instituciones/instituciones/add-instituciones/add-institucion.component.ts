@@ -2,12 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
-  UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppDataService } from '@shared/services/app-data.service';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { environment } from 'environments/environment';
 import { map } from 'rxjs';
@@ -47,8 +45,8 @@ export class AddInstitucionComponent implements OnInit {
 
   configTableServicio: NgTableConfig<any> = {
     title: 'Lista de servicios',
-    keys: ['id', 'name', 'description'],
-    headerColumns: ['No', 'Nombre', 'Descripción'],
+    keys: ['id', 'name'],
+    headerColumns: ['No', 'Nombre'],
     urlData: environment.apiUrl + '/services/consulta',
     typeColumns: ['uuid', null, null],
     pageable: true,
@@ -60,6 +58,22 @@ export class AddInstitucionComponent implements OnInit {
       delete: true,
     },
     checkbox: true,
+  };
+
+  configTablePersona: NgTableConfig<any> = {
+    title: 'Lista de personas',
+    keys: ['id', 'name', 'description'],
+    headerColumns: ['No', 'Nombre', 'Descripción'],
+    urlData: environment.apiUrl + '/institutionServicePerson/consulta',
+    typeColumns: ['uuid', null, null],
+    pageable: true,
+    showFilter: false,
+    hideDefaultActions: {
+      add: true,
+      view: true,
+      edit: true,
+      delete: false,
+    },
   };
 
   valueInstitucion: any;
@@ -78,6 +92,9 @@ export class AddInstitucionComponent implements OnInit {
     this.llenarLista();
   }
 
+  /**
+   * guarda la institucion
+   */
   onSubmit() {
     const observer$ = this.modoEditar
       ? this.institucionService.update(this.institucionForm.value)
@@ -85,13 +102,29 @@ export class AddInstitucionComponent implements OnInit {
 
     observer$.subscribe((res) => {
       this.isCreated = true;
-      //this.cancel();
+      this.configTableServicio.pageableOptions.otherParams = {
+        institutionId: res.id,
+      };
+      this.configTablePersona.pageableOptions.otherParams = {
+        institutionId: res.id,
+      };
     });
-    console.log('Form Value', this.institucionForm.value);
   }
 
   guardarService() {
-    
+    const observer$ = this.modoEditar
+      ? this.institucionService.updateServicioInstituto(this.institucionForm.value)
+      : this.institucionService.guardarServiceInstituto(this.institucionForm.value);
+
+    observer$.subscribe((res) => {
+      this.isCreated = true;
+      this.configTableServicio.pageableOptions.otherParams = {
+        institutionId: res.id,
+      };
+      this.configTablePersona.pageableOptions.otherParams = {
+        institutionId: res.id,
+      };
+    });
   }
 
   llenarLista() {

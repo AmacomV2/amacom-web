@@ -4,7 +4,7 @@
   </div>
 
   <div class="ng-header-table">
-    <mat-form-field appearance="fill" *ngIf="config.showFilter">
+    <mat-form-field appearance="fill" *ngIf="config.showFilter ?? true">
       <mat-icon matPrefix>search</mat-icon>
       <input
         matInput
@@ -131,6 +131,7 @@
         #paginator
         *ngIf="!config.hidePaginator"
         [pageSizeOptions]="pageSizeOptions"
+        [length]="lengthData"
         showFirstLastButtons
         aria-label="Select page of periodic elements"
       >

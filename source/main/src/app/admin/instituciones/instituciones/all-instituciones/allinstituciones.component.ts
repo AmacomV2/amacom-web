@@ -10,7 +10,6 @@ import { InstitucionDTO } from '../models/institucion.model';
 import { DeleteInstitucionComponent } from './dialog/delete/delete.component';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
-import { SignoAlarmaDTO } from 'app/admin/gestion-signos-alarma/all-signosalarma/models/signoalarma.model';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -38,7 +37,7 @@ export class AllInstitucionesComponent extends UnsubscribeOnDestroyAdapter {
     showFilter: true,
   };
 
-  modalForm: ModalConfig<SignoAlarmaDTO> = {
+  modalForm: ModalConfig<InstitucionDTO> = {
     edit: {
       urlView: '/admin/instituciones/instituciones/add-institucion',
       actionType: 'edit',
@@ -57,7 +56,7 @@ export class AllInstitucionesComponent extends UnsubscribeOnDestroyAdapter {
     },
     view: {
       modal: {
-        title: 'Ver signo de alarma',
+        title: 'Ver institucion',
         width: '400px',
         maxHeight: '500px',
       },
