@@ -1,18 +1,22 @@
 <section class="content">
   <div class="content-block">
     <div class="body">
-      <form class="m-4" [formGroup]="institucionForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-              <div class="header">
-                <h3>
-                  <strong> {{ titulo }}</strong>
-                </h3>
-              </div>
-              <div class="body">
-                <app-mat-stepper-main [subtitle]="subtitulo">
-                  <ng-template stepperContent icon="apartment">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h3>
+                <strong> {{ titulo }}</strong>
+              </h3>
+            </div>
+            <div class="body">
+              <app-mat-stepper-main [subtitle]="subtitulo">
+                <ng-template
+                  stepperContent
+                  icon="apartment"
+                  label="Informacion basica"
+                >
+                  <form [formGroup]="institucionForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                         <mat-form-field
@@ -69,39 +73,74 @@
                         </mat-form-field>
                       </div>
                     </div>
-                  </ng-template>
 
-                  <ng-template stepperContent icon="design_services" [disabled]="!isCreated">
-                    <h2>
-                      <mat-panel-title> Servicios </mat-panel-title>
-                    </h2>
-                    <span>
-                      Servicios asociados a la institución
-                      <mat-icon>build</mat-icon>
-                    </span>
-                    <div class="tableBody">
-                      <div class="body table-responsive">
-                        <app-ng-table [config]="configTableServicio" >
-                        </app-ng-table>
-
-                        <mat-action-row>
-                          <button
-                            mat-button
-                            color="primary"
-                            (click)="guardarService()"
-                          >
-                            Guardar
-                          </button>
-                        </mat-action-row>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <button
+                          class="btn-space"
+                          mat-raised-button
+                          color="primary"
+                        >
+                          Guardar
+                        </button>
+                        <button
+                          type="button"
+                          mat-raised-button
+                          color="warn"
+                          (click)="cancel()"
+                        >
+                          Cancelar
+                        </button>
                       </div>
                     </div>
-                  </ng-template>
+                  </form>
+                </ng-template>
 
-                  <ng-template stepperContent icon="person" [disabled]="!isCreated"> paso 3 </ng-template>
-                </app-mat-stepper-main>
+                <ng-template
+                  stepperContent
+                  label="Servicios"
+                  icon="design_services"
+                  [disabled]="!isCreated"
+                >
+                  <div class="tableBody">
+                    <div class="body table-responsive">
+                      <app-ng-table [config]="configTableServicio">
+                      </app-ng-table>
 
-                
-                <mat-accordion class="example-headers-align">
+                      <mat-action-row>
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          (click)="guardarService()"
+                        >
+                          Guardar
+                        </button>
+                      </mat-action-row>
+                    </div>
+                  </div>
+                </ng-template>
+
+                <ng-template
+                  stepperContent
+                  label="Personal"
+                  icon="person"
+                  [disabled]="!isCreated"
+                >
+                  <app-ng-table [config]="configTablePersona"> </app-ng-table>
+
+                  <mat-action-row>
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      (click)="guardarService()"
+                    >
+                      Guardar
+                    </button>
+                  </mat-action-row>
+                </ng-template>
+              </app-mat-stepper-main>
+
+              <!-- <mat-accordion class="example-headers-align">
                   <mat-expansion-panel
                     [expanded]="step === 0"
                     (opened)="setStep(0)"
@@ -202,33 +241,11 @@
                       </button>
                     </mat-action-row>
                   </mat-expansion-panel>
-                </mat-accordion>
-              </div>
+                </mat-accordion> -->
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-            <button
-              class="btn-space"
-              [disabled]="!institucionForm.valid"
-              mat-raised-button
-              color="primary"
-            >
-              Guardar
-            </button>
-            <button
-              type="button"
-              mat-raised-button
-              color="warn"
-              (click)="cancel()"
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </section>

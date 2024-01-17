@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { TemaDTO } from '../all-temas/models/tema.model';
+import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 @Component({
   selector: 'app-search-tema',
   templateUrl: './search-tema.component.html',
@@ -15,7 +16,7 @@ import { TemaDTO } from '../all-temas/models/tema.model';
 })
 export class SearchTemaComponent 
 implements OnInit{
-  public data: any;
+  public data: TemaDTO;
   public modoEditar: boolean = false;
   public titulo: any;
   public subtitulo: any;
@@ -45,13 +46,32 @@ implements OnInit{
   prevStep() {
     this.step--;
   }
+
+  configSubtema: NgTableConfig<any> = {
+    title: 'Lista de subtemas',
+    keys: ['id', 'name', 'validityIndicator', 'parentId', 'createdAt'],
+    headerColumns: ['No', 'Nombre', 'Validez', 'Tema Padre', 'Fecha Creación'],
+    urlData: '/subject/getByIdList',
+    typeColumns: ['uuid', null, null, null, null],
+    pageable: true,
+    showFilter: true,
+    hideDefaultActions: {
+      add: true,
+      view: true,
+      edit: true,
+      delete: true,
+    },
+    pageableOptions:{}
+  };
+
   constructor(private fb: UntypedFormBuilder,
     private router: Router,
     private pasoParametrosService: PasoParametrosService) {
     this.roomForm = this.createContactForm();
   }
   ngOnInit() {
-     this.llenarLista();
+     //this.llenarLista();
+     this.configSubtema.pageableOptions.otherParams = {subjectIdList: this.data.id};
    }
   onSubmit() {
     console.log('Form Value', this.roomForm.value);
@@ -80,15 +100,15 @@ implements OnInit{
   }
 
   createContactForm(): UntypedFormGroup {
-    this.data = this.pasoParametrosService.obtenerParametro("data");
+    this.data = this.pasoParametrosService.obtenerParametro("tema");
     console.log("DATAA", this.data);
-    this.titulo = this.data.nombre.toUpperCase();
+    this.titulo = this.data?.name.toUpperCase();
       return this.fb.group({
         id: [this.data.id, [Validators.required]],
-        nombre: [this.data.nombre, [Validators.required]],
-        validez: [this.data.validez, [Validators.required]],
-        temaPadre: [this.data.temaPadre, [Validators.required]],
-        date: [this.data.date, [Validators.required]],
+        name: [this.data.name, [Validators.required]],
+        validez: [this.data.validityIndicator, [Validators.required]],
+        parentId: [this.data.parentId, [Validators.required]],
+        createdAt: [this.data.createdAt, [Validators.required]],
       });
   } 
 

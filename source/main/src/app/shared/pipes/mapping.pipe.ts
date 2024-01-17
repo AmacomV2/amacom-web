@@ -12,12 +12,15 @@ export class MappingPipe implements PipeTransform {
       return value.slice(0, 8);
     }
     if (type === 'badge') {
-      return `<span class="badge ${(value === true ? 'col-green':'col-orange')}">Activo</span>`;
+      return `<span class="badge ${
+        value === true ? 'col-green' : 'col-orange'
+      }">
+        ${value === true ? 'Activo' : 'Inactivo'}
+      </span>`;
     }
     return value;
   }
 }
-
 
 export enum TypeMapper {
   DATE = 'date',

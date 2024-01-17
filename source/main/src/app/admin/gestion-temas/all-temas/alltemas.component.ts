@@ -3,9 +3,9 @@ import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { SignoAlarmaDTO } from 'app/admin/gestion-signos-alarma/all-signosalarma/models/signoalarma.model';
-import { DeleteInstitucionComponent } from 'app/admin/instituciones/instituciones/all-instituciones/dialog/delete/delete.component';
 import { environment } from 'environments/environment';
 import { DeleteTemaComponent } from './dialog/delete/delete.component';
+import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 
 @Component({
   selector: 'app-alltemas',
@@ -46,32 +46,15 @@ export class AllTemasComponent extends UnsubscribeOnDestroyAdapter {
       urlEndpoint: '/subject',
     },
     view: {
-      modal: {
-        title: 'Ver tema',
-        width: '400px',
-        maxHeight: '500px',
-      },
+      urlView: '/admin/gestion-temas/search-temas',
       actionType: 'view',
-      configView: [
-        {
-          label: 'Nombre',
-          key: 'name',
-        },
-        {
-          label: 'Indicador de validez',
-          key: 'validityIndicator',
-        },
-        {
-          label: 'Fecha de creación',
-          key: 'createdAt',
-          type: 'date',
-        },
-        {
-          label: 'Fecha de actualización',
-          key: 'updatedAt',
-          type: 'date',
-        },
-      ],
+      action: (row) => {
+        this.pasoParametrosService.adicionarParametro('tema', row);
+      },
     },
   };
+
+  constructor(private pasoParametrosService: PasoParametrosService) {
+    super();
+  }
 }

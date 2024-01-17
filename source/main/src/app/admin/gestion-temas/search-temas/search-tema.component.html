@@ -2,39 +2,53 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Consultar tema'" [items]="['Tema']" [active_item]="'Consultar tema'"></app-breadcrumb>
+      <app-breadcrumb
+        [title]="'Consultar tema'"
+        [items]="['Tema']"
+        [active_item]="'Consultar tema'"
+      ></app-breadcrumb>
     </div>
     <div class="body">
       <form class="m-4" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
-
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
               <div class="body">
-                <a mat-mini-fab (click)="volver()" matTooltip="Volver"
-                  class="btn bg-purple btn-lg btn-block waves-effect"><mat-icon>keyboard_return</mat-icon></a>
+                <a
+                  mat-mini-fab
+                  (click)="volver()"
+                  matTooltip="Volver"
+                  class="btn bg-purple btn-lg btn-block waves-effect"
+                  ><mat-icon>keyboard_return</mat-icon></a
+                >
               </div>
               <div class="header">
-                <h3><strong>{{titulo}}</strong></h3>
+                <h3>
+                  <strong>{{ titulo }}</strong>
+                </h3>
               </div>
               <div class="header">
-                <h6>En esta pantalla podrás consultar la información del tema: {{data.nombre}}</h6>
+                <h6>
+                  En esta pantalla podrás consultar la información del tema:
+                  {{ data?.name }}
+                </h6>
               </div>
               <div class="body">
                 <div class="row">
                   <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <h6><span class="font-weight-bold"><strong>Nombre: </strong></span>{{data.nombre}}</h6>
-                  </div>
-                  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <h6><span class="font-weight-bold"><strong>Indicador de validez: </strong></span>{{ data.validez }}
+                    <h6>
+                      <span class="font-weight-bold"
+                        ><strong>Indicador de validez: </strong></span
+                      >{{ data?.validityIndicator }}
                     </h6>
                   </div>
                 </div>
-                <div class="row">
                   <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <h6><span class="font-weight-bold"><strong>Tema padre: </strong></span>{{data.temaPadre}}
+                    <h6>
+                      <span class="font-weight-bold"
+                        ><strong>Tema padre: </strong></span
+                      >{{ data.parent?.name }}
                     </h6>
-                  </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12">
@@ -42,18 +56,23 @@
                     <mat-tab-group>
                       <mat-tab>
                         <ng-template mat-tab-label>
-                          <mat-icon class="example-tab-icon msr-2">face</mat-icon>
+                          <mat-icon class="example-tab-icon msr-2"
+                            >face</mat-icon
+                          >
                           Subtemas
                         </ng-template>
-                        <br>
-                        <br>
+                        <br />
+                        <br />
                         <h3>&nbsp;&nbsp;Lista de subtemas</h3>
                         <div class="header">
-                          <h6>Lista de subtemas asociados al tema: {{data.nombre}}</h6>
+                          <h6>
+                            Lista de subtemas asociados al tema:
+                            {{ data.name }}
+                          </h6>
                         </div>
                         <div class="row">
                           <div class="body table-responsive">
-                            <table class="table table-bordered">
+                            <!-- <table class="table table-bordered">
                               <thead>
                                 <tr>
                                   <th class="text-center">No</th>
@@ -88,15 +107,19 @@
                                 </tr>
 
                               </tbody>
-                            </table>
+                            </table> -->
+                            <app-ng-table
+                              [config]="configSubtema"
+                            ></app-ng-table>
                           </div>
                         </div>
-
                       </mat-tab>
 
                       <mat-tab>
                         <ng-template mat-tab-label>
-                          <mat-icon class="example-tab-icon msr-2">settings</mat-icon>
+                          <mat-icon class="example-tab-icon msr-2"
+                            >settings</mat-icon
+                          >
                           Logros
                         </ng-template>
                         <app-alllogros></app-alllogros>
@@ -104,7 +127,9 @@
 
                       <mat-tab>
                         <ng-template mat-tab-label>
-                          <mat-icon class="example-tab-icon msr-2">settings</mat-icon>
+                          <mat-icon class="example-tab-icon msr-2"
+                            >settings</mat-icon
+                          >
                           Material de apoyo
                         </ng-template>
                         <app-allmaterial></app-allmaterial>
@@ -112,12 +137,10 @@
                     </mat-tab-group>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
-
       </form>
     </div>
   </div>

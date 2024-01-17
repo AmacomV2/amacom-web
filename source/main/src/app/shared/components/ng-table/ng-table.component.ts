@@ -74,6 +74,11 @@ export class NgTableComponent<T> implements OnInit {
     return this.config.pageableOptions?.pageSizeOptions || [5, 10, 25, 100];
   }
 
+  /**
+   * variable que guarda el total de elementos de la tabla. (si es paginable)
+   */
+  lengthData: number = 0;
+
   controlFilter: FormControl = new FormControl('');
   typingTimer: any;
   /**
@@ -81,10 +86,9 @@ export class NgTableComponent<T> implements OnInit {
    */
   timeToSearch: number = 500;
 
-  @ViewChild('paginator')
+  @ViewChild('paginator', { static: false })
   set matPaginator(mp: MatPaginator) {
     this._paginator = mp;
-    this.dataSource.paginator = this.paginator;
 
     if (this.subcriptionPaginator) {
       this.subcriptionPaginator.unsubscribe();
@@ -160,10 +164,12 @@ export class NgTableComponent<T> implements OnInit {
           if (this.config.dataOptions?.dataKey) {
             this.dataSource = data[this.config.dataOptions?.dataKey];
           } else if (this.config.pageable) {
-            console.log(data.content);
             this.dataSource.data = data.content;
+            //se asigna el paginador
+            this.lengthData = data.totalElements;
           } else {
             this.dataSource.data = data;
+            this.lengthData = data.length;
           }
         });
     } else {

@@ -30,6 +30,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           });
           this.authenticationService.logout();
           location.reload();
+        } else {
+          if (request.method !== 'GET') {
+            this.snackbar.open(err.error?.message ?? err, 'Cerrar', {
+              panelClass: 'snackbar-error',
+            });
+          }
         }
 
         const error = err.error?.message || err?.statusText;
