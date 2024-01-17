@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -7,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
+import { DiagnosticoDTO } from '../../models/diagnostico.model';
 @Component({
   selector: 'app-search-diagnostico',
   templateUrl: './search-diagnostico.component.html',
@@ -29,7 +31,7 @@ implements OnInit{
   public listaSigAlarBebe: Array<any> = [];
   public indicePrimerItem: number = 1;
   public indiceUltimoItem: number = 10;
-  public data: any;
+  public data: DiagnosticoDTO;
   roomForm: UntypedFormGroup;
   formdata = {
     rNo: '105',
@@ -51,8 +53,8 @@ implements OnInit{
   ];
   constructor(private fb: UntypedFormBuilder,
     private pasoParametrosService: PasoParametrosService,
-    private router: Router) {
-    this.roomForm = this.createContactForm();
+    private router: Router,
+    private location: Location) {
   }
   ngOnInit(){
     this.data = this.pasoParametrosService.obtenerParametro("data");
@@ -61,16 +63,6 @@ implements OnInit{
   }
   onSubmit() {
     console.log('Form Value', this.roomForm.value);
-  }
-  createContactForm(): UntypedFormGroup {
-    this.data = this.pasoParametrosService.obtenerParametro("data");
-    return this.fb.group({
-      rNo: [this.data.id, [Validators.required]],
-      resultado: [this.data.resultado, [Validators.required]],
-      alerta: [this.data.alerta, [Validators.required]],
-      estado: [this.data.estado, [Validators.required]],
-      date: [this.data.date, [Validators.required]],
-    });
   }
 
   llenarLista(){
@@ -87,6 +79,6 @@ implements OnInit{
   }
 
   volver() {
-    this.router.navigate(['/admin/room/all-rooms']);
+    this.location.back();
   }
 }

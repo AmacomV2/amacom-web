@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { TipoDocumentoDTO } from 'app/admin/gestionar-usuarios/tipos-documentos/models/tipoDocumento.model';
 import { environment } from 'environments/environment';
 import { DeleteDiagnosticoComponent } from './dialog/delete-diagnostico/delete-diagnostico.component';
+import { AuthService, Role } from '@core';
 
 @Component({
   selector: 'app-alldiagnosticos',
@@ -54,7 +55,7 @@ export class AllDiagnosticosComponent
     },
     delete: {
       modal: {
-        title: '¿Está seguro de eliminar la persona?',
+        title: '¿Está seguro de eliminar el diagnostico?',
         component: DeleteDiagnosticoComponent,
       },
       actionType: 'delete',
@@ -73,15 +74,17 @@ export class AllDiagnosticosComponent
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private pasoParametrosService: PasoParametrosService
+    private pasoParametrosService: PasoParametrosService,
+    private auth: AuthService
   ) {
     super();
   }
   ngOnInit(): void {
-    console.log(
-      'DIAGNOSTICOS',
-      this.pasoParametrosService.obtenerParametro('situation')
-    );
+    if (this.auth.currentUserValue.role == Role.Patient) {
+      this.modalForm.create.urlView = '/patient/room/diagnostico/add-diagnostico';
+      this.modalForm.edit.urlView = '/patient/room/diagnostico/add-diagnostico';
+      this.modalForm.view.urlView = '/patient/room/diagnostico/search-diagnostico';
+    }
     this.situacionId =
       this.pasoParametrosService.obtenerParametro('situation')?.id;
     this.config.pageableOptions.otherParams['situationId'] = this.situacionId;

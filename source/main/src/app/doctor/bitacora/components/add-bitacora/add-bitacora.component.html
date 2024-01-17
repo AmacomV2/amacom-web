@@ -11,10 +11,12 @@
               class="btn bg-purple btn-lg btn-block waves-effect"
               ><mat-icon>keyboard_return</mat-icon></a
             >
-            <h1><strong>Adicionar Bitacora</strong></h1>
+            <h1>
+              <strong>{{ title }}</strong>
+            </h1>
           </div>
           <div class="header">
-            <h6>En esta pantalla podrás adicionar bitacoras</h6>
+            <h6>{{ subtitle }}</h6>
           </div>
           <div class="body">
             <form class="m-4" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -84,7 +86,7 @@
                     mat-raised-button
                     color="primary"
                   >
-                    Crear
+                    Guardar
                   </button>
                   <button
                     type="button"
