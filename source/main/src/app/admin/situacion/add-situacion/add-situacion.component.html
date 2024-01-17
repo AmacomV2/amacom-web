@@ -180,6 +180,7 @@
                   stepperContent
                   label="Signos de alarma"
                   icon="add_alert"
+                  [disabled]="!isCreated"
                 >
                   <div class="row">
                     <app-mat-select-complete

@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 import { BitacoraDTO } from '../../models/bitacora.model';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { BitacoraService } from '../../services/bitacora.service';
+import { AuthService } from '@core';
 
 @Component({
   selector: 'app-add-bitacora',
@@ -29,6 +30,9 @@ export class AddBitacoraComponent
   data: BitacoraDTO;
   personId: number;
 
+  title: string = 'Adicionar Bitacora';
+  subtitle: string = 'En esta pantalla podrás adicionar una bitacora';
+
   issuedItems?: IssuedItems;
   constructor(
     public httpClient: HttpClient,
@@ -38,7 +42,8 @@ export class AddBitacoraComponent
     private router: Router,
     private location: Location,
     private pasoParametrosService: PasoParametrosService,
-    private bitacoraService: BitacoraService
+    private bitacoraService: BitacoraService,
+    private auth: AuthService
   ) {
     super();
     this.data = this.pasoParametrosService.obtenerParametro('data');
@@ -46,14 +51,20 @@ export class AddBitacoraComponent
   }
 
   ngOnInit() {
+    if (this.modoEditar) {
+      this.title = 'Editar Bitacora';
+      this.subtitle = 'En esta pantalla podrás editar la bitacora';
+    }
+
     this.personId =
-      this.pasoParametrosService.obtenerParametro('dataPersona')?.id;
+      this.pasoParametrosService.obtenerParametro('dataPersona')?.id ??
+      this.auth.currentUserValue.person.id;
     this.form = this.fb.group({
       id: [this.data?.id],
       name: [this.data?.name, [Validators.required]],
       description: [this.data?.description, [Validators.required]],
       personId: [this.data?.personId ?? this.personId],
-      createdAt: [this.data?.createdAt?? new Date()],
+      createdAt: [this.data?.createdAt ?? new Date()],
     });
   }
 

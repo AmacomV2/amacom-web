@@ -15,6 +15,7 @@ import { SituacionService } from '../services/situacion.service';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { Location } from '@angular/common';
 import { NgTableComponent } from '@shared/components/ng-table/ng-table.component';
+import { AuthService } from '@core';
 
 @Component({
   selector: 'app-add-situacion',
@@ -24,6 +25,8 @@ import { NgTableComponent } from '@shared/components/ng-table/ng-table.component
 export class AddSituacionComponent implements OnInit {
   public data: SituacionDTO;
   personId: any;
+
+  isCreated: boolean = false;
 
   feelingsList: Observable<any[]>;
 
@@ -97,7 +100,8 @@ export class AddSituacionComponent implements OnInit {
     private location: Location,
     private pasoParametrosService: PasoParametrosService,
     private http: HttpClient,
-    private situacionService: SituacionService
+    private situacionService: SituacionService,
+    private auth: AuthService
   ) {
     this.situacionForm = this.createContactForm();
   }
@@ -106,6 +110,8 @@ export class AddSituacionComponent implements OnInit {
       this.data.id;
     this.configTableMother.pageableOptions.otherParams['situationId'] =
       this.data.id;
+
+    this.isCreated = this.data.id ? true : false;
     this.getCurrentTema();
     this.getFeelings();
     this.currentFeelings();
@@ -121,6 +127,7 @@ export class AddSituacionComponent implements OnInit {
       this.configTableBaby.pageableOptions.otherParams['situationId'] = data.id;
       this.configTableMother.pageableOptions.otherParams['situationId'] =
         data.id;
+      this.isCreated = true;
     });
   }
 
@@ -135,7 +142,8 @@ export class AddSituacionComponent implements OnInit {
   createContactForm(): UntypedFormGroup {
     this.data = this.pasoParametrosService.obtenerParametro('data');
     this.personId =
-      this.pasoParametrosService.obtenerParametro('dataPersona').id;
+      this.pasoParametrosService.obtenerParametro('dataPersona')?.id ??
+      this.auth.currentUserValue.person.id;
     console.log('DATAA', this.data, this.personId);
     this.modoEditar = this.pasoParametrosService.obtenerParametro('modoEditar');
     if (this.modoEditar == true) {

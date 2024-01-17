@@ -1,26 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SituacionService } from '../services/situacion.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Room } from '../models/room.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SelectionModel } from '@angular/cdk/collections';
-import {
-  TableExportUtil,
-  TableElement,
-  UnsubscribeOnDestroyAdapter,
-} from '@shared';
-import { formatDate } from '@angular/common';
-import { Router } from '@angular/router';
+import { UnsubscribeOnDestroyAdapter } from '@shared';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PasoParametrosService } from '../../paso-parametro.service';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { TipoDocumentoDTO } from 'app/admin/gestionar-usuarios/tipos-documentos/models/tipoDocumento.model';
-import { DeletePersonaComponent } from 'app/doctor/personas/allpersonas/dialog/delete/delete.component';
 import { environment } from 'environments/environment';
 import { DeleteSituacionDialogComponent } from './dialog/delete/delete.component';
+import { AuthService } from '@core';
 
 @Component({
   selector: 'app-situaciones',
@@ -31,6 +22,10 @@ export class AllSituacionesComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
+
+  title = 'Situaciones';
+  subtitle = 'En esta pantalla podrás visualizar las situaciones';
+
   config: NgTableConfig<any> = {
     title: 'Lista de situaciones',
     keys: [
@@ -86,23 +81,35 @@ export class AllSituacionesComponent
 
   personId: any;
 
+  embebedView: boolean = true;
+
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public roomService: SituacionService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private pasoParametrosService: PasoParametrosService
+    private pasoParametrosService: PasoParametrosService,
+    private auth: AuthService,
+    private route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit() {
-    this.config.pageableOptions.otherParams['personId'] =
-      this.pasoParametrosService.obtenerParametro('dataPersona').id;
+    this.embebedView = this.route.snapshot.data['embebedView'] ?? true;
+
+    if(!this.embebedView){
+      this.modalForm.create.urlView = '/patient/room/add-allotment';
+      this.modalForm.edit.urlView = '/patient/room/add-allotment';
+      this.modalForm.view.urlView = '/patient/room/edit-allotment';
+    }
 
     this.personId =
-      this.pasoParametrosService.obtenerParametro('dataPersona').id;
+      this.pasoParametrosService.obtenerParametro('dataPersona')?.id ??
+      this.auth.currentUserValue.person.id;
+
+    this.config.pageableOptions.otherParams['personId'] = this.personId;
   }
 
   // export table data in excel file

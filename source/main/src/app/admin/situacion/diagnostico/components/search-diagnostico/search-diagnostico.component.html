@@ -2,15 +2,23 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Consultar diagnostico'" [items]="['Diagnostico']"
-        [active_item]="'Consultar diagnostico'"></app-breadcrumb>
+      <app-breadcrumb
+        [title]="'Consultar diagnostico'"
+        [items]="['Diagnostico']"
+        [active_item]="'Consultar diagnostico'"
+      ></app-breadcrumb>
     </div>
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card">
           <div class="body">
-            <a mat-mini-fab (click)="volver()" matTooltip="Volver"
-              class="btn bg-purple btn-lg btn-block waves-effect"><mat-icon>keyboard_return</mat-icon></a>
+            <a
+              mat-mini-fab
+              (click)="volver()"
+              matTooltip="Volver"
+              class="btn bg-purple btn-lg btn-block waves-effect"
+              ><mat-icon>keyboard_return</mat-icon></a
+            >
           </div>
           <div class="header">
             <h1><strong> Consultar diagnostico</strong></h1>
@@ -21,19 +29,31 @@
           <div class="body">
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Resultado: </strong></span>{{data.resultado}}</h6>
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Resultado: </strong></span
+                  >{{ data.consultationResult }}
+                </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Alerta: </strong></span>{{ data.alerta }}</h6>
+                <h6>
+                  <span class="font-weight-bold"><strong>Alerta: </strong></span
+                  >{{ data.consultationAlert }}
+                </h6>
               </div>
             </div>
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Estado: </strong></span>{{data.estado}}
+                <h6>
+                  <span class="font-weight-bold"><strong>Estado: </strong></span
+                  >{{ data.consultationStatus }}
                 </h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Última actualización: </strong></span>{{data.date}}
+                <h6>
+                  <span class="font-weight-bold"
+                    ><strong>Última actualización: </strong></span
+                  >{{ data.updatedAt }}
                 </h6>
               </div>
             </div>
