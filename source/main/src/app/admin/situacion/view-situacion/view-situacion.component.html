@@ -18,10 +18,10 @@
           <div class="body">
             <div class="row">
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>Nombre persona: </strong></span>Valentina Escobar</h6>
+                <h6><span class="font-weight-bold"><strong>Nombre persona: </strong></span>{{person.fullName}}</h6>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <h6><span class="font-weight-bold"><strong>ID: </strong></span>CC - 12345678</h6>
+                <h6><span class="font-weight-bold"><strong>ID: </strong></span>{{person.documentType?.acronym}} - {{person.documentNo}}</h6>
               </div>
             </div>
             <div class="row">

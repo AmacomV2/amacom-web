@@ -33,6 +33,7 @@ export class AddSituacionComponent implements OnInit {
   public modoEditar: boolean = false;
   public titulo: any;
   public subtitulo: any;
+  public boton: any;
   situacionForm: UntypedFormGroup;
 
   configTableMother: NgTableConfig<any> = {
@@ -90,6 +91,7 @@ export class AddSituacionComponent implements OnInit {
   }
 
   controlSignMother = new UntypedFormControl('');
+  controlSignBaby = new UntypedFormControl('');
 
   @ViewChild('tableMother') tableMother: NgTableComponent<any>;
   @ViewChild('tableBaby') tableBaby: NgTableComponent<any>;
@@ -149,9 +151,11 @@ export class AddSituacionComponent implements OnInit {
     if (this.modoEditar == true) {
       this.titulo = 'Editar situación';
       this.subtitulo = 'En esta pantalla podrás editar la situación';
+      this.boton = 'Editar';
     } else {
       this.titulo = 'Adicionar situación';
       this.subtitulo = 'En esta pantalla podrás adicionar una situación';
+      this.boton = 'Guardar';
     }
     return this.fb.group({
       id: [this.data?.id],
@@ -186,10 +190,18 @@ export class AddSituacionComponent implements OnInit {
     }
   }
 
-  getSigns(filtro) {
+  getSignsBaby(filtro) {
     return this.http
       .get(environment.apiUrl + '/alarmSign/search', {
-        params: { page: 0, size: 100, query: filtro },
+        params: { page: 0, size: 100, query: filtro, type: "BABY" },
+      })
+      .pipe(map((data: any) => data?.content));
+  }
+
+  getSignsMother(filtro) {
+    return this.http
+      .get(environment.apiUrl + '/alarmSign/search', {
+        params: { page: 0, size: 100, query: filtro, type: "MOTHER" },
       })
       .pipe(map((data: any) => data?.content));
   }
@@ -216,7 +228,8 @@ export class AddSituacionComponent implements OnInit {
     }
   }
 
-  agregarSignAlarm() {
+  agregarSignAlarmMother() {
+    if(this.controlSignMother.value!=""){
     this.situacionService
       .createSituationSign({
         alarmSignId: this.controlSignMother.value,
@@ -224,8 +237,21 @@ export class AddSituacionComponent implements OnInit {
       })
       .subscribe((data) => {
         this.tableMother.findData();
+      });
+    }
+  }
+
+  agregarSignAlarmBaby() {
+    if(this.controlSignBaby.value!=""){
+    this.situacionService
+      .createSituationSign({
+        alarmSignId: this.controlSignBaby.value,
+        personSituationId: this.situacionForm.value.id,
+      })
+      .subscribe((data) => {
         this.tableBaby.findData();
       });
+    }
   }
 
   deleteMother(row: any) {

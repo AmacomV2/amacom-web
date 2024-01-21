@@ -63,11 +63,11 @@ export class AddPersonaComponent {
       id: [this.data?.id],
       name: [
         this.data?.name,
-        [Validators.required, Validators.pattern('[a-zA-Z]+')],
+        [Validators.required, Validators.pattern('[a-zA-Z]+( [a-zA-Z]+)*')],
       ],
       lastName: [
         this.data?.lastName,
-        [Validators.required, Validators.pattern('[a-zA-Z]+')],
+        [Validators.required, Validators.pattern('[a-zA-Z]+( [a-zA-Z]+)*')],
       ],
       documentTypeId: [this.data?.documentTypeId, [Validators.required]],
       documentNo: [

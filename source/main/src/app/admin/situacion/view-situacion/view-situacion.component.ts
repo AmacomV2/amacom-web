@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { environment } from 'environments/environment';
 import { PasoParametrosService } from '../../paso-parametro.service';
+import { PersonDTO } from '@core/models/auth.person.response';
 @Component({
   selector: 'app-view-situacion',
   templateUrl: './view-situacion.component.html',
@@ -13,6 +14,7 @@ import { PasoParametrosService } from '../../paso-parametro.service';
 export class ViewSituacionComponent implements OnInit {
   panelOpenState = false;
   step = 0;
+  person: any;
   setStep(index: number) {
     this.step = index;
   }
@@ -73,6 +75,9 @@ export class ViewSituacionComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.data = this.pasoParametrosService.obtenerParametro('situation');
+    console.log("data al consultar situación", this.data);
+    this.person = this.pasoParametrosService.obtenerParametro('dataPersona');
+    console.log("PERSON al consultar situación", this.person);
     if (this.data == null) {
       this.volver();
     }
