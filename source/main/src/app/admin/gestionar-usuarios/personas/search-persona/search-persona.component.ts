@@ -45,6 +45,7 @@ export class SearchPersonaComponent implements OnInit {
   }
   ngOnInit(): void {
     this.data = this.pasoParametrosService.obtenerParametro('dataPersona');
+    console.log("DATA PERSONA", this.data);
     if (this.data == null) {
       this.volver();
     }

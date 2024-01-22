@@ -6,62 +6,34 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
             <div class="header">
-              <a
-                mat-mini-fab
-                (click)="volver()"
-                matTooltip="Volver"
-                class="btn bg-purple btn-lg btn-block waves-effect"
-                ><mat-icon>keyboard_return</mat-icon></a
-              >
+              <a mat-mini-fab (click)="volver()" matTooltip="Volver"
+                class="btn bg-purple btn-lg btn-block waves-effect"><mat-icon>keyboard_return</mat-icon></a>
               <h3>
                 <strong> {{ titulo }}</strong>
               </h3>
             </div>
             <div class="body">
               <app-mat-stepper-main [subtitle]="subtitulo">
-                <ng-template
-                  stepperContent
-                  icon="extension"
-                  label="Detalle situacion"
-                >
+                <ng-template stepperContent icon="extension" label="Detalle situacion">
                   <h6>Tema de la situación</h6>
-                  <form
-                    class="m-4"
-                    [formGroup]="situacionForm"
-                    (ngSubmit)="onSubmit()"
-                  >
+                  <form class="m-4" [formGroup]="situacionForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                       <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                        <app-mat-select-complete
-                          [key]="'name'"
-                          [keyValue]="'id'"
-                          [value]="valueSubject"
-                          [options]="getTemas"
-                          [label]="'Tema'"
-                          [placeholder]="'Busque y seleccione el tema'"
-                          [control]="situacionForm.get('subjectId')"
-                        >
+                        <app-mat-select-complete [key]="'name'" [keyValue]="'id'" [value]="valueSubject"
+                          [options]="getTemas" [label]="'Tema'" [placeholder]="'Busque y seleccione el tema'"
+                          [control]="situacionForm.get('subjectId')">
                         </app-mat-select-complete>
                       </div>
                     </div>
                     <h6>Describa la situación</h6>
                     <div class="row">
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                        <mat-form-field
-                          class="example-full-width"
-                          appearance="fill"
-                        >
+                        <mat-form-field class="example-full-width" appearance="fill">
                           <mat-label>Descripción</mat-label>
-                          <textarea
-                            matInput
-                            formControlName="description"
-                            required
-                          ></textarea>
-                          <mat-error
-                            *ngIf="
+                          <textarea matInput formControlName="description" required></textarea>
+                          <mat-error *ngIf="
                               situacionForm.get('description')?.hasError('required')
-                            "
-                          >
+                            ">
                             La descripción es requerida
                           </mat-error>
                         </mat-form-field>
@@ -70,17 +42,11 @@
                     <h6>Grado de afectación:</h6>
                     <div>
                       <div class="row">
-                        <div
-                          class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3"
-                        >
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                           <mat-radio-group formControlName="affectationDegree">
-                            <mat-radio-button
-                              *ngFor="
+                            <mat-radio-button *ngFor="
                                 let val of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                              "
-                              class="example-margin"
-                              [value]="val"
-                            >
+                              " class="example-margin" [value]="val">
                               {{ val }}
                             </mat-radio-button>
                           </mat-radio-group>
@@ -94,15 +60,8 @@
                         <h6>¿Cuáles son las sensaciones y sentimientos?</h6>
                         <mat-form-field class="example-full-width">
                           <mat-label>Sensaciones y sentimientos</mat-label>
-                          <mat-select
-                            formControlName="feelings"
-                            multiple
-                            [compareWith]="compareWithIdFeelings"
-                          >
-                            <mat-option
-                              *ngFor="let feel of feelingsList | async"
-                              [value]="feel.id"
-                              >{{ feel.name }}
+                          <mat-select formControlName="feelings" multiple [compareWith]="compareWithIdFeelings">
+                            <mat-option *ngFor="let feel of feelingsList | async" [value]="feel.id">{{ feel.name }}
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -112,42 +71,24 @@
                     <div class="row">
                       <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                         <h6>¿Cuáles fue el primer pensamiento?</h6>
-                        <mat-form-field
-                          class="example-full-width"
-                          appearance="fill"
-                        >
+                        <mat-form-field class="example-full-width" appearance="fill">
                           <mat-label>Primer pensamiento</mat-label>
-                          <textarea
-                            matInput
-                            formControlName="firstThought"
-                            required
-                          ></textarea>
-                          <mat-error
-                            *ngIf="
+                          <textarea matInput formControlName="firstThought" required></textarea>
+                          <mat-error *ngIf="
                               situacionForm.get('firstThought')?.hasError('required')
-                            "
-                          >
+                            ">
                             El primer pensamiento es requerido
                           </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                        <h6>¿Cuáles fue el comportamiento?</h6>
-                        <mat-form-field
-                          class="example-full-width"
-                          appearance="fill"
-                        >
+                        <h6>¿Cuál fue el comportamiento?</h6>
+                        <mat-form-field class="example-full-width" appearance="fill">
                           <mat-label>Comportamiento</mat-label>
-                          <textarea
-                            matInput
-                            formControlName="behavior"
-                            required
-                          ></textarea>
-                          <mat-error
-                            *ngIf="
+                          <textarea matInput formControlName="behavior" required></textarea>
+                          <mat-error *ngIf="
                               situacionForm.get('behavior')?.hasError('required')
-                            "
-                          >
+                            ">
                             El comportamiento es requerido
                           </mat-error>
                         </mat-form-field>
@@ -155,19 +96,10 @@
                     </div>
                     <div class="row">
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                        <button
-                          class="btn-space"
-                          mat-raised-button
-                          color="primary"
-                        >
-                          Guardar
+                        <button class="btn-space" mat-raised-button color="primary">
+                          {{boton}}
                         </button>
-                        <button
-                          type="button"
-                          mat-raised-button
-                          color="warn"
-                          (click)="cancel()"
-                        >
+                        <button type="button" mat-raised-button color="warn" (click)="cancel()">
                           Cancelar
                         </button>
                       </div>
@@ -176,45 +108,41 @@
                 </ng-template>
 
                 <!-- SIGNOS DE ALARMA -->
-                <ng-template
-                  stepperContent
-                  label="Signos de alarma"
-                  icon="add_alert"
-                  [disabled]="!isCreated"
-                >
+                <ng-template stepperContent label="Signos de alarma" icon="add_alert" [disabled]="!isCreated">
                   <div class="row">
-                    <app-mat-select-complete
-                      [key]="'name'"
-                      [keyValue]="'id'"
-                      [options]="getSigns"
-                      [control]="controlSignMother"
-                      [label]="'Signo de alarma'"
-                      [placeholder]="'Busque y seleccione el signo de alarma'"
-                    >
-                    </app-mat-select-complete>
-                    <button
-                      mat-raised-button
-                      color="primary"
-                      (click)="agregarSignAlarm()"
-                    >
-                      Agregar
-                    </button>
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <app-mat-select-complete [key]="'name'" [keyValue]="'id'" [options]="getSignsMother"
+                        [control]="controlSignMother" [label]="'Signo de alarma de la madre'"
+                        [placeholder]="'Busque y seleccione el signo de alarma'">
+                      </app-mat-select-complete>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <app-mat-select-complete [key]="'name'" [keyValue]="'id'" [options]="getSignsBaby"
+                        [control]="controlSignBaby" [label]="'Signo de alarma del bebé'"
+                        [placeholder]="'Busque y seleccione el signo de alarma'">
+                      </app-mat-select-complete>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <button mat-raised-button color="primary" (click)="agregarSignAlarmMother()">
+                        Agregar signo de alarma madre
+                      </button>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <button mat-raised-button color="primary" (click)="agregarSignAlarmBaby()">
+                        Agregar Signo de alarma bebé
+                      </button>
+                    </div>
+                    
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <div class="body table-responsive">
-                        <app-ng-table
-                          #tableMother
-                          [config]="configTableMother"
-                          (deleteAction)="deleteMother($event)"
-                        ></app-ng-table>
+                        <app-ng-table #tableMother [config]="configTableMother"
+                          (deleteAction)="deleteMother($event)"></app-ng-table>
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <div class="body table-responsive">
-                        <app-ng-table
-                          #tableBaby
-                          [config]="configTableBaby"
-                          (deleteAction)="deleteMother($event)"
-                        ></app-ng-table>
+                        <app-ng-table #tableBaby [config]="configTableBaby"
+                          (deleteAction)="deleteMother($event)"></app-ng-table>
                       </div>
                     </div>
                   </div>
