@@ -1,0 +1,45 @@
+<form class="row" [formGroup]="resultadosForm">
+  <h3>Resultado de indicadores</h3>
+  <app-mat-select-complete
+    label="Indicadores"
+    key="name"
+    [keyValue]="'id'"
+    [control]="resultadosForm.get('idIndicator')"
+    [options]="indicadorList"
+  >
+  </app-mat-select-complete>
+
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Descripcion</mat-label>
+      <textarea
+        matInput
+        required
+        formControlName="indicatorDescription"
+      ></textarea>
+      <mat-error
+        *ngIf="resultadosForm.get('indicatorDescription')?.hasError('required')"
+      >
+        Descripcion es requerido
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <button
+      class="btn-space"
+      [disabled]="!resultadosForm.valid"
+      mat-raised-button
+      color="primary"
+      (click)="addIndicator()"
+    >
+      Guardar
+    </button>
+  </div>
+</form>
+
+<app-ng-table
+  #tableIndicadores
+  [config]="configIndicadores"
+  (deleteAction)="deleteIndicator($event)"
+></app-ng-table>

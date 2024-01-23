@@ -29,6 +29,7 @@ export class AllTiposDocumentosComponent extends UnsubscribeOnDestroyAdapter {
     urlData: environment.apiUrl + '/documentType/getAll',
     //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
     typeColumns: ['uuid', null, null, 'date'],
+    showFilter: false,
   };
 
   modalForm: ModalConfig<TipoDocumentoDTO> = {

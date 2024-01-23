@@ -1,0 +1,37 @@
+<form class="row" [formGroup]="actividadForm">
+  <app-mat-select-complete
+    label="Actividad"
+    key="name"
+    [keyValue]="'id'"
+    [control]="actividadForm.get('idActivity')"
+    [options]="activityList"
+  >
+  </app-mat-select-complete>
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Descripcion</mat-label>
+      <textarea matInput required formControlName="description"></textarea>
+      <mat-error *ngIf="actividadForm.get('description')?.hasError('required')">
+        Descripcion es requerido
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <button
+      class="btn-space"
+      [disabled]="!actividadForm.valid"
+      mat-raised-button
+      color="primary"
+      (click)="addActividad()"
+    >
+      Guardar
+    </button>
+  </div>
+</form>
+
+<app-ng-table
+  #tableActividades
+  [config]="configActividades"
+  (deleteAction)="deleteActivity($event)"
+></app-ng-table>

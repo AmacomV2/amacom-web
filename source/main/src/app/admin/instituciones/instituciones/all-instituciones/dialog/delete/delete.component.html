@@ -1,17 +1,28 @@
-
-  <div>
-    <ul class="clearfix">
-      <li>
-        <p><span class="font-weight-bold"><strong>Nombre: </strong> </span>{{data.name}}</p>
-      </li>
-      <li>
-        <p><span class="font-weight-bold"><strong>Tipo: </strong> </span>{{data.institutionTypeId}}</p>
-      </li>
-      <li>
-        <p><span class="font-weight-bold"><strong>Descripción: </strong> </span>{{data.description}}</p>
-      </li>
-      <li>
-        <p><span class="font-weight-bold"><strong>Fecha: </strong></span>{{ data.createdAt }}</p>
-      </li>
-    </ul>
-  </div>
+<div>
+  <ul class="clearfix">
+    <li>
+      <p>
+        <span class="font-weight-bold"><strong>Nombre: </strong> </span
+        >{{ data.row.name }}
+      </p>
+    </li>
+    <li>
+      <p>
+        <span class="font-weight-bold"><strong>Tipo: </strong> </span
+        >{{ data.row.institutionTypeId }}
+      </p>
+    </li>
+    <li>
+      <p>
+        <span class="font-weight-bold"><strong>Descripción: </strong> </span
+        >{{ data.row.description }}
+      </p>
+    </li>
+    <li>
+      <p>
+        <span class="font-weight-bold"><strong>Fecha: </strong></span
+        >{{ data.row.createdAt }}
+      </p>
+    </li>
+  </ul>
+</div>

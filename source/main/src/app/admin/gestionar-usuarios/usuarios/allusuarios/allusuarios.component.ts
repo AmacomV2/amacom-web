@@ -11,6 +11,7 @@ import { NgTableConfig } from '@shared/components/ng-table/models/table.config.m
 import { environment } from 'environments/environment';
 import { UsuarioDTO } from '../models/usuario.model';
 import { DeleteDialogUsuarioComponent } from './dialog/delete/delete.component';
+import { Role } from '@core';
 @Component({
   selector: 'app-allusuarios',
   templateUrl: './allusuarios.component.html',
@@ -34,7 +35,16 @@ export class AllUsuariosComponent
     ],
     keys: ['id', 'username', 'enumRol', 'email', 'updatedAt'],
     urlData: environment.apiUrl + '/users/consulta',
-    //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
+    mapperColums: [
+      null,
+      null,
+      (enumRol) => {
+        console.log();
+        if (enumRol === 'ROLE_ADMIN') return 'Administrador';
+        else if (enumRol === 'ROLE_NURSING') return 'Doctor';
+        else return 'Usuario';
+      },
+    ],
     typeColumns: ['uuid', null, null, null, 'date'],
     pageable: true,
     showFilter: true,

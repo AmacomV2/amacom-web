@@ -12,13 +12,13 @@ export class DiagnosticoService {
 
   createDiagnosis(value) {
     return this.http
-      .post(environment.apiUrl + '/diagnosis/create', value)
+      .post<any>(environment.apiUrl + '/diagnosis/create', value)
       .pipe(tap(() => this.snackbar.open('Diagnostico creado con éxito')));
   }
 
   updateDiagnosis(value) {
     return this.http
-      .put(environment.apiUrl + '/diagnosis', value)
+      .put<any>(environment.apiUrl + '/diagnosis', value)
       .pipe(tap(() => this.snackbar.open('Diagnostico actualizado con éxito')));
   }
 }

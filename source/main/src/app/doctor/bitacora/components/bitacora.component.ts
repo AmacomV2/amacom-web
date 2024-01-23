@@ -98,7 +98,7 @@ export class BitacoraComponent
   ngOnInit() {
     this.route.data.subscribe((data) => {
       console.log(data);
-      this.embebedView = data['embebedView'];
+      this.embebedView = data['embebedView']??true;
     });
 
     if (!this.embebedView) {

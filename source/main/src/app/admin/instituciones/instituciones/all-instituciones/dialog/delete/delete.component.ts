@@ -10,12 +10,6 @@ import { InstitucionDTO } from '../../../models/institucion.model';
 export class DeleteInstitucionComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteInstitucionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: InstitucionDTO,
+    @Inject(MAT_DIALOG_DATA) public data: { row: InstitucionDTO }
   ) {}
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  confirmDelete(): void {
-    // this.patientService.deletePatient(this.data.id);
-  }
 }

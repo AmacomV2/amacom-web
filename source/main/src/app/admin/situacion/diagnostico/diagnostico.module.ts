@@ -8,6 +8,9 @@ import { AddDiagnosticoComponent } from './components/add-diagnostico/add-diagno
 import { AllDiagnosticosComponent } from './components/alldiagnosticos.component';
 import { DeleteDiagnosticoComponent } from './components/dialog/delete-diagnostico/delete-diagnostico.component';
 import { SearchDiagnosticoComponent } from './components/search-diagnostico/search-diagnostico.component';
+import { ModalActividadComponent } from './components/modal-actividad/modal-actividad.component';
+import { ModalIndicadoresComponent } from './components/modal-indicadores/modal-indicadores.component';
+import { PipesModule } from '@shared/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -23,12 +26,16 @@ import { SearchDiagnosticoComponent } from './components/search-diagnostico/sear
     AllDiagnosticosComponent,
     AddDiagnosticoComponent,
     SearchDiagnosticoComponent,
+    ModalActividadComponent,
+    ModalIndicadoresComponent,
   ],
   exports: [
     DeleteDiagnosticoComponent,
     AllDiagnosticosComponent,
     AddDiagnosticoComponent,
     SearchDiagnosticoComponent,
+    ModalActividadComponent,
+    ModalIndicadoresComponent,
   ],
 })
 export class DiagnosticoModule {}
