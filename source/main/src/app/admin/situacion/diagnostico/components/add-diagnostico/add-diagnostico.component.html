@@ -15,106 +15,107 @@
               <strong>{{ titulo }}</strong>
             </h1>
           </div>
-          <div class="header">
-            <h6>{{ subtitulo }}</h6>
-          </div>
           <div class="body">
-            <form class="m-4" [formGroup]="form" (ngSubmit)="onSubmit()">
-              <div class="row">
-                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Alerta</mat-label>
-                    <mat-select formControlName="consultationAlert">
-                      <mat-option
-                        *ngFor="let alerta of alertaList"
-                        [value]="alerta"
-                        >{{ alerta }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Estado</mat-label>
-                    <mat-select formControlName="consultationStatus">
-                      <mat-option
-                        *ngFor="let estado of estadoList"
-                        [value]="estado"
-                        >{{ estado }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Resultado</mat-label>
-                    <textarea
-                      matInput
-                      formControlName="consultationResult"
-                      required
-                    ></textarea>
-                    <mat-error
-                      *ngIf="form.get('resultado')?.hasError('required')"
-                    >
-                      El resultado es requerido
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
+            <app-mat-stepper-main [subtitle]="subtitulo">
+              <ng-template
+                stepperContent
+                label="informacion basica"
+                icon="health_and_safety"
+              >
+                <form class="m-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Alerta</mat-label>
+                        <mat-select formControlName="consultationAlert">
+                          <mat-option
+                            *ngFor="let alerta of alertaList"
+                            [value]="alerta.value"
+                            >{{ alerta.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="consultationStatus">
+                          <mat-option
+                            *ngFor="let estado of estadoList"
+                            [value]="estado.value"
+                            >{{ estado.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <mat-label>Resultado</mat-label>
+                        <textarea
+                          matInput
+                          formControlName="consultationResult"
+                          required
+                        ></textarea>
+                        <mat-error
+                          *ngIf="form.get('resultado')?.hasError('required')"
+                        >
+                          El resultado es requerido
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
 
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Indicadores</mat-label>
-                    <mat-select multiple>
-                      <mat-option
-                        *ngFor="let indicador of indicadorList"
-                        [value]="indicador"
-                        >{{ indicador }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <button
+                        class="btn-space"
+                        [disabled]="!form.valid"
+                        mat-raised-button
+                        color="primary"
+                      >
+                        Guardar
+                      </button>
+                      <button
+                        type="button"
+                        mat-raised-button
+                        color="warn"
+                        (click)="cancelar()"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </ng-template>
 
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Actividades</mat-label>
-                    <mat-select multiple>
-                      <mat-option
-                        *ngFor="let actividad of actividadList"
-                        [value]="actividad"
-                        >{{ actividad }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
+              <ng-template
+                stepperContent
+                label="Actividades y resultados"
+                icon="favorite"
+                [disabled]="false"
+              >
+                <app-ng-table
+                  #tIntervencion
+                  [config]="configIntervencion"
+                  (addAction)="addIntervencion()"
+                  (viewAction)="viewIntervencion($event)"
+                  (deleteAction)="deleteIntervencion($event)"
+                ></app-ng-table>
 
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button
-                    class="btn-space"
-                    [disabled]="!form.valid"
-                    mat-raised-button
-                    color="primary"
-                  >
-                    Guardar
-                  </button>
-                  <button
-                    type="button"
-                    mat-raised-button
-                    color="warn"
-                    (click)="cancelar()"
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              </div>
-            </form>
+                <app-ng-table
+                  #tResultado
+                  [config]="configResultados"
+                  (addAction)="addResultado()"
+                  (viewAction)="viewResultado($event)"
+                  (deleteAction)="deleteResultado($event)"
+                ></app-ng-table>
+              </ng-template>
+            </app-mat-stepper-main>
           </div>
         </div>
       </div>

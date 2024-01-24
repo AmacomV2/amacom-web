@@ -27,6 +27,7 @@ export class AllGenerosComponent extends UnsubscribeOnDestroyAdapter {
     urlData: environment.apiUrl + '/genders/getAll',
     //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
     typeColumns: ['uuid', null, 'date'],
+    showFilter: false,
   };
 
   modalForm: ModalConfig<GeneroDTO> = {

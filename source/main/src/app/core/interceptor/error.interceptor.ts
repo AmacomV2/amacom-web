@@ -32,9 +32,13 @@ export class ErrorInterceptor implements HttpInterceptor {
           location.reload();
         } else {
           if (request.method !== 'GET') {
-            this.snackbar.open(err.error?.message ?? err, 'Cerrar', {
-              panelClass: 'snackbar-error',
-            });
+            this.snackbar.open(
+              err.error?.message ?? 'No se pudo operar la transaccion',
+              'Cerrar',
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
           }
         }
 

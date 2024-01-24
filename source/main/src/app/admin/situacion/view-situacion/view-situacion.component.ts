@@ -6,6 +6,7 @@ import { NgTableConfig } from '@shared/components/ng-table/models/table.config.m
 import { environment } from 'environments/environment';
 import { PasoParametrosService } from '../../paso-parametro.service';
 import { PersonDTO } from '@core/models/auth.person.response';
+import { AuthService } from '@core';
 @Component({
   selector: 'app-view-situacion',
   templateUrl: './view-situacion.component.html',
@@ -71,13 +72,16 @@ export class ViewSituacionComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private pasoParametrosService: PasoParametrosService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private auth: AuthService
   ) {}
   ngOnInit() {
     this.data = this.pasoParametrosService.obtenerParametro('situation');
-    console.log("data al consultar situación", this.data);
-    this.person = this.pasoParametrosService.obtenerParametro('dataPersona');
-    console.log("PERSON al consultar situación", this.person);
+    console.log('data al consultar situación', this.data);
+    this.person =
+      this.pasoParametrosService.obtenerParametro('dataPersona') ??
+      this.auth.currentUserValue.person;
+    console.log('PERSON al consultar situación', this.person);
     if (this.data == null) {
       this.volver();
     }
@@ -86,7 +90,6 @@ export class ViewSituacionComponent implements OnInit {
     this.configTableMother.pageableOptions.otherParams['situationId'] =
       this.data.id;
   }
-
 
   volver() {
     this.location.back();

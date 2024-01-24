@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, forkJoin, of } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from 'environments/environment';
 import { AuthTokenResponse } from '@core/models/auth.token.response';
@@ -49,6 +49,12 @@ export class AuthService {
           username,
           password,
         })
+        .pipe(
+          catchError((err) => {
+            observer.error(err);
+            return of(null);
+          })
+        )
         .subscribe((res) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentToken', JSON.stringify(res));

@@ -14,6 +14,7 @@
       />
     </mat-form-field>
 
+    <div *ngIf="!config.showFilter"></div>
     <button
       *ngIf="!config.hideDefaultActions?.add"
       mat-mini-fab
