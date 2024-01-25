@@ -106,6 +106,15 @@ export class NgTableComponent<T> implements OnInit {
 
   subcriptionPaginator: Subscription;
 
+  get hideColumnActions() {
+    return (
+      this.config?.hideDefaultActions?.edit &&
+      this.config?.hideDefaultActions?.delete &&
+      this.config?.hideDefaultActions?.view &&
+      (this.config?.actions ? this._config.actions?.length === 0 : true)
+    );
+  }
+
   constructor(
     private httpClient: HttpClient,
     private mappingPipe: MappingPipe,
@@ -135,7 +144,7 @@ export class NgTableComponent<T> implements OnInit {
    */
   findData() {
     if (this.config.urlData) {
-      let params = {};
+      const params = {};
       if (this.config.pageable) {
         params[this.config.pageableOptions?.pageKey || 'page'] = this.page;
         params[this.config.pageableOptions?.sizeKey || 'size'] = this.pageSize;

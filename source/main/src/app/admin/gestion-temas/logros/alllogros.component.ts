@@ -13,7 +13,7 @@ import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { DeleteLogroComponent } from './dialog/delete/delete.component';
-import { LogroList } from './logro.model';
+import { LogroDTO } from './logro.model';
 import { FormDialogLogroComponent } from './dialog/form-dialog/form-dialog.component';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { environment } from 'environments/environment';
@@ -29,33 +29,42 @@ export class AllLogrosComponent
   implements OnInit
 {
   title = 'LOGROS';
-  subtitle =
-    'En esta pantalla podrás visualizar los logros existentes';
+  subtitle = 'En esta pantalla podrás visualizar los logros existentes';
 
   config: NgTableConfig<any> = {
     title: 'Lista de logros',
-    keys: ['id', 'name', 'updatedAt'],
-    headerColumns: ['No', 'Nombre', 'última actualización'],
-    //urlData: environment.apiUrl + '/subject/search',
-    typeColumns: ['uuid', null, 'date'],
+    keys: ['id', 'name', 'description', 'updatedAt'],
+    headerColumns: ['No', 'Nombre', 'Descripcion', 'última actualización'],
+    urlData: environment.apiUrl + '/achievement/search',
+    typeColumns: ['uuid', null, null, 'date'],
+    pageableOptions: {
+      otherParams: {
+        subjectId: null,
+      },
+    },
+    hideDefaultActions:{
+      view: true,
+    },
     pageable: true,
     showFilter: true,
   };
 
-  modalForm: ModalConfig<LogroList> = {
+  modalForm: ModalConfig<LogroDTO> = {
     edit: {
       modal: {
         title: 'Editar Logro',
         component: FormDialogLogroComponent,
       },
       actionType: 'edit',
+      urlEndpoint: '/achievement',
     },
     create: {
       modal: {
-        title: 'Editar Logro',
+        title: 'Agregar Logro',
         component: FormDialogLogroComponent,
       },
       actionType: 'add',
+      urlEndpoint: '/achievement/create',
     },
     delete: {
       modal: {
@@ -63,7 +72,7 @@ export class AllLogrosComponent
         component: DeleteLogroComponent,
       },
       actionType: 'delete',
-      urlEndpoint: '/reward',
+      urlEndpoint: '/achievement',
     },
     view: {
       //urlView: '/admin/gestion-temas/search-temas',
@@ -97,13 +106,10 @@ export class AllLogrosComponent
   ) {
     super();
   }
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
-  @ViewChild('filter', { static: true }) filter?: ElementRef;
+
   ngOnInit() {
-    this.llenarLista();
+    this.config.pageableOptions.otherParams['subjectId'] =
+      this.pasoParametrosService.obtenerParametro('data')?.id;
   }
   refresh() {
     this.loadData();
@@ -121,61 +127,58 @@ export class AllLogrosComponent
       },
     });
   }
-  search(row: LogroList) {
-    this.id = row.id;
-    this.pasoParametrosService.adicionarParametro('data', row);
-    this.router.navigate(['/admin/gestionar-usuarios/personas/search-persona']);
-  }
-  editCall(row: LogroList) {
-    this.id = row.id;
-    let tempDirection: Direction;
-    if (localStorage.getItem('isRtl') === 'true') {
-      tempDirection = 'rtl';
-    } else {
-      tempDirection = 'ltr';
-    }
-    const dialogRef = this.dialog.open(FormDialogLogroComponent, {
-      data: {
-        logro: row,
-        action: 'edit',
-      },
-    });
-  }
-  deleteItem(row: LogroList) {
-    this.id = row.id;
-    let tempDirection: Direction;
-    if (localStorage.getItem('isRtl') === 'true') {
-      tempDirection = 'rtl';
-    } else {
-      tempDirection = 'ltr';
-    }
-    const dialogRef = this.dialog.open(DeleteLogroComponent, {
-      data: row,
-      direction: tempDirection,
-    });
-    // this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-    //   if (result === 1) {
-    //     const foundIndex = this.exampleDatabase?.dataChange.value.findIndex(
-    //       (x) => x.id === this.id
-    //     );
-    //     // for delete we use splice in order to remove single object from DataService
-    //     if (foundIndex != null && this.exampleDatabase) {
-    //       this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+  // search(row: LogroDTO) {
+  //   this.id = row.id;
+  //   this.pasoParametrosService.adicionarParametro('data', row);
+  //   this.router.navigate(['/admin/gestionar-usuarios/personas/search-persona']);
+  // }
+  // editCall(row: LogroDTO) {
+  //   this.id = row.id;
+  //   let tempDirection: Direction;
+  //   if (localStorage.getItem('isRtl') === 'true') {
+  //     tempDirection = 'rtl';
+  //   } else {
+  //     tempDirection = 'ltr';
+  //   }
+  //   const dialogRef = this.dialog.open(FormDialogLogroComponent, {
+  //     data: {
+  //       logro: row,
+  //       action: 'edit',
+  //     },
+  //   });
+  // }
+  // deleteItem(row: LogroDTO) {
+  //   this.id = row.id;
+  //   let tempDirection: Direction;
+  //   if (localStorage.getItem('isRtl') === 'true') {
+  //     tempDirection = 'rtl';
+  //   } else {
+  //     tempDirection = 'ltr';
+  //   }
+  //   const dialogRef = this.dialog.open(DeleteLogroComponent, {
+  //     data: row,
+  //     direction: tempDirection,
+  //   });
+  //   // this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+  //   //   if (result === 1) {
+  //   //     const foundIndex = this.exampleDatabase?.dataChange.value.findIndex(
+  //   //       (x) => x.id === this.id
+  //   //     );
+  //   //     // for delete we use splice in order to remove single object from DataService
+  //   //     if (foundIndex != null && this.exampleDatabase) {
+  //   //       this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
 
-    //       this.refreshTable();
-    //       this.showNotification(
-    //         'snackbar-danger',
-    //         'Delete Record Successfully...!!!',
-    //         'bottom',
-    //         'center'
-    //       );
-    //     }
-    //   }
-    // });
-  }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
+  //   //       this.refreshTable();
+  //   //       this.showNotification(
+  //   //         'snackbar-danger',
+  //   //         'Delete Record Successfully...!!!',
+  //   //         'bottom',
+  //   //         'center'
+  //   //       );
+  //   //     }
+  //   //   }
+  //   // });
+  // }
   public loadData() {
     // this.exampleDatabase = new PatientService(this.httpClient);
     // this.dataSource = new ExampleDataSource(
@@ -208,25 +211,4 @@ export class AllLogrosComponent
     //   TableExportUtil.exportToExcel(exportData, 'excel');
   }
 
-  showNotification(
-    colorName: string,
-    text: string,
-    placementFrom: MatSnackBarVerticalPosition,
-    placementAlign: MatSnackBarHorizontalPosition
-  ) {
-    this.snackBar.open(text, '', {
-      duration: 2000,
-      verticalPosition: placementFrom,
-      horizontalPosition: placementAlign,
-      panelClass: colorName,
-    });
-  }
-
-  llenarLista() {
-    this.listaLogros = [
-     {id:1, nombre:"Logro 1", date:"22/09/2023"},
-     {id:2, nombre:"Logro 2", date:"22/09/2023"},
-     {id:3, nombre:"Logro 3", date:"22/09/2023"},
-    ];
-  }
 }

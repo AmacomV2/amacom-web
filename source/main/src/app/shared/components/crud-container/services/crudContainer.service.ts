@@ -26,6 +26,10 @@ export class CrudContainerService {
     return this.http.delete(environment.apiUrl + url + '/' + id).pipe(
       tap((res) => {
         this.showSuscessMessage('Registro eliminado correctamente');
+      }),
+      catchError((err) => {
+        this.snackbar.open(err, 'Cerrar');
+        throw err;
       })
     );
   }

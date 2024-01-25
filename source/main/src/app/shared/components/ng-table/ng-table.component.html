@@ -33,7 +33,7 @@
             <th class="text-center" *ngFor="let item of config.headerColumns">
               {{ item }}
             </th>
-            <th class="text-center">Acciones</th>
+            <th class="text-center" *ngIf="!hideColumnActions">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -63,7 +63,7 @@
               <span [innerHTML]="toMapper(row, key, ikey)"></span>
             </td>
             <!--ACCIONES-->
-            <td class="text-center">
+            <td class="text-center" *ngIf="!hideColumnActions">
               <!--CUSTOM ACTIONS-->
               <button
                 mat-icon-button

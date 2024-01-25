@@ -4,6 +4,7 @@ import {
   dataModalView,
   configModalView,
 } from '@shared/components/modal-view/models/config.view.modal.view';
+import { Observable } from 'rxjs';
 
 export interface ActionCrud<T> {
   /**
@@ -39,9 +40,13 @@ export interface ActionCrud<T> {
    * accion que se invoka si no se paso una urlView o una modal, para determinar el comportamiento de dicho boton.
    */
   action?: (row) => void;
-
-  //params?: (data: T) => any;
-  //body?: (data: T) => any;
+  
+  /**
+   * Accion que se ejecuta luego de aceptar y cerrar el modal.
+   * @param form formulario del modal
+   * @returns 
+   */
+  actionModalAccept?: (form: T) => void | Observable<T>;
 }
 
 export interface ModalConfig<T> {
