@@ -1,80 +1,45 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   UntypedFormControl,
   Validators,
   UntypedFormGroup,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { MaterialList } from '../../material.model';
-
-export interface DialogData {
-  id: number;
-  action: string;
-  logro: MaterialList;
-}
+import { MaterialDTO } from '../../material.model';
+import { ModalCRUDPayload } from '@shared/components/crud-container/models/modal.payload';
 
 @Component({
   selector: 'app-form-dialog:not(i)',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })
-export class FormDialogMaterialComponent {
+export class FormDialogMaterialComponent implements OnInit {
   toppings = new UntypedFormControl();
-  toppingList: string[] = [
-    'Tema 5',
-    'Tema 6',
-    'Tema 7',
-    'Tema 8',
-  ];
+  toppingList: string[] = ['Tema 5', 'Tema 6', 'Tema 7', 'Tema 8'];
   action: string;
   dialogTitle: string;
-  usuarioForm: UntypedFormGroup;
-  material: MaterialList;
+  form: UntypedFormGroup;
+  material: MaterialDTO;
   constructor(
     public dialogRef: MatDialogRef<FormDialogMaterialComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: ModalCRUDPayload<MaterialDTO>,
     private fb: UntypedFormBuilder
-  ) {
-    // Set the defaults
-    this.action = data.action;
-    if (this.action === 'edit') {
-    this.dialogTitle = "Editar material de apoyo";
-    this.material = data.logro;
-     } else {
-     this.dialogTitle = 'Adicionar material de apoyo';
-      const blankObject = {} as MaterialList;
-      this.material = new MaterialList(blankObject);
-    }
-    this.usuarioForm = this.createContactForm();
+  ) {}
+
+  ngOnInit(): void {
+    this.action = this.data.action;
+    this.material = this.data.row;
+
+    this.form = this.createContactForm();
   }
-  formControl = new UntypedFormControl('', [
-    Validators.required,
-    // Validators.email,
-  ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
-  }
+
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
-      id: [this.material.id],
-      genero: [this.material.nombre],
-      descripcion: [this.material.descripcion],
-      url: [this.material.url],
-      date: [this.material.date],
+      id: [this.material?.id],
+      name: [this.material?.name, Validators.required],
+      description: [this.material?.description, Validators.required],
+      path: [this.material?.path],
     });
-  }
-  submit() {
-    // emppty stuff
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  public confirmAdd(): void {
-    // this.patientService.addPatient(this.patientForm.getRawValue());
   }
 }

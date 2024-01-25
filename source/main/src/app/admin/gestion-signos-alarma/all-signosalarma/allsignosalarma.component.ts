@@ -44,7 +44,14 @@ export class AllSignosAlarmaComponent
       'última actualización',
     ],
     urlData: environment.apiUrl + '/alarmSign/search',
-    //mapperColums: [(col: string, key: any) => col.slice(0, 8), null],
+    mapperColums: [
+      null,
+      null,
+      null,
+      (status: string) => {
+        return status === 'MOTHER' ? 'Madre' : 'Bebé';
+      },
+    ],
     typeColumns: ['uuid', null, null, null, 'badge', 'date'],
     pageable: true,
     showFilter: true,

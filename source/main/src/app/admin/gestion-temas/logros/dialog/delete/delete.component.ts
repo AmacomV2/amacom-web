@@ -1,21 +1,16 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-
-export interface DialogData {
-  id: number;
-  nombre: string;
-  date: string;
-}
+import { LogroDTO } from '../../logro.model';
 
 @Component({
-  selector: 'app-delete:not(i)',
+  selector: 'app-delete-logro',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })
 export class DeleteLogroComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteLogroComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: { row: LogroDTO }
   ) {}
   onNoClick(): void {
     this.dialogRef.close();

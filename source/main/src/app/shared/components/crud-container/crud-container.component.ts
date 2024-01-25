@@ -153,24 +153,39 @@ export class CrudContainerComponent implements OnInit {
     this.dialogService.show(dataModal).subscribe((accion: ModalResponse) => {
       if (accion.estado) {
         let observer;
-        switch (action.actionType) {
-          case 'add':
-            observer = this.crudService.postData(
-              action.urlEndpoint,
-              accion.data
-            );
-            break;
-          case 'delete':
-            observer = this.crudService.deleteData(action.urlEndpoint, row.id);
-            break;
-          case 'edit':
-            observer = this.crudService.putData(
-              action.urlEndpoint,
-              accion.data
-            );
-            break;
-        }
 
+        if (action.urlEndpoint) {
+          switch (action.actionType) {
+            case 'add':
+              observer = this.crudService.postData(
+                action.urlEndpoint,
+                accion.data
+              );
+              break;
+            case 'delete':
+              observer = this.crudService.deleteData(
+                action.urlEndpoint,
+                row.id
+              );
+              break;
+            case 'edit':
+              observer = this.crudService.putData(
+                action.urlEndpoint,
+                accion.data
+              );
+              break;
+          }
+        } else {
+          console.warn(
+            'No se implemento el campo urlEndpoint por lo tanto se utilizara "actionModalAccept"'
+          );
+          observer = action.actionModalAccept(accion.data);
+          console.log(observer);
+          if (!observer) {
+            this.table.findData();
+            return;
+          }
+        }
         observer.subscribe((data) => {
           this.table.findData();
         });
