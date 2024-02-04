@@ -1,126 +1,201 @@
-<section class="content">
+<!-- <section class="content">
   <div class="content-block">
-    <div class="body">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="card">
-            <div class="header">
-              <h3>
-                <strong> {{ titulo }}</strong>
-              </h3>
-            </div>
-            <div class="body">
-              <app-mat-stepper-main [subtitle]="subtitulo">
-                <ng-template
-                  stepperContent
-                  icon="apartment"
-                  label="Informacion basica"
-                >
-                  <form [formGroup]="institucionForm" (ngSubmit)="onSubmit()">
-                    <div class="row">
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                        <mat-form-field
-                          class="example-full-width mb-3"
-                          appearance="outline"
-                        >
-                          <mat-label>Nombre</mat-label>
-                          <input matInput formControlName="name" required />
-                          <mat-error
-                            *ngIf="
-                              institucionForm.get('name')?.hasError('required')
-                            "
-                          >
-                            El nombre es requerido
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                        <app-mat-select-complete
-                          [key]="'name'"
-                          [keyValue]="'id'"
-                          [value]="valueInstitucion"
-                          [label]="'Tipo de institución'"
-                          [control]="
-                            institucionForm.controls['institutionTypeId']
-                          "
-                          [options]="listaTipoInstitucion"
-                          appearance="outline"
-                        >
-                        </app-mat-select-complete>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-3">
-                        <mat-form-field
-                          class="example-full-width mb-3"
-                          appearance="outline"
-                        >
-                          <mat-label>Descripción</mat-label>
-                          <textarea
-                            matInput
-                            formControlName="description"
-                            required
-                          ></textarea>
-                          <mat-error
-                            *ngIf="
-                              institucionForm
-                                .get('description')
-                                ?.hasError('required')
-                            "
-                          >
-                            La descripción es requerida
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-                    </div>
+    <div class="body"> -->
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header">
+        <a
+          mat-mini-fab
+          (click)="volver()"
+          matTooltip="Volver"
+          class="btn bg-purple btn-lg btn-block waves-effect"
+          ><mat-icon>keyboard_return</mat-icon>
+        </a>
+        <h3>
+          <strong> {{ titulo }}</strong>
+        </h3>
+      </div>
+      <div class="body">
+        <app-mat-stepper-main [subtitle]="subtitulo">
+          <ng-template
+            stepperContent
+            icon="apartment"
+            label="Informacion basica"
+          >
+            <form [formGroup]="institucionForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" required />
+                    <mat-error
+                      *ngIf="institucionForm.get('name')?.hasError('required')"
+                    >
+                      El nombre es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <app-mat-select-complete
+                    [key]="'name'"
+                    [keyValue]="'id'"
+                    [value]="valueInstitucion"
+                    [label]="'Tipo de institución'"
+                    [control]="institucionForm.controls['institutionTypeId']"
+                    [options]="listaTipoInstitucion"
+                    appearance="outline"
+                  >
+                  </app-mat-select-complete>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <mat-label>Descripción</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="description"
+                      required
+                    ></textarea>
+                    <mat-error
+                      *ngIf="
+                        institucionForm.get('description')?.hasError('required')
+                      "
+                    >
+                      La descripción es requerida
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
 
-                    <div class="row">
-                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                        <button
-                          class="btn-space"
-                          mat-raised-button
-                          color="primary"
-                        >
-                          Guardar
-                        </button>
-                        <button
-                          type="button"
-                          mat-raised-button
-                          color="warn"
-                          (click)="cancel()"
-                        >
-                          Cancelar
-                        </button>
-                      </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button class="btn-space" mat-raised-button color="primary">
+                    Guardar y seguir
+                  </button>
+                  <button
+                    type="button"
+                    mat-raised-button
+                    color="warn"
+                    (click)="volver()"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+
+          <ng-template
+            stepperContent
+            label="Servicios"
+            icon="design_services"
+            [disabled]="!isCreated"
+          >
+            <div class="tableBody">
+              <div class="body table-responsive">
+                <form class="row" [formGroup]="serviceForm">
+                  <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-error
+                      *ngIf="serviceForm.get('name')?.hasError('required')"
+                    >
+                      El nombre es requerida
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width mb-3">
+                    <mat-label>Descripción</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="description"
+                      required
+                    ></textarea>
+                    <mat-error
+                      *ngIf="
+                        serviceForm.get('description')?.hasError('required')
+                      "
+                    >
+                      La descripción es requerida
+                    </mat-error>
+                  </mat-form-field>
+
+                  <div class="row">
+                    <div class="col-xl-4">
+                      <app-mat-select-complete
+                      [key]="'name'"
+                      [keyValue]="'id'"
+                      [label]="'Servicio'"
+                      [control]="serviceForm.controls['idServices']"
+                      [options]="listaServicios"
+                    ></app-mat-select-complete>
                     </div>
-                  </form>
-                </ng-template>
-
-                <ng-template
-                  stepperContent
-                  label="Servicios"
-                  icon="design_services"
-                  [disabled]="!isCreated"
-                >
-                  <div class="tableBody">
-                    <div class="body table-responsive">
-                      <app-ng-table [config]="configTableServicio">
-                      </app-ng-table>
-
-                      <mat-action-row>
-                        <button
-                          mat-raised-button
-                          color="primary"
-                          (click)="guardarService()"
-                        >
-                          Guardar
-                        </button>
-                      </mat-action-row>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field
+                        appearance="fill"
+                        class="example-form-field"
+                      >
+                        <mat-label>Efectividad inicial</mat-label>
+                        <input
+                          matInput
+                          formControlName="effectivenessStart"
+                          [matDatepicker]="datepicker"
+                        />
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="datepicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker> </mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field
+                        appearance="fill"
+                        class="example-form-field"
+                      >
+                        <mat-label>Efectividad final</mat-label>
+                        <input
+                          matInput
+                          formControlName="effectivenessEND"
+                          [matDatepicker]="datepicker2"
+                        />
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="datepicker2"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker2> </mat-datepicker>
+                      </mat-form-field>
                     </div>
                   </div>
-                </ng-template>
 
-                <ng-template
+                  <mat-action-row>
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      (click)="guardarService()"
+                    >
+                      Crear
+                    </button>
+                  </mat-action-row>
+                </form>
+
+                <app-ng-table #tableService [config]="configTableServicio">
+                </app-ng-table>
+              </div>
+            </div>
+          </ng-template>
+
+          <!-- <ng-template
                   stepperContent
                   label="Personal"
                   icon="person"
@@ -137,115 +212,12 @@
                       Guardar
                     </button>
                   </mat-action-row>
-                </ng-template>
-              </app-mat-stepper-main>
-
-              <!-- <mat-accordion class="example-headers-align">
-                  <mat-expansion-panel
-                    [expanded]="step === 0"
-                    (opened)="setStep(0)"
-                    hideToggle
-                  >
-                    <mat-expansion-panel-header>
-                      <mat-panel-title> Servicios </mat-panel-title>
-                      <mat-panel-description>
-                        Servicios asociados a la institución
-                        <mat-icon>build</mat-icon>
-                      </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <div class="tableBody">
-                      <div class="body table-responsive">
-                        <app-ng-table [config]="configTableServicio">
-                        </app-ng-table>
-                      </div>
-                    </div>
-
-                    <mat-action-row>
-                      <button
-                        mat-button
-                        color="primary"
-                        (click)="guardarService()"
-                      >
-                        Siguiente
-                      </button>
-                    </mat-action-row>
-                  </mat-expansion-panel>
-                  <mat-expansion-panel
-                    [expanded]="step === 1"
-                    (opened)="setStep(1)"
-                    hideToggle
-                  >
-                    <mat-expansion-panel-header>
-                      <mat-panel-title> Personal </mat-panel-title>
-                      <mat-panel-description>
-                        Personal asociado a la institución
-                        <mat-icon>perm_identity</mat-icon>
-                      </mat-panel-description>
-                    </mat-expansion-panel-header>
-
-                    <div class="row">
-                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                        <div class="header">
-                          <h2>
-                            <strong>Lista del personal</strong>
-                          </h2>
-                        </div>
-                        <div class="body table-responsive">
-                          <table class="table table-bordered">
-                            <thead>
-                              <tr>
-                                <th class="text-center">No</th>
-                                <th class="text-left">Nombre</th>
-                                <th class="text-left">Acción</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr
-                                *ngFor="
-                                  let data of listaSigAlarMadre;
-                                  let i = index
-                                "
-                              >
-                                <td
-                                  class="text-center"
-                                  id="{{ i + 'n' }}"
-                                  *ngIf="
-                                    i + 1 >= indicePrimerItem &&
-                                    i < indiceUltimoItem
-                                  "
-                                >
-                                  {{ data.id }}
-                                </td>
-                                <td
-                                  class="text-left"
-                                  id="{{ i + 'n' }}"
-                                  *ngIf="
-                                    i + 1 >= indicePrimerItem &&
-                                    i < indiceUltimoItem
-                                  "
-                                >
-                                  {{ data.descripcion }}
-                                </td>
-                                <td class="text-center">
-                                  <mat-slide-toggle></mat-slide-toggle>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                    <mat-action-row>
-                      <button mat-button color="warn" (click)="prevStep()">
-                        Anterior
-                      </button>
-                    </mat-action-row>
-                  </mat-expansion-panel>
-                </mat-accordion> -->
-            </div>
-          </div>
-        </div>
+                </ng-template> -->
+        </app-mat-stepper-main>
       </div>
     </div>
   </div>
-</section>
+</div>
+<!-- </div>
+  </div>
+</section> -->

@@ -1,19 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Direction } from '@angular/cdk/bidi';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { DeleteLogroComponent } from './dialog/delete/delete.component';
-import { LogroDTO } from './logro.model';
+import { LogroDTO } from '../models/logro.model';
 import { FormDialogLogroComponent } from './dialog/form-dialog/form-dialog.component';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { environment } from 'environments/environment';
@@ -42,7 +36,7 @@ export class AllLogrosComponent
         subjectId: null,
       },
     },
-    hideDefaultActions:{
+    hideDefaultActions: {
       view: true,
     },
     pageable: true,
@@ -80,23 +74,7 @@ export class AllLogrosComponent
     },
   };
 
-  public listaLogros: Array<any> = [];
-  public indicePrimerItem: number = 1;
-  public indiceUltimoItem: number = 10;
-  displayedColumns = [
-    'select',
-    'img',
-    'name',
-    'gender',
-    'address',
-    'mobile',
-    'date',
-    'bGroup',
-    'treatment',
-    'actions',
-  ];
-  index?: number;
-  id?: number;
+
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -108,8 +86,9 @@ export class AllLogrosComponent
   }
 
   ngOnInit() {
-    this.config.pageableOptions.otherParams['subjectId'] =
-      this.pasoParametrosService.obtenerParametro('data')?.id;
+    this.config.pageableOptions.otherParams = null;
+    // this.config.pageableOptions.otherParams['subjectId'] =
+    //   this.pasoParametrosService.obtenerParametro('data')?.id;
   }
   refresh() {
     this.loadData();
@@ -210,5 +189,4 @@ export class AllLogrosComponent
     //     }));
     //   TableExportUtil.exportToExcel(exportData, 'excel');
   }
-
 }

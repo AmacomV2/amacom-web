@@ -1,15 +1,14 @@
-<section [ngClass]="disableContainer?'':'content'" *ngIf="!hideContainer">
+<!-- <section [ngClass]="disableContainer?'':'content'" *ngIf="!hideContainer">
   <div class="content-block">
     <div class="block-header">
-      <!-- breadcrumb -->
       <!-- <app-breadcrumb
         [title]="'Lista de generos'"
         [items]="['Generos']"
         [active_item]="'Lista de generos'"
-      ></app-breadcrumb> -->
+      ></app-breadcrumb>
       <div style="margin-top: 16px"></div>
-    </div>
-    <div class="row">
+    </div> -->
+    <div class="row" *ngIf="!hideContainer">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
           <!--TITLE-->
@@ -96,8 +95,8 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
+  <!-- </div>
+</section> -->
 
 <app-ng-table
   *ngIf="hideContainer"

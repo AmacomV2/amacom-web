@@ -3,30 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DataSource } from '@angular/cdk/collections';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Direction } from '@angular/cdk/bidi';
-import {
-  TableExportUtil,
-  TableElement,
-  UnsubscribeOnDestroyAdapter,
-} from '@shared';
-import { formatDate } from '@angular/common';
+import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
-import { DeleteMaterialComponent } from './dialog/delete/delete.component';
-import { MaterialDTO } from './material.model';
-import { FormDialogMaterialComponent } from './dialog/form-dialog/form-dialog.component';
+import { MaterialDTO } from '../models/material.model';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { environment } from 'environments/environment';
+import { DeleteMaterialComponent } from './dialog/delete/delete.component';
+import { AddMaterialComponent } from './dialog/add-material/add-material.component';
 
 @Component({
   selector: 'app-allmaterial',
@@ -37,79 +30,75 @@ export class AllMaterialComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
-  title = 'LOGROS';
-  subtitle = 'En esta pantalla podrás visualizar los logros existentes';
+  title = 'MATERIAL DE APOYO';
+  subtitle =
+    'En esta pantalla podrás visualizar los materiales de apoyo existentes';
 
   config: NgTableConfig<any> = {
-    title: 'Lista de logros',
+    title: 'Lista de materiales de apoyo',
     keys: ['id', 'name', 'description', 'updatedAt'],
     headerColumns: ['No', 'Nombre', 'Descripcion', 'última actualización'],
     urlData: environment.apiUrl + '/supportMaterial/search',
     typeColumns: ['uuid', null, null, 'date'],
-    pageableOptions: {
-      otherParams: {
-        subjectId: null,
-      },
-    },
     hideDefaultActions: {
       view: true,
     },
     pageable: true,
     showFilter: true,
+    pageableOptions: {
+      otherParams: {},
+    },
   };
 
   modalForm: ModalConfig<MaterialDTO> = {
     edit: {
-      modal: {
-        title: 'Editar Material de apoyo',
-        component: FormDialogMaterialComponent,
-      },
+      urlView: '/admin/gestion-material-apoyo/add',
       actionType: 'edit',
-      urlEndpoint: '/supportMaterial',
     },
     create: {
-      modal: {
-        title: 'Agregar Logro',
-        component: FormDialogMaterialComponent,
-      },
+      // modal: {
+      //   title: 'Agregar Material de apoyo',
+      //   component: AddMaterialComponent,
+      // },
       actionType: 'add',
-      //urlEndpoint: '/supportMaterial/create',
-      actionModalAccept: (data: any) => {
-        console.log('crear material de apoyo', data);
-        return new Observable((observer) => {
-          this.httpClient
-            .post<MaterialDTO>(
-              environment.apiUrl + '/supportMaterial/create',
-              data
-            )
-            .subscribe(
-              (data) => {
-                this.httpClient
-                  .post<any>(
-                    environment.apiUrl + '/supportMaterialHasSubject/create',
-                    {
-                      idSupportMaterial: data.id,
-                      subjectId:
-                        this.pasoParametrosService.obtenerParametro('tema')?.id,
-                    }
-                  )
-                  .pipe(
-                    tap(() => {
-                      this.snackBar.open('Material creado exitosamente.');
-                    })
-                  )
-                  .subscribe((data) => {
-                    observer.next(data);
-                    observer.complete();
-                  });
-              },
-              (error) => {
-                observer.error(error);
-                observer.complete();
-              }
-            );
-        });
-      },
+      urlView: '/admin/gestion-material-apoyo/add',
+      urlEndpoint: '/supportMaterial/create',
+      // actionModalAccept: (data: any) => {
+      //   console.log('crear material de apoyo', data);
+      //   return new Observable((observer) => {
+      //     this.httpClient
+      //       .post<MaterialDTO>(
+      //         environment.apiUrl + '/supportMaterial/create',
+      //         data
+      //       )
+      //       .subscribe(
+      //         (data) => {
+      //           this.httpClient
+      //             .post<any>(
+      //               environment.apiUrl + '/supportMaterialHasSubject/create',
+      //               {
+      //                 idSupportMaterial: data.id,
+      //                 subjectId:
+      //                   this.pasoParametrosService.obtenerParametro('tema')?.id,
+      //               }
+      //             )
+      //             .pipe(
+      //               tap(() => {
+      //                 this.snackBar.open('Material creado exitosamente.');
+      //               })
+      //             )
+      //             .subscribe((data) => {
+      //               observer.next(data);
+      //               observer.complete();
+      //             });
+      //         },
+      //         (error) => {
+      //           observer.error(error);
+      //           observer.complete();
+      //         }
+      //       );
+      //   });
+      // },
     },
     delete: {
       modal: {
@@ -158,13 +147,11 @@ export class AllMaterialComponent
   @ViewChild('filter', { static: true }) filter?: ElementRef;
 
   ngOnInit() {
-    this.config.pageableOptions.otherParams['subjectId'] =
-      this.pasoParametrosService.obtenerParametro('tema')?.id;
+    console.log('Material de apoyo');
+    // this.config.pageableOptions.otherParams['subjectId'] =
+    //   this.pasoParametrosService.obtenerParametro('tema')?.id;
   }
 
-  refresh() {
-    this.loadData();
-  }
   addNew() {
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
@@ -172,7 +159,7 @@ export class AllMaterialComponent
     } else {
       tempDirection = 'ltr';
     }
-    const dialogRef = this.dialog.open(FormDialogMaterialComponent, {
+    const dialogRef = this.dialog.open(AddMaterialComponent, {
       data: {
         action: 'add',
       },
@@ -191,7 +178,7 @@ export class AllMaterialComponent
     } else {
       tempDirection = 'ltr';
     }
-    const dialogRef = this.dialog.open(FormDialogMaterialComponent, {
+    const dialogRef = this.dialog.open(AddMaterialComponent, {
       data: {
         logro: row,
         action: 'edit',
@@ -229,40 +216,6 @@ export class AllMaterialComponent
     //     }
     //   }
     // });
-  }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
-  public loadData() {
-    // this.exampleDatabase = new PatientService(this.httpClient);
-    // this.dataSource = new ExampleDataSource(
-    //   this.exampleDatabase,
-    //   this.paginator,
-    //   this.sort
-    //   );
-    //   this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
-    //     () => {
-    //       if (!this.dataSource) {
-    //         return;
-    //       }
-    //       this.dataSource.filter = this.filter?.nativeElement.value;
-    //     }
-    //   );
-    // }
-    // // export table data in excel file
-    // exportExcel() {
-    //   // key name with space add in brackets
-    //   const exportData: Partial<TableElement>[] =
-    //     this.dataSource.filteredData.map((x) => ({
-    //       Name: x.name,
-    //       Gender: x.gender,
-    //       Address: x.address,
-    //       'Birth Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
-    //       'Blood Group': x.bGroup,
-    //       Mobile: x.mobile,
-    //       Treatment: x.treatment,
-    //     }));
-    //   TableExportUtil.exportToExcel(exportData, 'excel');
   }
 
   showNotification(

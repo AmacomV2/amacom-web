@@ -2,5 +2,17 @@
 <app-sidebar></app-sidebar>
 <app-right-sidebar></app-right-sidebar>
 <div [dir]="direction">
-  <router-outlet></router-outlet>
+  <section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb
+          [title]="breadcrumb?.title"
+          [items]="breadcrumb?.items ?? []"
+          [active_item]="breadcrumb?.active_item"
+        ></app-breadcrumb>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </section>
 </div>

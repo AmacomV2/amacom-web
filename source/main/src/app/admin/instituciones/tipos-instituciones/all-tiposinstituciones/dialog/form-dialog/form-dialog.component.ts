@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TipoInstitucionDTO } from '../../../models/tipoInstitucion.model';
 
 @Component({
-  selector: 'app-form-dialog:not(i)',
+  selector: 'app-add-material:not(i)',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })

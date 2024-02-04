@@ -1,22 +1,48 @@
 import { Direction } from '@angular/cdk/bidi';
-import { AfterViewInit, Component, Inject, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { DirectionService, InConfiguration } from '@core';
 import { ConfigService } from '@config';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
+
+export interface BreadCrumbRouteData {
+  title: string;
+  items: string[];
+  active_item: string;
+}
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: [],
 })
-export class MainLayoutComponent implements AfterViewInit {
+export class MainLayoutComponent implements AfterViewInit, OnInit {
   direction!: Direction;
   public config!: InConfiguration;
+
+  /**
+   * miga de pan
+   */
+  breadcrumb: BreadCrumbRouteData = {
+    title: 'Admin',
+    items: [],
+    active_item: '',
+  };
+
   constructor(
     private directoryService: DirectionService,
     private configService: ConfigService,
     @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.config = this.configService.configData;
     this.directoryService.currentData.subscribe((currentData) => {
@@ -43,6 +69,40 @@ export class MainLayoutComponent implements AfterViewInit {
       }
     });
   }
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        console.log('The URL changed to: ' + event['url']);
+        this.fetchBreadcrumb();
+      });
+    this.fetchBreadcrumb();
+  }
+
+  fetchBreadcrumb() {
+    let lista = [];
+    this.childBreadcrumb(lista, this.route.children);
+    this.breadcrumb.title = lista.shift() || '';
+    this.breadcrumb.active_item = lista.pop() || [];
+    this.breadcrumb.items = lista;
+    console.log('lista', this.breadcrumb);
+  }
+
+  childBreadcrumb(lista: string[], children: ActivatedRoute[]) {
+    children.forEach((route2) => {
+      console.log(route2.routeConfig.data)
+      console.log('children', route2.snapshot.data['breadcrumb']);
+      if (route2.routeConfig.data && route2.routeConfig.data['breadcrumb'])
+        lista.push(route2.routeConfig.data['breadcrumb'].title);
+
+      if (route2.children) {
+        this.childBreadcrumb(lista, route2.children);
+      }
+    });
+    return lista;
+  }
+
   ngAfterViewInit(): void {
     //------------ set varient start----------------
     if (localStorage.getItem('theme')) {

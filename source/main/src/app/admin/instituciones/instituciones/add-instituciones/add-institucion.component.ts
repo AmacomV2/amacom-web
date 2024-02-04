@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  FormControl,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
@@ -12,6 +13,7 @@ import { map } from 'rxjs';
 import { InstitucionDTO } from '../models/institucion.model';
 import { NgTableConfig } from '@shared/components/ng-table/models/table.config.model';
 import { InstitucionesService } from '../../services/instituciones.service';
+import { NgTableComponent } from '@shared/components/ng-table/ng-table.component';
 @Component({
   selector: 'app-add-institucion',
   templateUrl: './add-institucion.component.html',
@@ -47,7 +49,7 @@ export class AddInstitucionComponent implements OnInit {
     title: 'Lista de servicios',
     keys: ['id', 'name'],
     headerColumns: ['No', 'Nombre'],
-    urlData: environment.apiUrl + '/services/consulta',
+    urlData: environment.apiUrl + '/institutionService/consulta',
     typeColumns: ['uuid', null, null],
     pageable: true,
     showFilter: false,
@@ -57,7 +59,11 @@ export class AddInstitucionComponent implements OnInit {
       edit: true,
       delete: true,
     },
-    checkbox: true,
+    pageableOptions: {
+      otherParams: {
+        idInstitution: null,
+      },
+    },
   };
 
   configTablePersona: NgTableConfig<any> = {
@@ -78,6 +84,10 @@ export class AddInstitucionComponent implements OnInit {
 
   valueInstitucion: any;
 
+  serviceForm: UntypedFormGroup;
+
+  @ViewChild('tableService') tableService: NgTableComponent<any>;
+
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
@@ -88,8 +98,20 @@ export class AddInstitucionComponent implements OnInit {
 
   ngOnInit() {
     this.institucionForm = this.createContactForm();
+    this.serviceForm = this.fb.group({
+      id: [null],
+      idInstitution: [this.data?.id],
+      idServices: [null, [Validators.required]],
+      name: [''],
+      description: [''],
+      effectivenessStart: [new Date()],
+      effectivenessEND: [''],
+    });
     this.getTipoInstitucion(this.institucionForm.value.institutionTypeId);
-    this.llenarLista();
+
+    this.configTableServicio.pageableOptions.otherParams = {
+      institutionId: this.data?.id,
+    };
   }
 
   /**
@@ -108,58 +130,20 @@ export class AddInstitucionComponent implements OnInit {
       this.configTablePersona.pageableOptions.otherParams = {
         institutionId: res.id,
       };
+      this.data = res;
+      this.serviceForm.controls['idInstitution'].setValue(res.id);
     });
   }
 
   guardarService() {
-    const observer$ = this.modoEditar
-      ? this.institucionService.updateServicioInstituto(this.institucionForm.value)
-      : this.institucionService.guardarServiceInstituto(this.institucionForm.value);
-
-    observer$.subscribe((res) => {
-      this.isCreated = true;
-      this.configTableServicio.pageableOptions.otherParams = {
-        institutionId: res.id,
-      };
-      this.configTablePersona.pageableOptions.otherParams = {
-        institutionId: res.id,
-      };
-    });
+    this.institucionService
+      .guardarServiceInstituto(this.serviceForm.value)
+      .subscribe((res) => {
+        this.tableService.findData();
+      });
   }
 
-  llenarLista() {
-    this.listaSigAlarMadre = [{ id: 1, descripcion: 'Hernan Huertas' }];
-    this.listaInstitucion = [
-      {
-        id: 1,
-        nombre: 'Institucion 1',
-        tipo: 'tipo 1',
-        descripcion: 'Soy la Institucion 1',
-        date: '11/11/2011',
-      },
-      {
-        id: 2,
-        nombre: 'Institucion 2',
-        tipo: 'tipo 2',
-        descripcion: 'Soy la Institucion 2',
-        date: '11/11/2011',
-      },
-      {
-        id: 3,
-        nombre: 'Institucion 3',
-        tipo: 'tipo 3',
-        descripcion: 'Soy la Institucion 3',
-        date: '11/11/2011',
-      },
-    ];
-    this.listaServicio = [
-      { id: 1, nombre: 'servicio 1', descripcion: 'Soy el servicio 1' },
-      { id: 2, nombre: 'servicio 2', descripcion: 'Soy el servicio 2' },
-      { id: 3, nombre: 'servicio 3', descripcion: 'Soy el servicio 3' },
-    ];
-  }
-
-  cancel() {
+  volver() {
     this.router.navigate([
       '/admin/instituciones/instituciones/all-instituciones',
     ]);
@@ -183,10 +167,6 @@ export class AddInstitucionComponent implements OnInit {
       institutionTypeId: [this.data?.institutionTypeId, [Validators.required]],
       createdAt: [this.data?.createdAt],
     });
-  }
-
-  checkedService(rows: any[]) {
-    console.log(rows);
   }
 
   listaTipoInstitucion(filtro) {
@@ -215,5 +195,21 @@ export class AddInstitucionComponent implements OnInit {
       .subscribe((data: any) => {
         this.valueInstitucion = data;
       });
+  }
+
+  listaServicios(filtro) {
+    return this.http
+      .get<any[]>(environment.apiUrl + '/services/consulta', {
+        params: {
+          page: 0,
+          size: 10,
+          query: filtro,
+        },
+      })
+      .pipe(
+        map((data: any) => {
+          return data?.content ?? [];
+        })
+      );
   }
 }

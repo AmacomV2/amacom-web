@@ -36,7 +36,8 @@ const routes: Routes = [
   },
   {
     path: 'room',
-    loadChildren: () => import('./situacion/situacion.module').then((m) => m.SituacionModule),
+    loadChildren: () =>
+      import('./situacion/situacion.module').then((m) => m.SituacionModule),
   },
   {
     path: 'departments',
@@ -68,28 +69,71 @@ const routes: Routes = [
   {
     path: 'gestionar-usuarios',
     loadChildren: () =>
-      import('./gestionar-usuarios/gestionarusuarios.module').then((m) => m.GestionarUsuariosModule),
+      import('./gestionar-usuarios/gestionarusuarios.module').then(
+        (m) => m.GestionarUsuariosModule
+      ),
+    data: {
+      breadcrumb: {
+        title: 'Gestionar Usuarios',
+      },
+    },
   },
   {
     path: 'instituciones',
     loadChildren: () =>
-      import('./instituciones/instituciones.module').then((m) => m.InstitucionesModule),
+      import('./instituciones/instituciones.module').then(
+        (m) => m.InstitucionesModule
+      ),
+    data: {
+      breadcrumb: {
+        title: 'Instutuciones',
+      },
+    },
   },
   {
     path: 'gestion-signos-alarma',
     loadChildren: () =>
-      import('./gestion-signos-alarma/signosalarma.module').then((m) => m.SignosAlarmaModule),
+      import('./gestion-signos-alarma/signosalarma.module').then(
+        (m) => m.SignosAlarmaModule
+      ),
+    data: {
+      breadcrumb: {
+        title: 'Gestionar signos de alarma',
+      },
+    },
   },
   {
     path: 'gestion-temas',
     loadChildren: () =>
       import('./gestion-temas/temas.module').then((m) => m.TemasModule),
+    data: {
+      breadcrumb: {
+        title: 'Gestionar temas',
+      },
+    },
   },
-  // {
-  //   path: 'bitacora',
-  //   loadChildren: () =>
-  //     import('./bitacora/bitacora.module').then((m) => m.BitacoraModule),
-  // }
+  {
+    path: 'gestion-logros',
+    loadChildren: () =>
+      import('./logros/logros.module').then((m) => m.LogrosModule),
+    data: {
+      breadcrumb: {
+        title: 'Gestionar logros',
+      },
+    },
+  },
+  {
+    path: 'gestion-material-apoyo',
+    loadChildren: () =>
+      import('./material-apoyo/material-apoyo.module').then(
+        (m) => m.MaterialApoyoModule
+      ),
+    data: {
+      breadcrumb: {
+        title: 'Gestionar material de apoyo',
+      },
+    },
+  },
 ];
 
 @NgModule({

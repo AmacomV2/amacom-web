@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { ModalConfig } from '@shared/components/crud-container/models/action.crud';
 import { FilterTableCRUD } from '@shared/components/crud-container/models/filter.crud';
@@ -114,12 +114,17 @@ export class AllUsuariosComponent
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private pasoParametrosService: PasoParametrosService
+    private pasoParametrosService: PasoParametrosService,
+    private route:ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit() {
+    this.route.data.subscribe((data) => {
+      console.log(data);
+    });
+
     this.llenarLista();
   }
   // refresh() {

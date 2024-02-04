@@ -19,5 +19,17 @@
         </mat-error>
       </mat-form-field>
     </div>
+
+    <div class="row">
+      <app-mat-select-complete
+        key="name"
+        keyValue="id"
+        label="Tema padre"
+        appearance="outline"
+        [value]="valueSubject"
+        [options]="listTema"
+        [control]="form.get('subjectId')"
+      ></app-mat-select-complete>
+    </div>
   </div>
 </form>

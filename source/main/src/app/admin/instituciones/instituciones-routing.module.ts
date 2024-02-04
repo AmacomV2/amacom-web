@@ -9,11 +9,21 @@ const routes: Routes = [
       import('./tipos-instituciones/tiposinstituciones.module').then(
         (m) => m.TiposInstitucionesModule
       ),
+    data: {
+      breadcrumb: {
+        title: 'Tipos de Instituciones',
+      },
+    },
   },
   {
     path: 'servicios',
     loadChildren: () =>
       import('./servicios/servicios.module').then((m) => m.ServiciosModule),
+    data: {
+      breadcrumb: {
+        title: 'Servicios',
+      },
+    },
   },
   {
     path: 'instituciones',
@@ -21,6 +31,11 @@ const routes: Routes = [
       import('./instituciones/instituciones.module').then(
         (m) => m.InstitucionesModule
       ),
+    data: {
+      breadcrumb: {
+        title: 'Instituciones',
+      },
+    },
   },
   { path: '**', component: Page404Component },
 ];
