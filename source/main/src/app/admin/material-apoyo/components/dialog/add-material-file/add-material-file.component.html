@@ -1,0 +1,47 @@
+<form class="row" [formGroup]="form">
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+    <mat-form-field
+      class="example-full-width"
+      appearance="outline"
+    >
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        El nombre es requerida
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+    <mat-form-field
+      class="example-full-width"
+      appearance="outline"
+    >
+      <mat-label>Url</mat-label>
+      <input matInput formControlName="path" />
+      <mat-error *ngIf="form.get('path')?.hasError('required')">
+        La url es requerida
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+      <mat-form-field
+        class="example-full-width"
+        appearance="outline"
+      >
+        <mat-label>Descripcion</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          required
+        ></textarea>
+        <mat-error
+          *ngIf="form.get('description')?.hasError('required')"
+        >
+          la descripción es requerida
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

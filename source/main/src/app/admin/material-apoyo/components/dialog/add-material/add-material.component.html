@@ -1,0 +1,119 @@
+<!-- <section class="content">
+  <div class="content-block">
+    <div class="block-header">la miga de pan</div>
+    <div class="body"> -->
+<div class="card">
+  <div class="header">
+    <a
+      mat-mini-fab
+      (click)="volver()"
+      matTooltip="Volver"
+      class="btn bg-purple btn-lg btn-block waves-effect"
+      ><mat-icon>keyboard_return</mat-icon>
+    </a>
+    <h1>
+      <strong>{{ title }}</strong>
+    </h1>
+  </div>
+  <div class="body">
+    <app-mat-stepper-main>
+      <ng-template stepperContent label="Material" icon="support_agent">
+        <form class="m-4" [formGroup]="form">
+          <div class="row">
+            <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" required />
+                <mat-error *ngIf="form.get('name')?.hasError('required')">
+                  El nombre es requerido
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Descripcion</mat-label>
+                <textarea
+                  matInput
+                  formControlName="description"
+                  required
+                ></textarea>
+                <mat-error
+                  *ngIf="form.get('description')?.hasError('required')"
+                >
+                  la descripción es requerida
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <mat-action-row>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="submit()"
+              >
+                Guardar
+              </button>
+              <button mat-raised-button color="warn" (click)="volver()">
+                Cancelar
+              </button>
+            </mat-action-row>
+          </div>
+        </form>
+      </ng-template>
+
+      <ng-template
+        stepperContent
+        label="Archivos"
+        icon="folder"
+        [disabled]="!isCreate"
+      >
+        <app-crud-container
+          [configTable]="configFiles"
+          [modalForm]="modalFiles"
+        ></app-crud-container>
+      </ng-template>
+
+      <ng-template
+        stepperContent
+        label="Temas"
+        icon="color_lens"
+        [disabled]="!isCreate"
+      >
+        <div class="row">
+          <app-mat-select-complete
+            key="name"
+            keyValue="id"
+            label="Tema"
+            [control]="controlTema"
+            [options]="listTemas"
+          >
+          </app-mat-select-complete>
+
+          <mat-action-row>
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="agregarTema()"
+            >
+              Agregar
+            </button>
+          </mat-action-row>
+        </div>
+
+        <app-ng-table
+          #tableTema
+          [config]="configtemas"
+          (deleteAction)="deleteTema($event)"
+        ></app-ng-table>
+      </ng-template>
+    </app-mat-stepper-main>
+  </div>
+</div>
+<!-- </div>
+  </div>
+</section> -->

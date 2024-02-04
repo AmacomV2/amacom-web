@@ -4,7 +4,7 @@ import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { TipoDocumentoDTO } from '../../../models/tipoDocumento.model';
 
 @Component({
-  selector: 'app-form-dialog:not(i)',
+  selector: 'app-add-material:not(i)',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })

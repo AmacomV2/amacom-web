@@ -140,14 +140,21 @@ export class CrudContainerComponent implements OnInit {
       dataComponent: {
         action: action.actionType,
         row: row,
+        data: row,
+        config: action.configView,
       },
       icon: this.dialogIcon,
     };
-    if (action.actionType === 'delete' && !action.modal.actions?.primary) {
-      if (!dataModal.actions) {
-        dataModal.actions = {};
+    if (action.actionType === 'delete') {
+      if (!action.modal?.component) {
+        dataModal.component = ModalViewComponent;
       }
-      dataModal.actions.primary = 'Eliminar';
+      if (!action.modal?.actions?.primary) {
+        if (!dataModal.actions) {
+          dataModal.actions = {};
+        }
+        dataModal.actions.primary = 'Eliminar';
+      }
     }
 
     this.dialogService.show(dataModal).subscribe((accion: ModalResponse) => {

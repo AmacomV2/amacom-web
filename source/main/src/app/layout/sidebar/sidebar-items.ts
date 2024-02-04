@@ -200,6 +200,30 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
+  {
+    path: '/admin/gestion-logros/all-logros',
+    title: 'Logros',
+    iconType: 'material-icons-two-tone',
+    icon: 'stars',
+    class: '',
+    groupTitle: false,
+    badge: '',
+    badgeClass: '',
+    role: [Role.Admin],
+    submenu: []
+  },
+  {
+    path: '/admin/gestion-material-apoyo',
+    title: 'Material de apoyo',
+    iconType: 'material-icons-two-tone',
+    icon: 'support_agent',
+    class: '',
+    groupTitle: false,
+    badge: '',
+    badgeClass: '',
+    role: [Role.Admin],
+    submenu: []
+  },
   // {
   //   path: '',
   //   title: 'MENUITEMS.ROOMS.TEXT',

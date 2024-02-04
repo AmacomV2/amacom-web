@@ -28,11 +28,21 @@ const routes: Routes = [
     path: 'usuarios',
     loadChildren: () =>
       import('./usuarios/usuario.module').then((m) => m.UsuarioModule),
+    data: {
+      breadcrumb: {
+        title: 'Usuarios',
+      },
+    },
   },
   {
     path: 'personas',
     loadChildren: () =>
       import('./personas/personas.module').then((m) => m.PersonasModule),
+    data: {
+      breadcrumb: {
+        title: 'Personas',
+      },
+    },
   },
   {
     path: 'generos',
@@ -43,18 +53,23 @@ const routes: Routes = [
           import('./genero/generos.module').then((m) => m.GenerosModule),
       },
     ],
+    data: {
+      breadcrumb: {
+        title: 'Generos',
+      },
+    },
   },
   {
     path: 'tipos-documentos',
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./tipos-documentos/tiposdocumentos.module').then(
-            (m) => m.TiposDocumentosModule
-          ),
+    loadChildren: () =>
+      import('./tipos-documentos/tiposdocumentos.module').then(
+        (m) => m.TiposDocumentosModule
+      ),
+    data: {
+      breadcrumb: {
+        title: 'Tipos de documento',
       },
-    ],
+    },
   },
   // {
   //   path: "tipos-documentos/all-tiposdocumentos",

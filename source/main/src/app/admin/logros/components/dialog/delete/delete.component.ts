@@ -1,6 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { LogroDTO } from '../../logro.model';
+import { LogroDTO } from 'app/admin/logros/models/logro.model';
 
 @Component({
   selector: 'app-delete-logro',

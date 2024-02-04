@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
-import { FormDialogGeneroComponent } from "./form-dialog.component";
+import { FormDialogGeneroComponent } from "./add-material.component";
 
 
 describe("FormDialogComponent", () => {

@@ -15,7 +15,7 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-form-dialog:not(i)',
+  selector: 'app-add-material:not(i)',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })

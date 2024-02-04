@@ -40,7 +40,7 @@ export class InstitucionesService {
 
   updateServicioInstituto(value) {
     return this.http
-      .put<any>(environment.apiUrl + '/institutionServicePerson', value)
+      .put<any>(environment.apiUrl + '/institutionService', value)
       .pipe(
         tap((res) => {
           this.snackbar.open(

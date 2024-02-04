@@ -9,10 +9,20 @@ const routes: Routes = [
   {
     path: "all-instituciones",
     component: AllInstitucionesComponent,
+    data: {
+      breadcrumb: {
+        title: 'Todas las Instituciones',
+      },
+    },
   },
   {
     path: "add-institucion",
     component: AddInstitucionComponent,
+    data: {
+      breadcrumb: {
+        title: 'Agregar Institución',
+      },
+    },
   },
   { path: "**", component: Page404Component },
 ];
