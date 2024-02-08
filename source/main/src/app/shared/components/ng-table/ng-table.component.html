@@ -80,6 +80,7 @@
               <mat-slide-toggle
                 *ngIf="config.checkbox"
                 (click)="checkRow(row)"
+                [checked]="isChecked(row)"
               ></mat-slide-toggle>
               <!--DEFAULT ACTIONS-->
               <ng-container>

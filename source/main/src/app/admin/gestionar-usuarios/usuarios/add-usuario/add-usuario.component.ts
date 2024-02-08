@@ -12,9 +12,11 @@ import { AuthService } from '@core/service/auth.service';
 import { AppDataService } from '@shared/services/app-data.service';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { environment } from 'environments/environment';
-import { map, startWith } from 'rxjs';
+import { map, startWith, tap } from 'rxjs';
 import { UserCrudService } from '../services/user-crud.service';
 import { DialogformComponent } from './change-password/dialogform.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-add-usuario',
   templateUrl: './add-usuario.component.html',
@@ -32,7 +34,23 @@ export class AddUsuarioComponent implements OnInit {
   hide = true;
   chide = true;
 
-  getRoles = this.appDataService.getRoles();
+  getRoles = this.appDataService.getRoles().pipe(
+    map((data) => {
+      return data
+        .filter((item) => item.name !== 'SUPER_ADMIN')
+        .map((item) => {
+          return {
+            id: item.id,
+            name:
+              item.name === 'USER'
+                ? 'Usuario'
+                : item.name === 'NURSING'
+                ? 'Enfermeria'
+                : 'Administrador',
+          };
+        });
+    })
+  );
 
   valuePerson: any = null;
 
@@ -45,7 +63,8 @@ export class AddUsuarioComponent implements OnInit {
     private appDataService: AppDataService,
     private http: HttpClient,
     private userCrudService: UserCrudService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -127,10 +146,15 @@ export class AddUsuarioComponent implements OnInit {
       })
       .subscribe((result) => {
         if (result.estado) {
-          this.authService.changePassword(result.data).subscribe((data) => {
-            console.log(data);
-            this.dialogModel.close();
-          });
+          this.authService
+            .changePassword(result.data)
+            .pipe(
+              tap(() => this.snackbar.open('Contraseña cambiada', 'Cerrar'))
+            )
+            .subscribe((data) => {
+              console.log(data);
+              this.dialogModel.close();
+            });
         }
       });
   }

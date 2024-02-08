@@ -15,6 +15,11 @@ const routes: Routes = [
   {
     path: "add-allotment",
     component: AddSituacionComponent,
+    data: {
+      breadcrumb: {
+        title: 'Gestionar',
+      },
+    },
   },
   {
     path: "edit-allotment",

@@ -41,7 +41,7 @@ export class AllUsuariosComponent
       (enumRol) => {
         console.log();
         if (enumRol === 'ROLE_ADMIN') return 'Administrador';
-        else if (enumRol === 'ROLE_NURSING') return 'Doctor';
+        else if (enumRol === 'ROLE_NURSING') return 'Enfermeria';
         else return 'Usuario';
       },
     ],

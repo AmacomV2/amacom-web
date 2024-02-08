@@ -16,6 +16,7 @@ import {
   Role,
 } from '@core';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
+import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 
 interface Notifications {
   message: string;
@@ -54,7 +55,8 @@ export class HeaderComponent
     private configService: ConfigService,
     private authService: AuthService,
     private router: Router,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    private pasoParametroService: PasoParametrosService
   ) {
     super();
   }
@@ -193,6 +195,6 @@ export class HeaderComponent
   }
 
   settings() {
-    this.router.navigate(['/extra-pages/setting']);
+    this.router.navigate(['/extra-pages/setting/edit-persona']);
   }
 }

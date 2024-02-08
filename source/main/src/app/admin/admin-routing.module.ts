@@ -6,6 +6,11 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+    data: {
+      breadcrumb: {
+        title: 'Dashboard',
+      },
+    },
   },
   {
     path: 'appointment',
@@ -38,6 +43,11 @@ const routes: Routes = [
     path: 'room',
     loadChildren: () =>
       import('./situacion/situacion.module').then((m) => m.SituacionModule),
+    data: {
+      breadcrumb: {
+        title: 'Situaciones',
+      },
+    },
   },
   {
     path: 'departments',

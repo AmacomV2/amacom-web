@@ -24,7 +24,11 @@ const routes: Routes = [
   },
   {
     path: "setting",
-    component: SettingsComponent,
+    loadChildren: () =>
+      import("../admin/gestionar-usuarios/personas/personas.module").then(
+        (m) => m.PersonasModule
+      ),
+    //component: SettingsComponent,
   },
 ];
 @NgModule({

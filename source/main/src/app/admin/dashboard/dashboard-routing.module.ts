@@ -14,6 +14,11 @@ const routes: Routes = [
   {
     path: "main",
     component: MainComponent,
+    data:{
+      breadcrumb: {
+        title: "Inicio",
+      }
+    }
   },
   {
     path: "dashboard2",

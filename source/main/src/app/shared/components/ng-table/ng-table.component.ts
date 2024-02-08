@@ -15,6 +15,7 @@ import { SearchFilterPipe } from '@shared/pipes/search-filter.pipe';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
+import { checkEventTable } from './models/checkEvent.interface';
 
 @Component({
   selector: 'app-ng-table',
@@ -40,7 +41,14 @@ export class NgTableComponent<T> implements OnInit {
    * filas de la tabla que estan seleccionados por el checkbox.
    */
   @Input()
-  checked: T[] = [];
+  set checked(checked: T[]) {
+    this.checkedRows = checked;
+  }
+
+  @Input()
+  filterCheck: (row: T, item: T) => T;
+
+  checkedRows: T[] = [];
 
   @Output() editAction: EventEmitter<T> = new EventEmitter();
 
@@ -50,7 +58,8 @@ export class NgTableComponent<T> implements OnInit {
 
   @Output() addAction: EventEmitter<T> = new EventEmitter();
 
-  @Output() checkedChange: EventEmitter<T[]> = new EventEmitter();
+  @Output() checkedChange: EventEmitter<checkEventTable<T>> =
+    new EventEmitter();
 
   dataSource: MatTableDataSource<T> = new MatTableDataSource<T>();
 
@@ -111,6 +120,7 @@ export class NgTableComponent<T> implements OnInit {
       this.config?.hideDefaultActions?.edit &&
       this.config?.hideDefaultActions?.delete &&
       this.config?.hideDefaultActions?.view &&
+      !this.config?.checkbox &&
       (this.config?.actions ? this._config.actions?.length === 0 : true)
     );
   }
@@ -217,15 +227,30 @@ export class NgTableComponent<T> implements OnInit {
    * Metodo que agrega o elimina un elemento a la lista de elementos seleccionados.
    * @param row
    */
-  checkRow(row: any) {
-    if (this.checked.find((item) => item === row)) {
-      this.checked = this.checked.filter((item) => item !== row);
+  checkRow(row: T) {
+    let on = true;
+    if (this.isChecked(row)) {
+      on = false;
+      this.checkedRows = this.checkedRows.filter((item) => item !== row);
     } else {
-      this.checked.push(row);
+      on = true;
+      this.checkedRows.push(row);
     }
-    this.checkedChange.emit(this.checked);
+    this.checkedChange.emit({
+      row: row,
+      type: on ? 'on' : 'off',
+      allChecked: this.checkedRows,
+    });
   }
 
+  isChecked(row: T): boolean {
+    return this.checkedRows.find((item) => {
+      if (this.filterCheck) {
+        return this.filterCheck(row, item);
+      }
+      return item === row;
+    }) != null;
+  }
   // ========================= DEFAULT ACTIONS =========================
 
   edit(row: any) {

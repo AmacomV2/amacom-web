@@ -26,6 +26,16 @@ const routes: Routes = [
     },
   },
   {
+    path: "edit-persona",
+    component: AddPersonaComponent,
+    data: {
+      autoedit: true,
+      breadcrumb: {
+        title: 'Agregar Persona',
+      },
+    },
+  },
+  {
     path: "search-persona",
     component: SearchPersonaComponent,
     data: {

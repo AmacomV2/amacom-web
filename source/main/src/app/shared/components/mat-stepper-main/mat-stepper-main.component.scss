@@ -90,6 +90,7 @@ $text-font-size: 16px;
     .mat-step-icon {
       --icon: attr(data-icon-step);
       &:after {
+        color: #6f42c1;
         content: " " var(--icon) " ";
       }
     }

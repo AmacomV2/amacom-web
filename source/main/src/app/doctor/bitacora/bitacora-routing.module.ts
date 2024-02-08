@@ -9,10 +9,20 @@ const routes: Routes = [
   {
     path: 'item-stock-list',
     component: AllBitacoraComponent,
+    data:{
+      breadcrumb: {
+        title: 'bitacoras',
+      },
+    }
   },
   {
     path: 'issued-items',
     component: AddBitacoraComponent,
+    data:{
+      breadcrumb: {
+        title: 'Gestionar bitacora',
+      },
+    }
   },
   {
     path: 'bitacora',
