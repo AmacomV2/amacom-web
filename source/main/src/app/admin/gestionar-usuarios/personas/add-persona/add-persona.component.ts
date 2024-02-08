@@ -1,20 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppDataService } from '@shared/services/app-data.service';
 import { PasoParametrosService } from 'app/admin/paso-parametro.service';
 import { PersonService } from '../allpersonas/services/person.service';
+import { AuthService } from '@core';
 
 @Component({
   selector: 'app-add-persona',
   templateUrl: './add-persona.component.html',
   styleUrls: ['./add-persona.component.scss'],
 })
-export class AddPersonaComponent {
+export class AddPersonaComponent implements OnInit {
   public data: any;
   public modoEditar: boolean = false;
   public titulo: any;
@@ -32,8 +33,13 @@ export class AddPersonaComponent {
     private router: Router,
     private pasoParametrosService: PasoParametrosService,
     private appService: AppDataService,
-    private personService: PersonService
+    private personService: PersonService,
+    private activateRoute: ActivatedRoute,
+    private authService: AuthService
   ) {
+  }
+
+  ngOnInit(): void {
     this.patientForm = this.createContactForm();
   }
   onSubmit() {
@@ -52,6 +58,10 @@ export class AddPersonaComponent {
   createContactForm(): UntypedFormGroup {
     this.data = this.pasoParametrosService.obtenerParametro('data');
     this.modoEditar = this.pasoParametrosService.obtenerParametro('modoEditar');
+
+    if (this.activateRoute.snapshot.data['autoedit']) {
+      this.data = this.authService.currentUserValue.person;
+    }
     if (this.modoEditar == true) {
       this.titulo = 'Editar persona';
       this.subtitulo = 'En esta pantalla podrás editar la persona';

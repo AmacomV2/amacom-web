@@ -16,6 +16,8 @@ import { NgTableConfig } from '@shared/components/ng-table/models/table.config.m
 import { Location } from '@angular/common';
 import { NgTableComponent } from '@shared/components/ng-table/ng-table.component';
 import { AuthService } from '@core';
+import { SignoAlarmaDTO } from 'app/admin/gestion-signos-alarma/all-signosalarma/models/signoalarma.model';
+import { checkEventTable } from '@shared/components/ng-table/models/checkEvent.interface';
 
 @Component({
   selector: 'app-add-situacion',
@@ -26,7 +28,7 @@ export class AddSituacionComponent implements OnInit {
   public data: SituacionDTO;
   personId: any;
 
-  isCreated: boolean = false;
+  isCreated: boolean = true;
 
   feelingsList: Observable<any[]>;
 
@@ -38,17 +40,18 @@ export class AddSituacionComponent implements OnInit {
 
   configTableMother: NgTableConfig<any> = {
     title: 'Madre',
-    keys: ['alarmSignName', 'alarmSignDescription'],
-    headerColumns: ['Nombre', 'Descripción'],
-    urlData: environment.apiUrl + '/personSituationHasAlarmSigns/search',
+    keys: ['id', 'name', 'description'],
+    headerColumns: ['id', 'Nombre', 'Descripción'],
+    urlData: environment.apiUrl + '/alarmSign/search',
     pageable: true,
     showFilter: true,
     hideDefaultActions: {
       add: true,
       edit: true,
-      delete: false,
+      delete: true,
       view: true,
     },
+    checkbox: true,
     pageableOptions: {
       otherParams: {
         type: 'MOTHER',
@@ -58,17 +61,18 @@ export class AddSituacionComponent implements OnInit {
 
   configTableBaby: NgTableConfig<any> = {
     title: 'Bebe',
-    keys: ['alarmSignName', 'alarmSignDescription'],
-    headerColumns: ['Nombre', 'Descripción'],
-    urlData: environment.apiUrl + '/personSituationHasAlarmSigns/search',
+    keys: ['id', 'name', 'description'],
+    headerColumns: ['id', 'Nombre', 'Descripción'],
+    urlData: environment.apiUrl + '/alarmSign/search',
     pageable: true,
     showFilter: true,
     hideDefaultActions: {
       add: true,
       edit: true,
-      delete: false,
+      delete: true,
       view: true,
     },
+    checkbox: true,
     pageableOptions: {
       otherParams: {
         type: 'BABY',
@@ -92,6 +96,9 @@ export class AddSituacionComponent implements OnInit {
 
   controlSignMother = new UntypedFormControl('');
   controlSignBaby = new UntypedFormControl('');
+
+  checkListBaby: any[] = [];
+  checkListMother: any[] = [];
 
   @ViewChild('tableMother') tableMother: NgTableComponent<any>;
   @ViewChild('tableBaby') tableBaby: NgTableComponent<any>;
@@ -117,6 +124,8 @@ export class AddSituacionComponent implements OnInit {
     this.getCurrentTema();
     this.getFeelings();
     this.currentFeelings();
+    this.getSignsBaby();
+    this.getSignsMother();
   }
   onSubmit() {
     const observer = this.modoEditar
@@ -146,7 +155,7 @@ export class AddSituacionComponent implements OnInit {
     this.personId =
       this.pasoParametrosService.obtenerParametro('dataPersona')?.id ??
       this.auth.currentUserValue.person.id;
-    console.log('DATAA', this.data, this.personId);
+    
     this.modoEditar = this.pasoParametrosService.obtenerParametro('modoEditar');
     if (this.modoEditar == true) {
       this.titulo = 'Editar situación';
@@ -190,20 +199,42 @@ export class AddSituacionComponent implements OnInit {
     }
   }
 
-  getSignsBaby(filtro) {
+  getSignsBaby(filtro = '') {
     return this.http
-      .get(environment.apiUrl + '/alarmSign/search', {
-        params: { page: 0, size: 100, query: filtro, type: "BABY" },
+      .get(environment.apiUrl + '/personSituationHasAlarmSigns/search', {
+        params: {
+          page: 0,
+          size: 100,
+          query: filtro,
+          situationId: this.situacionForm.value?.id,
+          type: 'BABY',
+        },
       })
-      .pipe(map((data: any) => data?.content));
+      .pipe(map((data: any) => data?.content))
+      .subscribe((data) => {
+        this.checkListBaby = data;
+      });
   }
 
-  getSignsMother(filtro) {
+  getSignsMother(filtro = '') {
     return this.http
-      .get(environment.apiUrl + '/alarmSign/search', {
-        params: { page: 0, size: 100, query: filtro, type: "MOTHER" },
+      .get(environment.apiUrl + '/personSituationHasAlarmSigns/search', {
+        params: {
+          page: 0,
+          size: 100,
+          situationId: this.situacionForm.value?.id,
+          query: filtro,
+          type: 'MOTHER',
+        },
       })
-      .pipe(map((data: any) => data?.content));
+      .pipe(map((data: any) => data?.content))
+      .subscribe((data) => {
+        this.checkListMother = data;
+      });
+  }
+
+  filterCheck(row: SignoAlarmaDTO, item: any){
+    return row.id === item.alarmSignId;
   }
 
   getFeelings() {
@@ -228,33 +259,41 @@ export class AddSituacionComponent implements OnInit {
     }
   }
 
-  agregarSignAlarmMother() {
-    if(this.controlSignMother.value!=""){
-    this.situacionService
-      .createSituationSign({
-        alarmSignId: this.controlSignMother.value,
-        personSituationId: this.situacionForm.value.id,
-      })
-      .subscribe((data) => {
-        this.tableMother.findData();
-      });
+  checkedChange(event: checkEventTable<SignoAlarmaDTO>) {
+    if (event.type === 'on') {
+      if (event.row.type === 'MOTHER') {
+        this.agregarSignAlarmMother(event.row);
+      } else {
+        this.agregarSignAlarmBaby(event.row);
+      }
+    } else {
+      this.deleteSignAlarm(event.row);
     }
   }
 
-  agregarSignAlarmBaby() {
-    if(this.controlSignBaby.value!=""){
+  agregarSignAlarmMother(sign: SignoAlarmaDTO) {
     this.situacionService
       .createSituationSign({
-        alarmSignId: this.controlSignBaby.value,
+        alarmSignId: sign.id,
         personSituationId: this.situacionForm.value.id,
       })
       .subscribe((data) => {
-        this.tableBaby.findData();
+        this.getSignsMother();
       });
-    }
   }
 
-  deleteMother(row: any) {
+  agregarSignAlarmBaby(sign: SignoAlarmaDTO) {
+    this.situacionService
+      .createSituationSign({
+        alarmSignId: sign.id,
+        personSituationId: this.situacionForm.value.id,
+      })
+      .subscribe((data) => {
+        this.getSignsBaby();
+      });
+  }
+
+  deleteSignAlarm(row: any) {
     this.situacionService.deleteSituationSign(row.id).subscribe((data) => {
       this.tableMother.findData();
       this.tableBaby.findData();

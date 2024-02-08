@@ -6,6 +6,11 @@ const routes: Routes = [
   {
     path: "achievement",
     component: AchievementComponent,
+    data:{
+      breadcrumb: {
+        title: 'Logros',
+      },
+    }
   },
   { path: "**", component: Page404Component },
 ];

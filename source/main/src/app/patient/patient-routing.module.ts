@@ -25,6 +25,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    data: {
+      breadcrumb: {
+        title: 'Dashbaord',
+      },
+    },
   },
   {
     path: 'appointments',
@@ -77,6 +82,9 @@ const routes: Routes = [
       ),
     data: {
       embebedView: false,
+      breadcrumb: {
+        title: 'Mis bitacoras',
+      },
     },
   },
   {
@@ -87,6 +95,9 @@ const routes: Routes = [
       ),
     data: {
       embebedView: false,
+      breadcrumb: {
+        title: 'Mis Situaciones',
+      },
     },
   },
   {
@@ -100,10 +111,20 @@ const routes: Routes = [
   {
     path: 'achievement',
     component: AchievementComponent,
+    data: {
+      breadcrumb: {
+        title: 'Mis logros',
+      },
+    },
   },
   {
     path: 'maternal-kit',
     component: MaternalKitComponent,
+    data:{
+      breadcrumb: {
+        title: 'Kit materno',
+      },
+    }
   },
   { path: '**', component: Page404Component },
 ];

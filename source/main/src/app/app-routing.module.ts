@@ -104,6 +104,11 @@ const routes: Routes = [
           import('./extra-pages/extra-pages.module').then(
             (m) => m.ExtraPagesModule
           ),
+        data: {
+          breadcrumb: {
+            title: 'Perfil',
+          },
+        },
       },
       // {
       //   path: 'maps',

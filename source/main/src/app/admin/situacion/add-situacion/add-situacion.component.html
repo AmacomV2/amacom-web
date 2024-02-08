@@ -1,7 +1,4 @@
-<section class="content">
-  <div class="content-block">
-    <div class="block-header"></div>
-    <div class="body">
+
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
@@ -110,7 +107,7 @@
                 <!-- SIGNOS DE ALARMA -->
                 <ng-template stepperContent label="Signos de alarma" icon="add_alert" [disabled]="!isCreated">
                   <div class="row">
-                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <!-- <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <app-mat-select-complete [key]="'name'" [keyValue]="'id'" [options]="getSignsMother"
                         [control]="controlSignMother" [label]="'Signo de alarma de la madre'"
                         [placeholder]="'Busque y seleccione el signo de alarma'">
@@ -121,28 +118,34 @@
                         [control]="controlSignBaby" [label]="'Signo de alarma del bebé'"
                         [placeholder]="'Busque y seleccione el signo de alarma'">
                       </app-mat-select-complete>
-                    </div>
-                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    </div> -->
+                    <!-- <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <button mat-raised-button color="primary" (click)="agregarSignAlarmMother()">
                         Agregar signo de alarma madre
                       </button>
-                    </div>
-                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    </div> -->
+                    <!-- <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <button mat-raised-button color="primary" (click)="agregarSignAlarmBaby()">
                         Agregar Signo de alarma bebé
                       </button>
-                    </div>
+                    </div> -->
                     
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <div class="body table-responsive">
                         <app-ng-table #tableMother [config]="configTableMother"
-                          (deleteAction)="deleteMother($event)"></app-ng-table>
+                        [checked]="checkListMother"
+                        [filterCheck]="filterCheck"
+                        (checkedChange)="checkedChange($event)"
+                          ></app-ng-table>
                       </div>
                     </div>
                     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <div class="body table-responsive">
                         <app-ng-table #tableBaby [config]="configTableBaby"
-                          (deleteAction)="deleteMother($event)"></app-ng-table>
+                        [checked]="checkListBaby"
+                        [filterCheck]="filterCheck"
+                        (checkedChange)="checkedChange($event)"
+                          ></app-ng-table>
                       </div>
                     </div>
                   </div>
@@ -196,6 +199,3 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>

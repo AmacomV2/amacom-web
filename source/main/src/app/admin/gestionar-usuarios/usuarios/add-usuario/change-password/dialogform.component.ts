@@ -13,30 +13,16 @@ import {
 export class DialogformComponent implements OnInit {
   public fname = 'John';
   public lname = 'Deo';
+  
   hide = true;
   chide = true;
-  public addCusForm!: UntypedFormGroup;
+
+  public form!: UntypedFormGroup;
   constructor(private fb: UntypedFormBuilder, public dialog: MatDialog) {}
   public ngOnInit(): void {
-    this.addCusForm = this.fb.group({
-      IdProof: null,
-      firstname: [
-        this.fname,
-        [Validators.required, Validators.pattern('[a-zA-Z]+([a-zA-Z ]+)*')],
-      ],
-      lastname: [
-        this.lname,
-        [Validators.required, Validators.pattern('[a-zA-Z]+([a-zA-Z ]+)*')],
-      ],
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required]],
-      cpassword: [null, [Validators.required]],
+    this.form = this.fb.group({
+      newPassword: [null, [Validators.required]],
+      oldPassword: [null, [Validators.required]],
     });
-  }
-  closeDialog(): void {
-    this.dialog.closeAll();
-  }
-  onSubmitClick() {
-    console.log('Form Value', this.addCusForm?.value);
   }
 }

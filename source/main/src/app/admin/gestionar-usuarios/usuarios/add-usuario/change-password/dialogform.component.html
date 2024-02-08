@@ -1,25 +1,25 @@
 <!-- <div> -->
   <!-- <h2 mat-dialog-title>Cambiar contraseña</h2>
   <div mat-dialog-content> -->
-    <form [formGroup]="addCusForm!" (ngSubmit)="onSubmitClick()">
+    <form [formGroup]="form">
           <div class="text-inside">
             <mat-form-field class="example-full-width">
-              <mat-label>Contraseña</mat-label>
-              <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
+              <mat-label>Contraseña anterior</mat-label>
+              <input matInput formControlName="oldPassword" [type]="hide ? 'password' : 'text'" required>
               <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix (click)="hide = !hide">
                 {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <mat-error *ngIf="addCusForm.get('password')!.hasError('required')">
+              <mat-error *ngIf="form.get('oldPassword')!.hasError('required')">
                 La contraseña es requerida
               </mat-error>
             </mat-form-field>
           </div>
           <div class="text-inside">
             <mat-form-field class="example-full-width">
-              <mat-label>Confirmar contraseña</mat-label>
-              <input matInput formControlName="cpassword" [type]="chide ? 'password' : 'text'" required>
+              <mat-label>Contraseña nueva</mat-label>
+              <input matInput formControlName="newPassword" [type]="chide ? 'password' : 'text'" required>
               <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix (click)="chide = !chide">
                 {{chide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <mat-error *ngIf="addCusForm.get('cpassword')!.hasError('required')">
+              <mat-error *ngIf="form.get('newPassword')!.hasError('required')">
                 La confirmación de la contraseña es requerida
               </mat-error>
             </mat-form-field>
