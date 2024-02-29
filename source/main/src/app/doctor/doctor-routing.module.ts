@@ -10,7 +10,6 @@ import { AllBitacoraComponent } from './bitacora/components/all-bitacora/all-bit
 import { AddBitacoraComponent } from './bitacora/components/add-bitacora/add-bitacora.component';
 import { AllPersonasComponent } from './personas/allpersonas/allpersonas.component';
 import { AddPersonaComponent } from './personas/add-persona/add-persona.component';
-// import { SearchPersonaComponent } from './personas/search-persona/search-persona.component';
 import { AllroomComponent } from './room/allroom/allroom.component';
 import { AddAllotmentComponent } from './room/add-allotment/add-allotment.component';
 import { EditAllotmentComponent } from './room/edit-allotment/edit-allotment.component';
