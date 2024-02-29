@@ -6,9 +6,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { PatientRoutingModule } from './patient-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
-import { MedicalRecordsComponent } from './medical-records/medical-records.component';
-import { BillingComponent } from './billing/billing.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
@@ -44,9 +41,6 @@ import { MaternalKitComponent } from './maternal-kit/maternal-kit.component';
 @NgModule({
   declarations: [
     DashboardComponent,
-    PrescriptionsComponent,
-    MedicalRecordsComponent,
-    BillingComponent,
     SettingsComponent,
     AddPersonaComponent,
     AllPersonasComponent,
